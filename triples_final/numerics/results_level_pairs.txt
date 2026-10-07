@@ -1,0 +1,6 @@
+E=8 H=1057 d=89 kappa=1: N=8456, N/d=95.0, N^(1/2)=92.0, #Lambda_N=168, I=448, max#tau=8 (<= 12E = 96), all pairs=340295 (/N=40.24); P=1664 (methods A and B agree), 2I=896, P/(2I)=1.857, P/N=0.1968
+E=8 H=1057 d=89 kappa=3: N=8456, N/d=95.0, N^(1/2)=92.0, #Lambda_N=168, I=448, max#tau=8 (<= 12E = 96), all pairs=340295 (/N=40.24); P=1664 (methods A and B agree), 2I=896, P/(2I)=1.857, P/N=0.1968
+E=8 H=285 d=53 kappa=1: N=2280, N/d=43.0, N^(1/2)=47.7, #Lambda_N=48, I=128, max#tau=8 (<= 12E = 96), all pairs=28052 (/N=12.30); P=256 (methods A and B agree), 2I=256, P/(2I)=1.000, P/N=0.1123
+E=8 H=285 d=53 kappa=3: N=2280, N/d=43.0, N^(1/2)=47.7, #Lambda_N=48, I=128, max#tau=8 (<= 12E = 96), all pairs=28052 (/N=12.30); P=256 (methods A and B agree), 2I=256, P/(2I)=1.000, P/N=0.1123
+E=8 H=3869 d=181 kappa=1: N=30952, N/d=171.0, N^(1/2)=175.9, #Lambda_N=108, I=288, max#tau=8 (<= 12E = 96), all pairs=139495 (/N=4.51); P=576 (methods A and B agree), 2I=576, P/(2I)=1.000, P/N=0.0186
+E=8 H=3869 d=181 kappa=3: N=30952, N/d=171.0, N^(1/2)=175.9, #Lambda_N=108, I=288, max#tau=8 (<= 12E = 96), all pairs=139495 (/N=4.51); P=576 (methods A and B agree), 2I=576, P/(2I)=1.000, P/N=0.0186

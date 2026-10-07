@@ -1,0 +1,44 @@
+{0,1,2}: d=89, E=8, H=1057, X=2000000:  X^(1/2) H^(1/4) = 8064
+   K/X=2^ 0.0 r=1: main=   1159.1  Xi=  -188.4  |Xi|/main^(1/2)= 5.53
+   K/X=2^ 0.0 r=3: main=   1147.9  Xi=  -189.9  |Xi|/main^(1/2)= 5.61
+   K/X=2^ 2.0 r=1: main=   1154.7  Xi=    20.9  |Xi|/main^(1/2)= 0.62
+   K/X=2^ 2.0 r=3: main=   1153.0  Xi=     6.0  |Xi|/main^(1/2)= 0.18
+   K/X=2^ 4.0 r=1: main=   1153.6  Xi=    18.0  |Xi|/main^(1/2)= 0.53
+   K/X=2^ 4.0 r=3: main=   1152.0  Xi=     3.5  |Xi|/main^(1/2)= 0.10
+   K/X=2^ 6.0 r=1: main=   1153.2  Xi=    16.8  |Xi|/main^(1/2)= 0.49
+   K/X=2^ 6.0 r=3: main=   1153.0  Xi=   -16.1  |Xi|/main^(1/2)= 0.47
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.024;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.73
+   largest |Xi| = 189.9 at K/X = 2^0.0, r = 3;  X^(1/2) / largest |Xi| = 7.4
+{0,1,2}: d=281, E=8, H=10081, X=2000000:  X^(1/2) H^(1/4) = 14171
+   K/X=2^ 0.0 r=1: main=    324.4  Xi=   -48.4  |Xi|/main^(1/2)= 2.69
+   K/X=2^ 0.0 r=3: main=    301.3  Xi=   -47.9  |Xi|/main^(1/2)= 2.76
+   K/X=2^ 2.0 r=1: main=    304.3  Xi=     6.3  |Xi|/main^(1/2)= 0.36
+   K/X=2^ 2.0 r=3: main=    307.6  Xi=    -1.9  |Xi|/main^(1/2)= 0.11
+   K/X=2^ 4.0 r=1: main=    307.4  Xi=    -5.3  |Xi|/main^(1/2)= 0.31
+   K/X=2^ 4.0 r=3: main=    306.4  Xi=     4.7  |Xi|/main^(1/2)= 0.27
+   K/X=2^ 6.0 r=1: main=    306.3  Xi=     2.7  |Xi|/main^(1/2)= 0.16
+   K/X=2^ 6.0 r=3: main=    306.4  Xi=     2.4  |Xi|/main^(1/2)= 0.14
+   K/X=2^ 8.0 r=1: main=    306.2  Xi=     0.8  |Xi|/main^(1/2)= 0.05
+   K/X=2^ 8.0 r=3: main=    306.3  Xi=    -7.7  |Xi|/main^(1/2)= 0.44
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.003;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.98
+   largest |Xi| = 48.4 at K/X = 2^0.0, r = 1;  X^(1/2) / largest |Xi| = 29.2
+{0,2,3}: d=53, E=8, H=285, X=2000000:  X^(1/2) H^(1/4) = 5811
+   K/X=2^ 0.0 r=1: main=   1060.0  Xi=  -164.4  |Xi|/main^(1/2)= 5.05
+   K/X=2^ 0.0 r=3: main=   1051.8  Xi=  -163.7  |Xi|/main^(1/2)= 5.05
+   K/X=2^ 2.0 r=1: main=   1056.8  Xi=    -4.7  |Xi|/main^(1/2)= 0.15
+   K/X=2^ 2.0 r=3: main=   1059.8  Xi=    21.6  |Xi|/main^(1/2)= 0.66
+   K/X=2^ 4.0 r=1: main=   1057.4  Xi=    -9.6  |Xi|/main^(1/2)= 0.29
+   K/X=2^ 4.0 r=3: main=   1056.7  Xi=     8.3  |Xi|/main^(1/2)= 0.25
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.028;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.66
+   largest |Xi| = 164.4 at K/X = 2^0.0, r = 1;  X^(1/2) / largest |Xi| = 8.6
+{0,2,3}: d=181, E=8, H=3869, X=2000000:  X^(1/2) H^(1/4) = 11154
+   K/X=2^ 0.0 r=1: main=    186.4  Xi=   -33.1  |Xi|/main^(1/2)= 2.42
+   K/X=2^ 0.0 r=3: main=    198.9  Xi=   -32.0  |Xi|/main^(1/2)= 2.27
+   K/X=2^ 2.0 r=1: main=    190.0  Xi=    -8.4  |Xi|/main^(1/2)= 0.61
+   K/X=2^ 2.0 r=3: main=    188.6  Xi=    -0.4  |Xi|/main^(1/2)= 0.03
+   K/X=2^ 4.0 r=1: main=    190.9  Xi=     2.4  |Xi|/main^(1/2)= 0.17
+   K/X=2^ 4.0 r=3: main=    192.3  Xi=    -2.1  |Xi|/main^(1/2)= 0.15
+   K/X=2^ 6.0 r=1: main=    191.5  Xi=    -0.7  |Xi|/main^(1/2)= 0.05
+   K/X=2^ 6.0 r=3: main=    191.2  Xi=    -3.5  |Xi|/main^(1/2)= 0.26
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.003;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.97
+   largest |Xi| = 33.1 at K/X = 2^0.0, r = 1;  X^(1/2) / largest |Xi| = 42.8

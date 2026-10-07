@@ -1,0 +1,29 @@
+(0) residue series versus contour-shifted quadrature (t real):
+   max relative difference = 4.98e-14
+(1) cosh-integral representation (Lemma 11.1):
+   max relative difference = 2.24e-10
+(2) Mellin--Barnes (Lemma 11.2): K = residues + integral on Re w = -3/2 (t real, |t| >= 1):
+   max |K - (residues + integral)| / (|t|^(-1/2) e^(-pi|t|/2)) = 3.40e-15  (accuracy of the trapezoid rule)
+(3) The pointwise remainder is NOT O(y^{3/2}|t|^{-5/2}e^{-pi|t|/2}) uniformly (for small y it is ~ y^2|t|^{-3/2}e^{-pi|t|/2});
+    the paper only uses its average against a smooth weight in s, which decays in |t|.  Exact remainder:
+   y=0.02:
+      t= 1.0: avg/(y^1.5 e^-pi t/2) = 3.17e-03,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.06
+      t= 2.5: avg/(y^1.5 e^-pi t/2) = 1.22e-03,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.14
+      t= 6.0: avg/(y^1.5 e^-pi t/2) = 2.78e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.33
+      t=10.0: avg/(y^1.5 e^-pi t/2) = 5.64e-05,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.88
+      t=15.0: avg/(y^1.5 e^-pi t/2) = 1.18e-05,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 1.03
+      t=25.0: avg/(y^1.5 e^-pi t/2) = 1.58e-06,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 1.98
+   y=0.4:
+      t= 1.0: avg/(y^1.5 e^-pi t/2) = 1.25e-02,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.24
+      t= 2.5: avg/(y^1.5 e^-pi t/2) = 7.19e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.46
+      t= 6.0: avg/(y^1.5 e^-pi t/2) = 8.33e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 1.97
+      t=10.0: avg/(y^1.5 e^-pi t/2) = 2.36e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 2.91
+      t=15.0: avg/(y^1.5 e^-pi t/2) = 7.41e-05,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 5.80
+      t=25.0: avg/(y^1.5 e^-pi t/2) = 1.26e-05,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 9.21
+   y=2.0:
+      t= 1.0: avg/(y^1.5 e^-pi t/2) = 3.22e-02,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 0.42
+      t= 2.5: avg/(y^1.5 e^-pi t/2) = 8.50e-03,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 2.18
+      t= 6.0: avg/(y^1.5 e^-pi t/2) = 2.27e-03,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 4.24
+      t=10.0: avg/(y^1.5 e^-pi t/2) = 6.84e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 6.11
+      t=15.0: avg/(y^1.5 e^-pi t/2) = 1.11e-04,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 10.40
+      t=25.0: avg/(y^1.5 e^-pi t/2) = 3.35e-05,  max_s|rem|/(y^1.5 t^-2.5 e^-pi t/2) = 21.69
