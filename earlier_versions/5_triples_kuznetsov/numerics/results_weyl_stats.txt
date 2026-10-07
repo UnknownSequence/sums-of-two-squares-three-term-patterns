@@ -1,0 +1,12 @@
+E=8 H=1057 d=89 kappa=1 K=20000: n=188, rms_h |S_h|/sqrt(n) = 0.985, max_h |S_h|/sqrt(n) = 3.603
+E=8 H=1057 d=89 kappa=1 K=100000: n=888, rms_h |S_h|/sqrt(n) = 0.942, max_h |S_h|/sqrt(n) = 3.197
+E=8 H=1057 d=89 kappa=1 K=300000: n=2512, rms_h |S_h|/sqrt(n) = 0.865, max_h |S_h|/sqrt(n) = 2.578
+E=8 H=1057 d=89 kappa=3 K=20000: n=176, rms_h |S_h|/sqrt(n) = 0.912, max_h |S_h|/sqrt(n) = 2.821
+E=8 H=1057 d=89 kappa=3 K=100000: n=808, rms_h |S_h|/sqrt(n) = 0.969, max_h |S_h|/sqrt(n) = 3.066
+E=8 H=1057 d=89 kappa=3 K=300000: n=2584, rms_h |S_h|/sqrt(n) = 0.852, max_h |S_h|/sqrt(n) = 3.219
+E=8 H=285 d=53 kappa=1 K=20000: n=172, rms_h |S_h|/sqrt(n) = 0.894, max_h |S_h|/sqrt(n) = 2.501
+E=8 H=285 d=53 kappa=1 K=100000: n=836, rms_h |S_h|/sqrt(n) = 0.936, max_h |S_h|/sqrt(n) = 2.773
+E=8 H=285 d=53 kappa=1 K=300000: n=2368, rms_h |S_h|/sqrt(n) = 0.907, max_h |S_h|/sqrt(n) = 3.069
+E=8 H=285 d=53 kappa=3 K=20000: n=176, rms_h |S_h|/sqrt(n) = 0.902, max_h |S_h|/sqrt(n) = 2.855
+E=8 H=285 d=53 kappa=3 K=100000: n=808, rms_h |S_h|/sqrt(n) = 0.956, max_h |S_h|/sqrt(n) = 2.964
+E=8 H=285 d=53 kappa=3 K=300000: n=2314, rms_h |S_h|/sqrt(n) = 0.827, max_h |S_h|/sqrt(n) = 2.097
