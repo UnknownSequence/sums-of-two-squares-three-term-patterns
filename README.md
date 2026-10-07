@@ -153,11 +153,12 @@ triple come for free, and only the middle one has to be detected. This is the st
 `C_d(b)` and the range `d ≤ x^θ` appear exactly as proposed, and every later version builds on it.
 
 Claude (Anthropic) developed this idea into the results presented here. It carried out the argument for three
-consecutive integers, detecting sums of two squares with the weight `r(n)` and estimating the resulting sums by
-Hooley's method, which is also the analytic engine of the Friedlander–Iwaniec paper (`δ < 1/52`). It then extended the argument to all three-term patterns (`δ < 1/24`), recast the
-Type I sums in terms of Heegner points and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`, checked the
-external input of that version line by line, replaced it with a proof that uses only published results, wrote
-the final self-contained paper, and formalized it in Lean 4.
+consecutive integers (`δ < 1/52`), detecting sums of two squares with the weight `r(n)` and estimating the
+resulting sums by Hooley's method, which is also the analytic engine of the Friedlander–Iwaniec paper. It then
+extended the argument to all three-term patterns (`δ < 1/24`), recast the Type I sums in terms of Heegner points
+and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`, checked the external input of that version line by
+line, replaced it with a proof that uses only published results, wrote the final self-contained paper, and
+formalized it in Lean 4.
 
 The papers are research drafts and have not been refereed.
 
