@@ -1,0 +1,600 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Lf}{\mathfrak{L}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+
+\title[Three consecutive sums of two squares]{Three consecutive sums of two squares:\\ a power saving over the square-root bound}
+\date{October 2026}
+
+\begin{document}
+
+\begin{abstract}
+Let $S(x)$ be the number of $n\le x$ such that $n-1$, $n$ and $n+1$ are all sums of two squares. One-parameter constructions such as $n=m^2+1$ give $S(x)\gg x^{1/2}(\log x)^{-1/2}$. We prove that $S(x)\gg_\delta x^{1/2+\delta}$ for every $\delta<1/52$.
+
+The integers $n\ge1$ for which $n^2-1$ is a sum of two squares are exactly the integers of the form $n=\tfrac12\bigl(d+\tfrac{b^2+1}{d}\bigr)$ with $d\ge1$ and $d\mid b^2+1$, and for them $n\pm1$ are automatically sums of two squares. For each prime $d\equiv 1 \pmod 8$ with $d\le x^{\theta}$, $\theta<1/26$, the choice $b=4w$ turns these into the values of a single quadratic polynomial $N_d(w)$. We evaluate $\sum_w r(N_d(w))$ asymptotically by Hooley's method: Gauss's correspondence between roots of quadratic congruences and representations by binary forms, combined with Weil's bound for Kloosterman sums. All dependence on $d$ is kept polynomial. Summing over $d$ and using $r(n)\ll n^{\eps}$ to remove multiplicities gives the theorem. No sieve is required.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $\Sc=\{a^2+b^2:\ a,b\in\Z\}$ (so $0\in\Sc$), and let
+\[
+S(x)=\#\{1\le n\le x:\ n-1,\ n,\ n+1\in\Sc\}.
+\]
+Four consecutive integers can never all lie in $\Sc$, because one of them is $\equiv 3\pmod 4$. Triples do occur, for instance $(8,9,10)$ and $(16,17,18)$.
+
+J.~E.~Littlewood asked whether, for given unequal positive integers $h,k$, there are infinitely many $n$ with $n,\ n+h,\ n+k\in\Sc$. Hooley \cite{Ho73} answered this affirmatively using ternary quadratic forms; see also \cite[\S2.1]{FKR}. For three consecutive integers infinitude is elementary, for instance $n=(2j^2+1)^2$ with $n-1=(2j^2)^2+(2j)^2$.
+
+The quantitative question is governed by an analogue, for sums of two squares, of the Hardy--Littlewood prime $k$-tuple conjecture. It was formulated by Freiberg, Kurlberg and Rosenzweig \cite[Conjecture~1.1]{FKR}, following Connors--Keating \cite{CK} and Smilansky \cite{Sm} for pairs. For a finite set $\mathbf h\subset\Z$ with non-vanishing singular series $\mathfrak S_{\mathbf h}$ it predicts
+\[
+\#\{n\le x:\ n+\mathbf h\subseteq\Sc\}\sim\mathfrak S_{\mathbf h}\,x\Bigl(\frac{C}{\sqrt{\log x}}\Bigr)^{\#\mathbf h},
+\]
+where $C=0.7642\ldots$ is the Landau--Ramanujan constant. Freiberg, Kurlberg and Rosenzweig show that this conjecture implies Poisson statistics for the gaps between consecutive sums of two squares, and hence for the level spacings of arithmetic toral point scatterers. For $\mathbf h=\{-1,0,1\}$ it predicts
+\[
+S(x)\sim\mathfrak S_{\{-1,0,1\}}\,C^3\,\frac{x}{(\log x)^{3/2}},
+\]
+and the singular series for this triple was computed by Smilansky \cite{Sm}. Cochrane and Dressler \cite{CD} proved the upper bound $S(x)\ll x(\log x)^{-3/2}$ of this order with the Selberg sieve.
+
+Lower bounds are much weaker. As \cite{FKR} point out, bounds of the conjectured order are known for pairs, where $\#\{n\le x:\ n,\,n+h\in\Sc\}\gg x/\log x$ by Hooley \cite{Ho74} and Indlekofer \cite{In}, but not for any set $\mathbf h$ with $\#\mathbf h\ge3$. Any one-parameter family gives at most about $x^{1/2}$ triples up to $x$. For example, with $n=m^2+1$ only $m^2+2\in\Sc$ is needed, and the theorem of Friedlander and Iwaniec \cite[Theorem~2]{FI78} gives $\gg X(\log X)^{-1/2}$ such $m\le X$, hence
+\[
+S(x)\gg x^{1/2}(\log x)^{-1/2}.
+\]
+As far as we are aware, no bound of the form $S(x)\gg x^{1/2+\delta}$ with $\delta>0$ has appeared in the literature. Our result is the following. It is a first step beyond the square-root bound towards the case $\mathbf h=\{-1,0,1\}$ of the conjecture of \cite{FKR}, though still far from the predicted order $x(\log x)^{-3/2}$.
+
+\begin{theorem}\label{thm:main}
+For every $\delta<1/52$ we have $S(x)\gg_\delta x^{1/2+\delta}$ for $x\ge 2$.
+\end{theorem}
+
+For $2\le x<x_0$ the theorem holds trivially, because $n=1$ is always counted ($0,1,2\in\Sc$). Siegel's theorem is used in Lemma~\ref{lem:L}, so the implied constant is ineffective as stated. Remark~\ref{rem:effective} explains how to make it effective.
+
+\subsection{Strategy}
+The argument carries out the following idea. Suppose $N^2-1=a^2+b^2$. Then $(N-a)(N+a)=b^2+1$, so
+\begin{equation}\label{eq:Cd}
+N=C_d(b):=\frac12\Bigl(d+\frac{b^2+1}{d}\Bigr),\qquad d=N-a,\quad d\mid b^2+1 .
+\end{equation}
+Conversely, $N^2-1\in\Sc$ is equivalent to $N\pm1\in\Sc$ (Lemma~\ref{lem:Npm}). So the numbers \eqref{eq:Cd} automatically have $N\pm 1\in\Sc$, and $N$ is the middle of a triple exactly when $C_d(b)\in\Sc$.
+
+Fix $d$. As $b$ runs through a residue class of roots of $b^2\equiv-1\pmod d$, $C_d(b)$ is a quadratic polynomial in the parameter, with about $\sqrt{x/d}$ values up to $x$. Summing over $d\le x^\theta$ gives about $x^{1/2+\theta/2}$ values in total. It remains to show that a reasonable proportion of them lie in $\Sc$, with small multiplicity.
+
+We detect membership in $\Sc$ with the weight $r(n)=4\sum_{k\mid n}\chi(k)$. This requires the distribution of the values in residue classes modulo $k$ for $k$ up to $\sqrt x$. That range exceeds the length $\sqrt{x/d}$ of the polynomial sequence by a factor $\sqrt d$. This is the classical situation of Hooley's theorem on $\sum_{n\le X}\tau(an^2+bn+c)$ for a quadratic with large leading coefficient \cite{Ho63}. Hooley's method is also the analytic engine of \cite{FI78}: Lemma~5 there is Gauss's correspondence and Lemma~4 there is Hooley's estimate for incomplete Kloosterman sums. We need this method with explicit polynomial dependence on $d$ (Proposition~\ref{prop:weyl}). That dependence is affordable once $d\le x^{\theta}$ with $\theta<1/26$.
+
+Since we only aim for a power of $x$, no sieve is needed. Every element of our family satisfies $r(N)\ll x^{\eps}$ and has at most $x^{\eps}$ preimages (Proposition~\ref{prop:reduction}). Restricting to $b=4w$ and to primes $d\equiv1\pmod 8$ makes $N\equiv1\pmod 8$, which simplifies the bookkeeping.
+
+\subsection{Notation}
+We write $e(t)=e^{2\pi i t}$. The letter $\chi$ denotes the non-principal character modulo $4$, and
+\[
+r(n)=\#\{(a,b)\in\Z^2:\ a^2+b^2=n\}=4\sum_{k\mid n}\chi(k)\qquad(n\ge1).
+\]
+For a prime $\ell$, $v_\ell$ is the $\ell$-adic valuation. The functions $\tau(n)$ and $\omega(n)$ count the divisors and the distinct prime factors of $n$. We write $\bar a$ for a multiplicative inverse, with the modulus clear from context. For a function $g$ on an interval $J$, $\|g\|_\infty$ is its supremum and $\Var_J(g)$ its total variation. Throughout, $\eps>0$ is small, and implied constants may depend on $\eps$ (and on the fixed smooth functions $F$, $\omega$ below) but on nothing else unless indicated.
+
+\section{The parametrisation and the reduction}
+
+\begin{lemma}\label{lem:Npm}
+For an integer $N\ge1$ we have $N^2-1\in\Sc$ if and only if $N-1\in\Sc$ and $N+1\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+Recall that $n\ge1$ lies in $\Sc$ if and only if $v_\ell(n)$ is even for every prime $\ell\equiv3\pmod4$. For $N=1$ both statements hold, so let $N\ge2$. The set $\Sc$ is closed under multiplication, which gives ``$\Leftarrow$''. For ``$\Rightarrow$'', note that $\gcd(N-1,N+1)\mid 2$. Hence a prime $\ell\equiv 3\pmod 4$ divides at most one of $N\pm1$, and $v_\ell(N\mp1)\in\{0,v_\ell(N^2-1)\}$. Both values are even.
+\end{proof}
+
+\begin{lemma}\label{lem:identity}
+Let $d,u,N\in\Z$ satisfy $2dN=u^2+d^2+1$. Then $N^2-1=(N-d)^2+u^2$, and if $N\ge1$ then $N\pm1\in\Sc$. Conversely, if $N^2-1=a^2+u^2$ then $2dN=u^2+d^2+1$ with $d=N-a$.
+\end{lemma}
+
+\begin{proof}
+We have $(N-d)^2+u^2=N^2-2dN+d^2+u^2=N^2-1$. The second assertion follows from Lemma~\ref{lem:Npm}, and the converse is the same identity read backwards.
+\end{proof}
+
+In the notation \eqref{eq:Cd}, $2dC_d(b)=b^2+d^2+1$. We use $b=4w$ throughout.
+
+\begin{lemma}\label{lem:family}
+Let $d\equiv 1\pmod 8$ and let $w\in\Z$ satisfy $16w^2+1\equiv0\pmod d$. Then
+\[
+N_d(w):=C_d(4w)=\frac{16w^2+d^2+1}{2d}
+\]
+is an integer with $N_d(w)\equiv 1\pmod 8$ and $N_d(w)\pm1\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+By hypothesis $d\mid 16w^2+d^2+1$. Also $d^2\equiv1\pmod{16}$, so $16w^2+d^2+1\equiv 2\pmod{16}$. Thus $(16w^2+d^2+1)/2$ is an integer $\equiv1\pmod 8$ that is divisible by $d$. Consequently $N_d(w)$ is an integer with $d\,N_d(w)\equiv1\pmod 8$, that is, $N_d(w)\equiv1\pmod 8$. Finally, apply Lemma~\ref{lem:identity} with $u=4w$.
+\end{proof}
+
+\begin{lemma}\label{lem:mult}
+For every integer $N\ge1$,
+\[
+\#\{(d,w)\in\Z^2:\ d\ge1,\ w\ge1,\ 2dN=16w^2+d^2+1\}\le r(N^2-1).
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:identity}, the map $(d,w)\mapsto(N-d,4w)$ is an injection into the set of representations $N^2-1=a^2+b^2$.
+\end{proof}
+
+Fix once and for all a smooth $F:\R\to[0,1]$ supported in $[1/2,1]$ and not identically zero, and put $c_F:=\int_0^1F(t)t^{-1/2}\,dt>0$. For $d\equiv1\pmod 8$ and $x\ge1$ define
+\begin{equation}\label{eq:Sigma}
+\Sigma_d(x):=\sum_{\substack{w\ge1\\ 16w^2+1\equiv 0\ (d)}} r\bigl(N_d(w)\bigr)\,F\Bigl(\frac{N_d(w)}{x}\Bigr).
+\end{equation}
+
+\begin{proposition}\label{prop:reduction}
+Let $\mathcal D$ be a finite set of positive integers $d\equiv1\pmod 8$, and let $x\ge2$. Then
+\[
+\sum_{d\in\mathcal D}\Sigma_d(x)\ \le\ S(x)\cdot\max_{N\le x} r(N)\,r(N^2-1)\ \ll_\eps\ S(x)\,x^{\eps}.
+\]
+\end{proposition}
+
+\begin{proof}
+A term of \eqref{eq:Sigma} is non-zero only if $N=N_d(w)\le x$ and $r(N)>0$, that is, $N\in\Sc$. In that case $N$ is the middle of a triple by Lemma~\ref{lem:family}. Group the terms according to the value of $N$. By Lemma~\ref{lem:mult} each $N$ occurs for at most $r(N^2-1)$ pairs $(d,w)$, and $0\le F\le1$. This gives the first inequality. The second follows from $r(n)\le 4\tau(n)\ll_\eps n^{\eps}$.
+\end{proof}
+
+Theorem~\ref{thm:main} therefore follows from the next result, which is proved in \S\ref{sec:asymp}.
+
+\begin{theorem}\label{thm:Sigma}
+Let $0<\theta<1/26$. There is $\eps_0=\eps_0(\theta)>0$ such that for $0<\eps\le\eps_0$ and $x\ge x_0(\theta,\eps)$,
+\[
+\Sigma_d(x)\ \gg_{\eps}\ x^{1/2}d^{-1/2-\eps}
+\]
+for every prime $d\equiv 1\pmod 8$ with $d\le x^{\theta}$. (The implied constant and $x_0$ are ineffective because of Siegel's theorem.)
+\end{theorem}
+
+\begin{proof}[Deduction of Theorem~\ref{thm:main}]
+Let $\delta<1/52$. Choose $\theta$ with $2\delta<\theta<1/26$, and then $\eps\le\eps_0(\theta)$ so small that $\theta(\frac12-\eps)-2\eps>\delta$. Let $\mathcal D$ be the set of primes $d\le x^{\theta}$ with $d\equiv1\pmod 8$. The prime number theorem for arithmetic progressions gives
+\[
+\sum_{d\in\mathcal D}d^{-1/2-\eps}\ \ge\ x^{-\theta(1/2+\eps)}\,\#\mathcal D\ \gg\ x^{\theta(1/2-\eps)}(\log x)^{-1}.
+\]
+By Theorem~\ref{thm:Sigma} and Proposition~\ref{prop:reduction},
+\[
+S(x)\gg x^{-\eps}\sum_{d\in\mathcal D}\Sigma_d(x)\gg x^{1/2+\theta(1/2-\eps)-\eps}(\log x)^{-1}\gg x^{1/2+\delta}.\qedhere
+\]
+\end{proof}
+
+\section{Arithmetic preliminaries}
+
+\subsection{\texorpdfstring{A smoothed hyperbola identity for $r(n)$}{A smoothed hyperbola identity for r(n)}}
+Fix a smooth non-increasing function $\lambda_0:\R\to[0,1]$ with $\lambda_0(u)=1$ for $u\le-\log2$ and $\lambda_0(u)=0$ for $u\ge\log 2$. Put $\lambda(u)=\frac12\bigl(\lambda_0(u)+1-\lambda_0(-u)\bigr)$ and $\omega(t)=\lambda(\log t)$ for $t>0$. Then $\omega$ is smooth with values in $[0,1]$, and
+\begin{equation}\label{eq:omega}
+\omega(t)=1\ (t\le\tfrac12),\qquad \omega(t)=0\ (t\ge 2),\qquad \omega(t)+\omega(1/t)=1 .
+\end{equation}
+
+\begin{lemma}\label{lem:hyperbola}
+If $N\equiv1\pmod4$ then $r(N)=8\sum_{k\mid N}\chi(k)\,\omega(k/\sqrt N)$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:omega}, $\sum_{k\mid N}\chi(k)=\sum_{k\mid N}\chi(k)\,\omega(k/\sqrt N)+\sum_{k\mid N}\chi(k)\,\omega(\sqrt N/k)$. In the second sum substitute $k=N/j$ and use $\chi(N/j)=\chi(N)\chi(j)=\chi(j)$, valid because $N\equiv1\pmod 4$ and $j$ is odd. Hence the two sums are equal, and the claim follows from $r(N)=4\sum_{k\mid N}\chi(k)$.
+\end{proof}
+
+\subsection{\texorpdfstring{Roots of $\nu^2\equiv -m$}{Square roots of -m}}
+From now on $d$ denotes a prime with $d\equiv1\pmod8$, and
+\[
+m:=d^2+1 .
+\]
+Since $d^2\equiv1\pmod 8$ we have $m\equiv 2\pmod 8$, and $3\nmid m$. For $n\ge1$ let
+\[
+\varrho(n):=\#\{\nu\bmod n:\ \nu^2+m\equiv0\pmod n\}.
+\]
+This function is multiplicative.
+
+\begin{lemma}\label{lem:rho}
+\begin{enumerate}
+\item[(a)] For odd $n$, $\varrho(n)=\#\{w\bmod n:\ 16w^2+m\equiv0\pmod n\}$.
+\item[(b)] Let $\ell$ be an odd prime and $j\ge1$. If $\ell\nmid m$ then $\varrho(\ell^j)=1+\leg{-m}{\ell}$. In all cases $\varrho(\ell^j)\le 2\,\ell^{\min(j,v_\ell(m))/2}$. Consequently $\varrho(n)\le 2^{\omega(n)}\gcd(n,m)^{1/2}\ll_\eps n^{\eps}d$ for odd $n$.
+\item[(c)] $\varrho(d^j)=2$ for $j\ge1$, and every odd prime divisor of $m$ is $\equiv1\pmod 4$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For odd $n$ the map $w\mapsto 4w$ is a bijection of $\Z/n\Z$.
+
+(b) For $\ell\nmid m$ use Hensel's lemma. Let $a=v_\ell(m)\ge1$. If $j\le a$, the congruence becomes $\nu^2\equiv0\pmod{\ell^j}$, which has $\ell^{\lfloor j/2\rfloor}$ solutions. If $j>a$, a solution must satisfy $v_\ell(\nu)=a/2$, so there is none unless $a$ is even. In that case $\nu=\ell^{a/2}\nu_1$, where $\nu_1$ is determined modulo $\ell^{j-a/2}$ and satisfies $\nu_1^2\equiv -m\ell^{-a}\pmod{\ell^{j-a}}$. There are at most $2$ such $\nu_1$ modulo $\ell^{j-a}$, each with $\ell^{a/2}$ lifts modulo $\ell^{j-a/2}$. This proves the bound; the consequence follows by multiplicativity, using $m\le 2d^2$.
+
+(c) We have $m\equiv1\pmod d$ and $d\equiv1\pmod4$, so $\varrho(d^j)=1+\leg{-1}{d}=2$. If an odd prime $\ell$ divides $d^2+1$, then $-1$ is a square modulo $\ell$, so $\ell\equiv1\pmod 4$.
+\end{proof}
+
+For odd $k$ put $f(k):=\varrho(dk)/2$. By Lemma~\ref{lem:rho}, $f$ is multiplicative on odd integers, with
+\begin{equation}\label{eq:f}
+f(d^j)=1,\qquad f(\ell^j)=\varrho(\ell^j)\quad(\ell\neq d,\ j\ge0).
+\end{equation}
+Since $\chi(k)=0$ for even $k$, the function $\chi f$ is defined on all of $\N$.
+
+\subsection{\texorpdfstring{The singular series $\Lf_d$}{The singular series L\_d}}
+Define $\psi(n)=\leg{m}{n}$ (Jacobi symbol) for odd $n\ge1$, and $\psi(n)=0$ for even $n$.
+
+\begin{lemma}\label{lem:L}
+\begin{enumerate}
+\item[(a)] $\psi$ is a non-principal real Dirichlet character modulo $4m$.
+\item[(b)] For $t\ge1$, $A(t):=\sum_{k\le t}\chi(k)f(k)\ll_\eps t^{1/2+\eps}d^{1+\eps}$.
+\item[(c)] The series $\Lf_d:=\sum_{k\ge1}\chi(k)f(k)/k$ converges, $|\Lf_d|\ll_\eps d^{1+\eps}$, and
+\[
+\Lf_d=L(1,\chi)\,L(1,\psi)\,H_d\qquad\text{with}\qquad H_d\ \ge\ \frac{6}{\pi^2}\cdot\frac{\phi(dm)}{dm}.
+\]
+\item[(d)] $\Lf_d\gg_\eps d^{-\eps}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Write $m=2m'$ with $m'\equiv1\pmod 4$. This is possible because $m\equiv 2\pmod 8$. For odd $n>0$, quadratic reciprocity for Jacobi symbols gives $\leg{m}{n}=\leg{2}{n}\leg{n}{m'}$. This is the product of a character modulo $8$ and a character modulo $m'$, so it is a character modulo $8m'=4m$ that vanishes on even $n$.
+
+To see that $\psi$ is non-principal, consider two cases. If $m'$ is not a square, $\leg{\cdot}{m'}$ is non-principal, and the Chinese remainder theorem gives $n\equiv1\pmod 8$ with $\psi(n)=\leg{n}{m'}=-1$. If $m'=s^2$, then $3\nmid s$ and $\psi(3)=\leg{2}{3}\leg{3}{s}^2=-1$.
+
+(b) Let $g=\chi*\psi$. We compare Euler factors, writing $X=\ell^{-s}$.
+\begin{itemize}
+\item At $\ell=2$, both $\chi f$ and $g$ have Euler factor $1$.
+\item For an odd prime $\ell\nmid dm$, \eqref{eq:f} and Lemma~\ref{lem:rho}(b) give, with $c=\chi(\ell)$ and $\psi(\ell)=c\leg{-m}{\ell}$,
+\[
+\sum_{j\ge0}\chi(\ell^j)f(\ell^j)X^j=1+\Bigl(1+\leg{-m}{\ell}\Bigr)\frac{cX}{1-cX}=\frac{1+\psi(\ell)X}{1-cX}=\frac{1-X^2}{(1-\chi(\ell)X)(1-\psi(\ell)X)} .
+\]
+\item At $\ell=d$, $\chi(d)=1$ because $d\equiv1\pmod 4$, and $\psi(d)=\leg{m}{d}=1$ because $m\equiv1\pmod d$. The factor of $\chi f$ is $(1-X)^{-1}=(1-X)\cdot(1-X)^{-2}$.
+\item For odd $\ell\mid m$, $\chi(\ell)=1$ by Lemma~\ref{lem:rho}(c) and $\psi(\ell)=0$. The factor of $\chi f$ is $P_\ell(X):=\sum_j\varrho(\ell^j)X^j=(1-X)P_\ell(X)\cdot(1-X)^{-1}$.
+\end{itemize}
+Hence $\chi f=g*\eta$, where $\eta$ is multiplicative and determined as follows: $\eta(\ell^j)=0$ for $\ell=2$ and $j\ge1$; $\eta(\ell^2)=-1$ and $\eta(\ell^j)=0$ for $j\ne0,2$ when $\ell\nmid 2dm$; $\eta(d)=-1$ and $\eta(d^j)=0$ for $j\ge2$; and $\eta(\ell^j)=\varrho(\ell^j)-\varrho(\ell^{j-1})$ for odd $\ell\mid m$. By Lemma~\ref{lem:rho}(b), for odd $\ell\mid m$ with $a=v_\ell(m)$,
+\[
+\sum_{j\ge0}|\eta(\ell^j)|\,\ell^{-j(1/2+\eps)}\le 1+2a+2\sum_{i\ge1}\ell^{-i/2}\le 2a+5 .
+\]
+Therefore $\sum_{n\ge1}|\eta(n)|n^{-1/2-\eps}\le \zeta(1+2\eps)\,(1+d^{-1/2})\prod_{\ell\mid m,\ \ell\ \mathrm{odd}}(2v_\ell(m)+5)\ll_\eps d^{\eps}$.
+
+Next, let $\Psi^*=\sup_{y}\bigl|\sum_{n\le y}\psi(n)\bigr|$. Applying the P\'olya--Vinogradov inequality \cite[Ch.~23]{Da} to the primitive character inducing $\psi$, and M\"obius inversion over the remaining primes dividing $4m$, gives $\Psi^*\ll_\eps m^{1/2+\eps}$. The hyperbola method with parameter $\sqrt y$ gives, for $y\ge1$,
+\[
+\Bigl|\sum_{n\le y}g(n)\Bigr|=\Bigl|\sum_{a\le\sqrt y}\chi(a)\sum_{b\le y/a}\psi(b)+\sum_{b\le\sqrt y}\psi(b)\sum_{a\le y/b}\chi(a)-\sum_{a\le\sqrt y}\chi(a)\sum_{b\le \sqrt y}\psi(b)\Bigr|\le 3\sqrt y\,(\Psi^*+1).
+\]
+Finally, $A(t)=\sum_{e\le t}\eta(e)\sum_{n\le t/e}g(n)$, so
+\[
+|A(t)|\ll_\eps m^{1/2+\eps}\sum_{e\le t}|\eta(e)|\,(t/e)^{1/2}\le m^{1/2+\eps}t^{1/2+\eps}\sum_{e}|\eta(e)|e^{-1/2-\eps}\ll_\eps t^{1/2+\eps}d^{1+3\eps}.
+\]
+Replacing $\eps$ by $\eps/3$ gives (b).
+
+(c) Convergence of the series and the bound $|\Lf_d|\le\int_1^\infty|A(u)|u^{-2}\,du\ll d^{1+\eps}$ follow from (b) by partial summation. For $\Re s>1$ we have
+\[
+\sum_k\chi(k)f(k)k^{-s}=L(s,\chi)L(s,\psi)H_d(s),\qquad H_d(s)=\sum_n\eta(n)n^{-s}.
+\]
+By (b), the left-hand side is a Dirichlet series converging, and hence analytic, for $\Re s>1/2$. The right-hand side is analytic there because $\chi$ and $\psi$ are non-principal and $H_d(s)$ converges absolutely. So the identity persists to $s=1$, with $H_d:=H_d(1)$. Its Euler factors are $1-\ell^{-2}$ for $\ell\nmid 2dm$, $1-d^{-1}$ at $d$, $(1-\ell^{-1})P_\ell(\ell^{-1})\ge 1-\ell^{-1}$ for odd $\ell\mid m$, and $1$ at $2$. This gives the stated lower bound.
+
+(d) We have $L(1,\chi)=\pi/4$. Let $\psi^*$ be the primitive character of conductor $q^*\mid 4m$ inducing $\psi$. Then $L(1,\psi)=L(1,\psi^*)\prod_{\ell\mid 4m}(1-\psi^*(\ell)/\ell)\ge L(1,\psi^*)\phi(4m)/(4m)$. Siegel's theorem \cite[Ch.~21]{Da} gives $L(1,\psi^*)\gg_\eps (q^*)^{-\eps}$. Combining these with (c) and $\phi(n)/n\gg(\log\log 3n)^{-1}$ proves (d).
+\end{proof}
+
+\section{\texorpdfstring{Weyl sums for roots of $16w^2+m$, uniformly in $d$}{Weyl sums for quadratic roots, uniformly in d}}\label{sec:weyl}
+
+\subsection{Gauss's correspondence}
+We use binary forms $\varphi=[A,2B,C]$, meaning $\varphi(X,Y)=AX^2+2BXY+CY^2$ with $A,B,C\in\Z$, $A>0$ and determinant $AC-B^2=\Delta>0$. The group $SL_2(\Z)$ acts by $\varphi\circ\sigma(X,Y)=\varphi(RX+TY,SX+VY)$ for $\sigma=\left(\begin{smallmatrix}R&T\\ S&V\end{smallmatrix}\right)$.
+
+The next lemma is classical; compare \cite[Lemma~5 and its Corollary]{FI78}. We include the short proof because we need the exact form of the correspondence.
+
+\begin{lemma}\label{lem:gauss}
+Let $\Delta\ge1$ be an integer such that neither $\Delta$ nor $\Delta/3$ is a perfect square. Let $\mathcal R_\Delta$ be a set of representatives of the $SL_2(\Z)$-classes of positive definite forms $[A,2B,C]$ of determinant $\Delta$, each chosen reduced, i.e.\ $|2B|\le A\le C$. Let $\mathcal M\ge1$. Given a form $\varphi=[A,2B,C]\in\mathcal R_\Delta$ and a primitive vector $(R,S)\in\Z^2$ with $\varphi(R,S)=\mathcal M$, complete it to $\sigma=\left(\begin{smallmatrix}R&T\\ S&V\end{smallmatrix}\right)\in SL_2(\Z)$ and set
+\[
+\omega:=T(AR+BS)+V(BR+CS).
+\]
+This defines a bijection
+\[
+\bigl\{(\varphi,\pm(R,S))\bigr\}\longrightarrow\bigl\{\omega\bmod\mathcal M:\ \omega^2+\Delta\equiv0\pmod{\mathcal M}\bigr\}.
+\]
+Moreover, if $S\neq0$ then
+\begin{equation}\label{eq:recip}
+\frac{\omega}{\mathcal M}\equiv\frac{\bar R}{S}-\frac{AR+BS}{S\,\mathcal M}\pmod 1,\qquad \bar R R\equiv 1\pmod{|S|}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We have $\varphi\circ\sigma=[\mathcal M,2\omega,C']$ with $\mathcal MC'-\omega^2=\Delta$, so $\omega^2+\Delta\equiv0\pmod{\mathcal M}$. Any other completion has the form $\sigma\left(\begin{smallmatrix}1&j\\0&1\end{smallmatrix}\right)$, which replaces $\omega$ by $\omega+j\mathcal M$. Replacing $\sigma$ by $-\sigma$ does not change $\omega$. So the map is well defined.
+
+Surjectivity: if $\omega^2+\Delta\equiv0\pmod{\mathcal M}$, the form $\Phi=[\mathcal M,2\omega,(\omega^2+\Delta)/\mathcal M]$ is positive definite of determinant $\Delta$. Hence $\Phi=\varphi\circ\sigma$ for some $\varphi\in\mathcal R_\Delta$ and $\sigma\in SL_2(\Z)$, and the first column of $\sigma$ is a preimage of $\omega$.
+
+Injectivity: two preimages of the same $\omega$ yield, after adjusting the completions, $\varphi\circ\sigma=\varphi'\circ\sigma'$. Hence $\varphi=\varphi'$, and $\sigma'\sigma^{-1}$ is a proper automorph of $\varphi$. A positive definite form with a proper automorph other than $\pm I$ is equivalent to a multiple of $X^2+Y^2$ or of $X^2+XY+Y^2$. Among forms with even middle coefficient these multiples are $[c,0,c]$ and $[2g,2g,2g]$, of determinants $c^2$ and $3g^2$, which the hypothesis on $\Delta$ excludes. Thus $\sigma'=\pm\sigma$.
+
+Finally, put $P=AR+BS$ and $Q=BR+CS$. Then $RP+SQ=\varphi(R,S)=\mathcal M$ and $TP+VQ=\omega$. Since $RV-ST=1$, solving gives $P=V\mathcal M-S\omega$. Hence $\omega/\mathcal M=V/S-P/(S\mathcal M)$ when $S\ne0$, and $RV\equiv1\pmod{|S|}$. This is \eqref{eq:recip}.
+\end{proof}
+
+\subsection{Incomplete Kloosterman sums in progressions}
+
+\begin{lemma}\label{lem:kloost}
+Let $L\ge2$ be even, $S\ge1$, $R_0,a\in\Z$, and let $J\subset\R$ be an interval of length at most $\ell$. Write $S=S_1S_2$, where every prime factor of $S_1$ divides $L$ and $(S_2,L)=1$. Then
+\[
+\Bigl|\sum_{\substack{R\in J,\ R\equiv R_0\ (L)\\ (R,S)=1}}e\Bigl(\frac{a\bar R}{S}\Bigr)\Bigr|\ \le\ \tau(S_2)\,(a,S_2)^{1/2}\Bigl(\frac{\ell}{L\,S_2^{1/2}}+3S_1S_2^{1/2}\log(2LS)\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $q=\lcm(L,S)=q_1S_2$ with $q_1=\lcm(L,S_1)$, and let $\phi(\xi)$ be the summand. It is periodic modulo $q$. Completing the sum gives
+\[
+\Bigl|\sum_{R\in J}\phi(R)\Bigr|\le\max_{\eta\bmod q}|\mathcal K_\eta|\cdot\frac{\ell+3q\log(2q)}{q},\qquad \mathcal K_\eta=\sum_{\xi\bmod q}\phi(\xi)e(-\eta\xi/q),
+\]
+using $\sum_{\eta\bmod q}\min\bigl(\ell+1,\|\eta/q\|^{-1}/2\bigr)\le\ell+3q\log(2q)$.
+
+Since $(q_1,S_2)=1$, we have $\frac{\bar\xi}{S}\equiv\frac{\bar\xi\,\overline{S_2}}{S_1}+\frac{\bar\xi\,\overline{S_1}}{S_2}\pmod 1$, and $e(-\eta\xi/q)$ splits similarly. By the Chinese remainder theorem, $\mathcal K_\eta$ is therefore the product of a sum over $\xi_1\bmod q_1$ with $\xi_1\equiv R_0\pmod L$ and a Kloosterman sum $S(a\overline{S_1},\eta';S_2)$. We bound the first factor trivially by $q_1/L\le S_1$. For the second, Weil's bound $|S(u,v;c)|\le\tau(c)(u,v,c)^{1/2}c^{1/2}$ \cite[Cor.~11.12]{IK} gives at most $\tau(S_2)(a,S_2)^{1/2}S_2^{1/2}$. Inserting $|\mathcal K_\eta|\le (q_1/L)\,\tau(S_2)(a,S_2)^{1/2}S_2^{1/2}$ above, and using $q\le LS$, proves the lemma.
+\end{proof}
+
+\subsection{The main estimate}
+For odd $\mu\ge1$ and $h\in\Z$ put
+\[
+S_\mu(h):=\sum_{\substack{w\bmod\mu\\ 16w^2+m\equiv0\ (\mu)}}e\Bigl(\frac{hw}{\mu}\Bigr),
+\]
+so that $S_\mu(0)=\varrho(\mu)$ by Lemma~\ref{lem:rho}(a). The following proposition is the uniform version of Hooley's estimate that we need. It holds for any odd $d\ge1$ with $m=d^2+1$.
+
+\begin{proposition}\label{prop:weyl}
+Let $d\ge1$ be odd, $m=d^2+1$ and $c\in\{1,3\}$. Let $M\ge m$, $h\in\Z\smallsetminus\{0\}$, and let $\beta:(M,2M]\to\mathbb C$ satisfy $\|\beta\|_\infty+\Var(\beta)\le B_0$. Then
+\[
+\Xi:=\sum_{\substack{M<\mu\le 2M\\ d\mid\mu,\ \mu/d\equiv c\ (4)}}\beta(\mu)\,S_\mu(h)\ \ll_\eps\ B_0\,|h|^{3/2}\,d\,m^{1/8}\,M^{3/4}\,(|h|dM)^{\eps}.
+\]
+\end{proposition}
+
+\begin{proof}
+Every $\mu$ in the sum is odd. Put $\Delta=64m$. Neither $\Delta$ nor $\Delta/3$ is a square, since $m$ is not a square and $3\nmid m$.
+
+\emph{Step 1: a reformulation.} Let $\omega$ run over the residues modulo $64\mu$ with $\omega^2+\Delta\equiv0\pmod{64\mu}$ and $32\mid\omega$. Writing $\omega=32w'$ with $w'$ modulo $2\mu$, the condition becomes $16w'^2+m\equiv0\pmod\mu$, and $e(2h\omega/(64\mu))=e(hw'/\mu)$. The reduction $w'\bmod 2\mu\mapsto w'\bmod\mu$ is $2$-to-$1$, so
+\[
+S_\mu(h)=\frac12\sum_{\substack{\omega\bmod 64\mu\\ \omega^2+\Delta\equiv0\ (64\mu),\ 32\mid\omega}}e\Bigl(\frac{2h\omega}{64\mu}\Bigr).
+\]
+
+\emph{Step 2: passage to forms.} Apply Lemma~\ref{lem:gauss} with $\mathcal M=64\mu$. The condition $32\mid\omega$ makes sense because $32\mid\mathcal M$. A reduced form satisfies $A\le\sqrt{4\Delta/3}<10\sqrt m<64\mu$, so $S=0$ cannot occur, and we may take $S\ge1$. By \eqref{eq:recip},
+\[
+\Xi=\frac12\sum_{\varphi\in\mathcal R_\Delta}\ \sum_{S\ge1}\ \sideset{}{^\dagger}\sum_{R\in\mathcal I_{\varphi,S}}\beta\Bigl(\frac{\varphi(R,S)}{64}\Bigr)\,e\Bigl(-\frac{2h(AR+BS)}{S\,\varphi(R,S)}\Bigr)\,e\Bigl(\frac{2h\bar R}{S}\Bigr),
+\]
+where $\mathcal I_{\varphi,S}=\{R\in\Z:\ 64M<\varphi(R,S)\le128M\}$. The dagger restricts to $(R,S)=1$ and to the conditions
+\begin{equation}\label{eq:conds}
+\text{(i) } 64d\mid\varphi(R,S),\qquad\text{(ii) }\varphi(R,S)/(64d)\equiv c\pmod 4,\qquad \text{(iii) } 32\mid\omega(\varphi;R,S).
+\end{equation}
+
+\emph{Step 3: the conditions are periodic.} Put $L=256d$. Conditions (i) and (ii) depend only on $(R,S)\bmod L$. For (iii), suppose $(R',S')\equiv(R,S)\pmod{32}$, with completions $(T,V)$ and $(T',V')$. Then $R(V'-V)-S(T'-T)\equiv0\pmod{32}$. Writing $(T'-T,V'-V)=\alpha(R,S)+\beta'(T,V)$, this says $\beta'\equiv0\pmod{32}$. Hence $\omega'\equiv\omega+\alpha\varphi(R,S)\equiv\omega\pmod{32}$ whenever (i) holds. Consequently, for fixed $S$, whether $R$ satisfies (i)--(iii) depends only on $R\bmod L$, so the admissible $R$ are the union of certain residue classes $R_0\bmod L$, at most $L$ of them.
+
+\emph{Step 4: fixed $\varphi$ and $S$.} Since $A\varphi(R,S)=(AR+BS)^2+\Delta S^2$, the set $\mathcal I_{\varphi,S}$ is empty unless
+\[
+S\le S_\varphi:=\sqrt{128AM/\Delta}=\sqrt{2AM/m}.
+\]
+Moreover, it consists of the integers in at most two intervals, each of length at most $\ell_\varphi:=2\sqrt{128M/A}$, on each of which $R\mapsto\varphi(R,S)$ is monotone. On such an interval $J$ let $g(R)=\beta(\varphi(R,S)/64)\,e\bigl(-2h(AR+BS)/(S\varphi(R,S))\bigr)$. Using $(AR+BS)^2\le A\varphi(R,S)$,
+\[
+\Bigl|\frac{d}{dR}\,\frac{2h(AR+BS)}{S\,\varphi(R,S)}\Bigr|\le\frac{6|h|A}{S\,\varphi(R,S)}\le\frac{6|h|A}{64MS},
+\]
+so the phase varies by at most $\frac{6|h|A}{64M}\ell_\varphi\le 3|h|\sqrt{A/M}\le 10|h|$ on $J$, because $A/M<10\sqrt m/m\le10$. Hence $\|g\|_\infty+\Var_J(g)\le B_0(2+20\pi|h|)\le 70B_0|h|$.
+
+By partial summation and Lemma~\ref{lem:kloost} (with $a=2h$, and noting $(2h,S_2)=(h,S_2)\le|h|$), the contribution of $(\varphi,S)$ is
+\[
+\ll B_0|h|^{3/2}\,\tau(S)\Bigl(\frac{\ell_\varphi}{S_2^{1/2}}+L\,S_1S_2^{1/2}\log(2LS)\Bigr),
+\]
+after summing over the at most $L$ admissible classes $R_0\bmod L$ and the at most two intervals.
+
+\emph{Step 5: summation over $S$ and $\varphi$.} Group the $S$ by their $L$-part $S_1$. We have $\sum_{s_1}s_1^{-1/2}=\prod_{\ell\mid L}(1-\ell^{-1/2})^{-1}\ll_\eps L^{\eps}$, where $s_1$ runs over integers composed of primes dividing $L$. Hence
+\[
+\sum_{S\le X}S_2^{-1/2}\ll_\eps X^{1/2}L^{\eps},\qquad\sum_{S\le X}S_1S_2^{1/2}\ll_\eps X^{3/2}L^{\eps}.
+\]
+Also $S_\varphi\le\sqrt{20M}$, so $\tau(S)\ll M^{\eps}$. The contribution of a fixed $\varphi$ is therefore
+\[
+\ll B_0|h|^{3/2}(LM)^{2\eps}\bigl(\ell_\varphi S_\varphi^{1/2}+L S_\varphi^{3/2}\bigr)\ll B_0|h|^{3/2}(LM)^{2\eps}M^{3/4}\bigl(A^{-1/4}m^{-1/4}+L\,A^{3/4}m^{-3/4}\bigr).
+\]
+A form in $\mathcal R_\Delta$ with first coefficient $A$ is determined by $B$, which satisfies $|2B|\le A$ and $B^2+\Delta\equiv0\pmod A$. So there are at most $2\varrho_\Delta(A)$ such forms, where $\varrho_\Delta(A)=\#\{B\bmod A:\ B^2+\Delta\equiv0\ (A)\}$. As in Lemma~\ref{lem:rho}(b), $\varrho_\Delta(\ell^j)\le 2\ell^{\min(j,v_\ell(m))/2}$ for odd $\ell$. Since $\Delta=2^7m/2$ with $m/2$ odd, $\varrho_\Delta(2^j)\le 8$, with $\varrho_\Delta(2^j)=0$ for $j\ge 8$. Hence $\varrho_\Delta(A)\le 8\cdot 2^{\omega(A)}\gcd(A,m)^{1/2}$, and
+\[
+\sum_{A\le Y}\varrho_\Delta(A)\le 8\sum_{e\mid m}\sqrt e\,2^{\omega(e)}\sum_{A'\le Y/e}2^{\omega(A')}\ll_\eps Y\log(2Y)\,m^{\eps}.
+\]
+By partial summation over $A<10\sqrt m$,
+\[
+\sum_{\varphi\in\mathcal R_\Delta}\bigl(A^{-1/4}m^{-1/4}+L\,A^{3/4}m^{-3/4}\bigr)\ll_\eps m^{\eps}\bigl(m^{3/8-1/4}+L\,m^{7/8-3/4}\bigr)\ll L\,m^{1/8+\eps}.
+\]
+Altogether $\Xi\ll B_0|h|^{3/2}L\,m^{1/8}M^{3/4}(LMm)^{3\eps}$. Since $L=256d$ and $m\le2d^2$, renaming $\eps$ gives the proposition.
+\end{proof}
+
+\begin{remark}
+The trivial bound is $\Xi\ll B_0\sum_{\mu}\varrho(\mu)\ll B_0M^{1+\eps}/d$, the sum being over $\mu\in(M,2M]$ with $d\mid\mu$. Proposition~\ref{prop:weyl} saves a power of $M$ at a cost polynomial in $d$ and $h$, which is all we need. Numerically the sums show square-root cancellation in $M$ (see \S\ref{sec:numerics}).
+\end{remark}
+
+\section{\texorpdfstring{The asymptotic formula for $\Sigma_d(x)$}{The asymptotic formula for Sigma\_d(x)}}\label{sec:asymp}
+
+Throughout this section $d\equiv1\pmod8$ is prime, $m=d^2+1$, $0<\eps<1/100$, and
+\begin{equation}\label{eq:range}
+d\le x^{1/20},\qquad x\ge x_0(\eps).
+\end{equation}
+
+\begin{proposition}\label{prop:asymp}
+Under \eqref{eq:range},
+\[
+\Sigma_d(x)=2\sqrt2\,c_F\,\Lf_d\,\sqrt{x/d}\;+\;O_\eps\bigl(x^{1/4+\eps}d^{1/2+\eps}+x^{3/8+\eps}d^{11/4}\bigr).
+\]
+\end{proposition}
+
+\subsection{Set-up}
+For real $w$ put $N(w)=(16w^2+m)/(2d)$, and let $0<w_-<w_+$ be defined by $N(w_-)=x/2$ and $N(w_+)=x$. Explicitly $w_-=\frac14\sqrt{dx-m}$ and $w_+=\frac14\sqrt{2dx-m}$. Under \eqref{eq:range} we have $\frac16\sqrt{dx}\le w_-<w_+\le\frac12\sqrt{dx}$. For real $\kappa>0$ define
+\[
+\Phi_\kappa(w)=F\bigl(N(w)/x\bigr)\,\omega\bigl(\kappa/\sqrt{N(w)}\bigr)\quad(w>0),\qquad\Phi_\kappa(w)=0\quad(w\le0).
+\]
+Then $\Phi_\kappa$ is smooth, takes values in $[0,1]$, is supported in $[w_-,w_+]$, and vanishes identically if $\kappa\ge2\sqrt x$.
+
+\begin{lemma}\label{lem:Phi}
+Uniformly in $\kappa>0$ we have $\Phi_\kappa^{(j)}(w)\ll_j(dx)^{-j/2}$ for $j\ge0$. Consequently, with $\hat\Phi_\kappa(\xi)=\int\Phi_\kappa(w)e(-\xi w)\,dw$,
+\[
+|\hat\Phi_\kappa(\xi)|\le\tfrac12\sqrt{dx}\qquad\text{and}\qquad\hat\Phi_\kappa(\xi)\ll_j\sqrt{dx}\,\bigl(|\xi|\sqrt{dx}\bigr)^{-j}\quad(\xi\ne0).
+\]
+\end{lemma}
+
+\begin{proof}
+On $[w_-,w_+]$ we have $N\asymp x$, $N'(w)=16w/d\asymp\sqrt{x/d}$, $N''=16/d$, and $N'''=0$. Hence $\frac{d^i}{dw^i}(N/x)\ll(dx)^{-i/2}$ and $\frac{d^i}{dw^i}N^{-1/2}\ll x^{-1/2}(dx)^{-i/2}$ for $i\ge1$. The derivatives $\omega^{(l)}(\kappa N^{-1/2})$ with $l\ge1$ vanish unless $\kappa N^{-1/2}\in[\frac12,2]$, in which case $\kappa\asymp\sqrt x$. The first claim now follows from the Fa\`a di Bruno formula. The others follow by integrating by parts $j$ times over an interval of length at most $\frac12\sqrt{dx}$.
+\end{proof}
+
+Let $w\ge1$ with $d\mid16w^2+1$. Then $N(w)\equiv1\pmod 4$ by Lemma~\ref{lem:family}, and Lemma~\ref{lem:hyperbola} applies. For odd $k$ we have $k\mid N(w)$ if and only if $dk\mid 16w^2+m$, because $2dN(w)=16w^2+m$ is even and $dk$ is odd. Also $d\mid 16w^2+m$ if and only if $d\mid16w^2+1$. Therefore
+\begin{equation}\label{eq:Sigma2}
+\Sigma_d(x)=8\sum_{k\ \mathrm{odd}}\chi(k)\sum_{\substack{w\in\Z\\ 16w^2+m\equiv0\ (dk)}}\Phi_k(w),
+\end{equation}
+where only $k<2\sqrt x$ contribute. Poisson summation in each residue class modulo $dk$ gives
+\[
+\sum_{\substack{w\in\Z\\ 16w^2+m\equiv0\ (dk)}}\Phi_k(w)=\frac{\varrho(dk)}{dk}\,\hat\Phi_k(0)+\frac1{dk}\sum_{h\ne0}\hat\Phi_k\Bigl(\frac h{dk}\Bigr)S_{dk}(h).
+\]
+Accordingly we write $\Sigma_d(x)=\mathcal M_d+\mathcal E_d$, where $\mathcal M_d$ collects the terms $h=0$.
+
+\subsection{The main term}
+
+\begin{lemma}\label{lem:main}
+$\mathcal M_d=2\sqrt2\,c_F\,\Lf_d\sqrt{x/d}+O_\eps(x^{1/4+\eps}d^{1/2+\eps})$.
+\end{lemma}
+
+\begin{proof}
+Since $\varrho(dk)=2f(k)$ and the $k$-sum is finite,
+\[
+\mathcal M_d=\frac{16}{d}\int_0^\infty F\bigl(N(w)/x\bigr)\,G\bigl(\sqrt{N(w)}\bigr)\,dw,\qquad G(y):=\sum_{k\ge1}\frac{\chi(k)f(k)}{k}\,\omega(k/y).
+\]
+By \eqref{eq:omega}, $\Lf_d-G(y)=\sum_k\frac{\chi(k)f(k)}k\bigl(1-\omega(k/y)\bigr)$ involves only $k\ge y/2$. Partial summation with Lemma~\ref{lem:L}(b) gives
+\[
+\Lf_d-G(y)=-\int_{y/2}^\infty A(t)\,\frac{d}{dt}\Bigl(\frac{1-\omega(t/y)}{t}\Bigr)dt\ll_\eps y^{-1/2+\eps}d^{1+\eps}.
+\]
+Now substitute $N=N(w)$, so that $dw=d\,dN/(4\sqrt{2dN-m})$. This gives
+\[
+\mathcal M_d=4\int_{x/2}^{x}\frac{F(N/x)\,G(\sqrt N)}{\sqrt{2dN-m}}\,dN
+=4\int\frac{F(N/x)}{\sqrt{2dN}}\,dN\cdot\Lf_d+O_\eps\Bigl(\sqrt{\tfrac xd}\,x^{-1/4+\eps}d^{1+\eps}+\sqrt{\tfrac xd}\,\tfrac{m}{dx}\,d^{1+\eps}\Bigr),
+\]
+using $|\Lf_d|\ll d^{1+\eps}$. Finally $4\int F(N/x)(2dN)^{-1/2}dN=2\sqrt2\,c_F\sqrt{x/d}$, and the last error term is negligible.
+\end{proof}
+
+\subsection{The error term}
+
+\begin{lemma}\label{lem:error}
+$\mathcal E_d\ll_\eps x^{3/8+\eps}d^{11/4}$.
+\end{lemma}
+
+\begin{proof}
+Let $K_0=\sqrt{x/d}\,x^{-\eps}$.
+
+\emph{Small $k$.} For $k\le K_0$ and $h\ne0$ we have $|h|\sqrt{dx}/(dk)\ge x^{\eps}|h|$. Lemma~\ref{lem:Phi} with $j=\lceil 3/\eps\rceil$, together with $|S_{dk}(h)|\le\varrho(dk)\ll x$, shows that these terms contribute $O(x^{-1})$ in total.
+
+\emph{Large $k$.} Split $K_0<k<2\sqrt x$ into $O(\log x)$ ranges $k\in I_K\subseteq(K,2K]$ with $K_0/2\le K<2\sqrt x$, and put $H_K=2K\sqrt{d/x}\,x^{\eps}$. For $k\in I_K$ and $|h|>H_K$ we have $|h|\sqrt{dx}/(dk)\ge x^{\eps}|h|/H_K$, so these terms also contribute $O(x^{-1})$. Writing $\mu=dk$ and splitting $k$ according to $k\equiv c\pmod 4$, we obtain
+\[
+\mathcal E_d=8\sum_{K}\ \sum_{1\le|h|\le H_K}\ \sum_{c\in\{1,3\}}\chi(c)\sum_{\substack{dK<\mu\le2dK\\ d\mid\mu,\ \mu/d\equiv c\ (4)}}\beta_{h,K}(\mu)\,S_\mu(h)+O(x^{-1}),
+\]
+where $\beta_{h,K}(\mu)=\mu^{-1}\hat\Phi_{\mu/d}(h/\mu)\,\mathbf 1_{I_K}(\mu/d)$.
+
+\emph{Bounds for the weights.} By Lemma~\ref{lem:Phi}, $\|\beta_{h,K}\|_\infty\le\sqrt{dx}/(dK)$. Differentiating under the integral sign,
+\[
+\partial_\mu\beta_{h,K}=-\frac{\beta_{h,K}}{\mu}+\frac1\mu\int\!F\,\omega'\bigl(\tfrac{\mu}{d\sqrt{N(w)}}\bigr)\frac{e(-hw/\mu)}{d\sqrt{N(w)}}\,dw+\frac1\mu\int\!\Phi_{\mu/d}(w)\,\frac{2\pi i hw}{\mu^2}\,e(-hw/\mu)\,dw
+\]
+on the interior of $I_K$. Integrating over $\mu\in(dK,2dK]$, and using $K<2\sqrt x$ and $|h|\le H_K$, the three terms contribute
+\[
+\ll\frac{\sqrt{dx}}{dK},\qquad\ll\frac1{\sqrt d}\ll\frac{\sqrt{dx}}{dK},\qquad\ll\frac{|h|x}{dK^2}\ll x^{\eps}\frac{\sqrt{dx}}{dK}.
+\]
+With the jumps of the indicator, $\|\beta_{h,K}\|_\infty+\Var(\beta_{h,K})\ll x^{\eps}\sqrt{dx}/(dK)$.
+
+\emph{Application of Proposition~\ref{prop:weyl}.} Take $M=dK$. This is admissible because $dK\ge\frac12\sqrt{dx}\,x^{-\eps}\ge m$ by \eqref{eq:range}. The proposition gives
+\[
+\mathcal E_d\ll x^{2\eps}\sum_K\frac{\sqrt{dx}}{dK}\,d\,m^{1/8}(dK)^{3/4}\sum_{1\le|h|\le H_K}|h|^{3/2}
+\ll x^{2\eps}\sum_K\sqrt{dx}\;d\;K^{-1/4}H_K^{5/2},
+\]
+using $m^{1/8}\le 2d^{1/4}$. Since $H_K^{5/2}\ll K^{5/2}d^{5/4}x^{-5/4}x^{3\eps}$, the summand is $\ll x^{5\eps}d^{11/4}x^{-3/4}K^{9/4}$. Summing over dyadic $K<2\sqrt x$ gives $\ll x^{3/8+5\eps}d^{11/4}$. Renaming $\eps$ proves the lemma.
+\end{proof}
+
+Proposition~\ref{prop:asymp} follows from Lemmas~\ref{lem:main} and~\ref{lem:error}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:Sigma}]
+Let $\theta<1/26$ and $d\le x^{\theta}$. By Lemma~\ref{lem:L}(d), the main term in Proposition~\ref{prop:asymp} is $\ge c(\eps)\,x^{1/2}d^{-1/2-\eps}$. The ratio of the error terms to this quantity is
+\[
+\ll_\eps x^{-1/4+\eps}d^{1+2\eps}+x^{-1/8+\eps}d^{13/4+\eps}\le x^{-1/8+\eps+\theta(13/4+\eps)}+x^{-1/4+\eps+\theta(1+2\eps)}.
+\]
+Since $13\theta/4<1/8$, both exponents are negative once $\eps$ is small enough in terms of $\theta$. Hence $\Sigma_d(x)\ge\frac12c(\eps)x^{1/2}d^{-1/2-\eps}$ for $x\ge x_0(\theta,\eps)$.
+\end{proof}
+
+This completes the proof of Theorem~\ref{thm:main}.
+
+\section{Remarks}
+
+\begin{remark}[Effectivity]\label{rem:effective}
+Siegel's theorem enters only through Lemma~\ref{lem:L}(d). It can be avoided as follows. By the Landau--Page theorem, among real primitive characters of conductor at most $4x^{2\theta}+4$ there is at most one, $\psi_1$, with $L(1,\psi_1)<c/\log x$. The primitive character attached to $d$ depends only on the squarefree part $s$ of $d^2+1$ (so $d^2+1=st^2$ with $s$ squarefree). For fixed $s$, the equation $d^2-sy^2=-1$ has $O(\log x)$ solutions with $d\le x$, because its solutions grow geometrically. Hence $\psi_1$ is attached to $O(\log x)$ primes $d$, which we discard. For the remaining primes, $\Lf_d\gg(\log x)^{-1}(\log\log x)^{-2}$ effectively, and the rest of the argument is unchanged.
+\end{remark}
+
+\begin{remark}[The exponent]
+The value $1/52=\frac12\cdot\frac1{26}$ is not optimal, and we have made no attempt to optimise it. Three improvements are available.
+\begin{itemize}
+\item In Step~3 of Proposition~\ref{prop:weyl}, for $S\not\equiv0\pmod d$ only $O(1)$ residue classes $R_0\bmod L$ are admissible. Exploiting this replaces the factor $L$ by $O(\sqrt L)$ and gives any $\delta<1/44$.
+\item One can use cancellation in the $h$-sum or between different $d$. Here the averaging over $d$ is used only to add up positive main terms.
+\item One can use spectral bounds for Weyl sums of quadratic roots that are uniform in the discriminant. See for example Grimmelt--Merikoski \cite{GM} for uniform Type~I estimates for the congruence $a\ell^2+h\equiv 0\pmod k$.
+\end{itemize}
+The conjectured order $x(\log x)^{-3/2}$ remains far out of reach.
+\end{remark}
+
+\begin{remark}[Relation to the Friedlander--Iwaniec method]
+\S\ref{sec:weyl} is a non-bilinear analogue of the Proposition in \cite[\S4]{FI78}. Their Lemma~5 and its Corollary are our Lemma~\ref{lem:gauss}; their Lemma~4, Hooley's bound for incomplete Kloosterman sums, is replaced by completion and Weil's bound in Lemma~\ref{lem:kloost}.
+
+Friedlander and Iwaniec need a bilinear version, averaged over primes dividing the sequence, in order to push the half-dimensional sieve slightly past its trivial level. That gives the representability of $g(n)$ with the correct density $(\log X)^{-1/2}$ and without weights. Here we are content with a power of $x$, so the weight $r(N)$ suffices, and the loss of $x^{\eps}$ in Proposition~\ref{prop:reduction} is harmless. Making their sieve argument uniform in $d$ would gain only a power of $\log x$.
+\end{remark}
+
+\begin{remark}[The hyperbolic picture]
+Write $N=\frac12\|\gamma\|^2$ with $\gamma=\left(\begin{smallmatrix}\alpha&\beta\\ \gamma'&\delta'\end{smallmatrix}\right)\in SL_2(\Z)$, $d=\alpha^2+\gamma'^2$ and $u=\alpha\beta+\gamma'\delta'$. Then $2dN=u^2+d^2+1$ is the identity $\det\gamma=1$. So the middles of triples correspond to the elements of the orbit $SL_2(\Z)\,i$ whose norm $\frac12\|\gamma\|^2$ lies in $\Sc$. The same equivalence between $n\pm2\in\Sc$ and the solvability of $ny=x^2+y^2+1$ appears in recent work of Ska{\l}ba \cite{Sk}.
+
+The condition $d\le x^{\theta}$ selects a thin region near the cusp, in which each fibre $\{\gamma: \gamma e_1\ \text{fixed}\}$ is one quadratic polynomial, and Hooley's method reaches level $\sqrt x$ there. For the full orbit, Friedlander and Iwaniec \cite{FI09} prove level of distribution $x^{1/12}$ for $\|\gamma\|^2$ in progressions. A semi-linear sieve on the full orbit would need a level close to $x^{1/2}$.
+\end{remark}
+
+\section{Numerical checks}\label{sec:numerics}
+
+All identities used above (Lemmas~\ref{lem:identity}, \ref{lem:family} and~\ref{lem:gauss}, and Step~1 of Proposition~\ref{prop:weyl}) were checked by computer on several hundred random instances. Table~\ref{tab:main} compares $\sum_{w\ge1,\ N_d(w)\le x}r(N_d(w))$ with the prediction $4\sqrt2\,\Lf_d\sqrt{x/d}$, which is the sharp-cutoff version of Proposition~\ref{prop:asymp} ($F=\mathbf 1_{[0,1]}$, $c_F=2$), for $x=10^{11}$. Here $\Lf_d$ was computed from its Dirichlet series.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{rrrrrr}
+\toprule
+$d$ & $\#\{w\}$ & $\sum_w r(N_d(w))$ & prediction & ratio & $8\Lf_d$ vs.\ mean of $r$\\
+\midrule
+17 & 54\,233 & 215\,068 & 216\,134 & 0.995 & 3.985 / 3.966\\
+41 & 34\,921 & 114\,120 & 115\,669 & 0.987 & 3.312 / 3.268\\
+73 & 26\,171 & 70\,504 & 71\,827 & 0.982 & 2.745 / 2.694\\
+89 & 23\,702 & 55\,968 & 55\,623 & 1.006 & 2.347 / 2.361\\
+97 & 22\,704 & 125\,520 & 124\,339 & 1.010 & 5.477 / 5.529\\
+113 & 21\,035 & 61\,024 & 61\,163 & 0.998 & 2.908 / 2.901\\
+\bottomrule
+\end{tabular}
+\caption{The weighted counts along $N_d(w)$ for $x=10^{11}$ against the main term.}
+\label{tab:main}
+\end{table}
+
+For $x=10^8$ one finds $S(x)=183\,099$ (counting $n=1$), so $S(x)(\log x)^{3/2}/x\approx 0.145$. The family $\{N_d(w)\le 10^8\}$ with $d$ restricted to primes $d\equiv1\pmod 8$, $d\le D$, as in the proof, produces $3\,687$, $9\,597$ and $14\,378$ distinct triples for $D=10^3$, $10^4$ and $3\cdot10^4$. Allowing all $d\equiv1\pmod 8$ gives $7\,921$, $22\,284$ and $34\,593$. The case $d=1$ alone is the family $n=8w^2+1$.
+
+For $d=17$, $h\in\{1,3\}$ and $M$ up to $1.28\cdot10^5$, the sums $\sum_\mu S_\mu(h)$ of Proposition~\ref{prop:weyl} (with $\beta\equiv1$) never exceeded about $0.4\sqrt M$ in absolute value.
+
+\begin{thebibliography}{99}
+
+\bibitem{CD} T.~Cochrane and R.~E.~Dressler, \emph{Consecutive triples of sums of two squares}, Arch. Math. (Basel) \textbf{49} (1987), 301--304.
+
+\bibitem{CK} R.~D.~Connors and J.~P.~Keating, \emph{Two-point spectral correlations for the square billiard}, J. Phys. A \textbf{30} (1997), 1817--1830.
+
+\bibitem{Da} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Graduate Texts in Mathematics 74, Springer, 2000.
+
+\bibitem{FI78} J.~Friedlander and H.~Iwaniec, \emph{Quadratic polynomials and quadratic forms}, Acta Math. \textbf{141} (1978), 1--15.
+
+\bibitem{FI09} J.~Friedlander and H.~Iwaniec, \emph{Hyperbolic prime number theorem}, Acta Math. \textbf{202} (2009), 1--19.
+
+\bibitem{FKR} T.~Freiberg, P.~Kurlberg and L.~Rosenzweig, \emph{Poisson distribution for gaps between sums of two squares and level spacings for toral point scatterers}, Commun. Number Theory Phys. \textbf{11} (2017), 837--877; arXiv:1701.01157.
+
+\bibitem{GM} L.~Grimmelt and J.~Merikoski, \emph{On the greatest prime factor and uniform equidistribution of quadratic polynomials}, arXiv:2505.00493 (2025).
+
+\bibitem{Ho63} C.~Hooley, \emph{On the number of divisors of quadratic polynomials}, Acta Math. \textbf{110} (1963), 97--114.
+
+\bibitem{Ho73} C.~Hooley, \emph{On the intervals between numbers that are sums of two squares. II}, J. Number Theory \textbf{5} (1973), 215--217.
+
+\bibitem{Ho74} C.~Hooley, \emph{On the intervals between numbers that are sums of two squares. III}, J. Reine Angew. Math. \textbf{267} (1974), 207--218.
+
+\bibitem{In} K.-H.~Indlekofer, \emph{Scharfe untere Absch\"atzung f\"ur die Anzahlfunktion der B-Zwillinge}, Acta Arith. \textbf{26} (1974/75), 207--212.
+
+\bibitem{IK} H.~Iwaniec and E.~Kowalski, \emph{Analytic Number Theory}, AMS Colloquium Publications 53, 2004.
+
+\bibitem{Sk} M.~Ska{\l}ba, \emph{A note on consecutive sums of two squares}, Bull. Pol. Acad. Sci. Math. \textbf{73} (2025), no.~2, 111--116.
+
+\bibitem{Sm} Y.~Smilansky, \emph{Sums of two squares---pair correlation and distribution in short intervals}, Int. J. Number Theory \textbf{9} (2013), 1687--1711.
+
+\end{thebibliography}
+
+\end{document}
