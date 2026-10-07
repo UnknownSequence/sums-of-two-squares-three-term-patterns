@@ -1,0 +1,92 @@
+== python3 seedsA.py
+patterns {0,a,b}, b <= 100, a or b odd: all 3725 checked
+{0,1,2}: B=1, A'=2 (pair (n,n+a), detect n+b), n_*=16, v=3, (J,d0,j)=(5,25,3), m_d=(d+3)^2+(-8)
+{0,1,3}: B=3, A'=1 (pair (n,n+b), detect n+a), n_*=1, v=3, (J,d0,j)=(5,1,3), m_d=(d+-1)^2+(8)
+{0,2,3}: B=1, A'=-2 (pair (n+a,n+b), detect n), n_*=20, v=3, (J,d0,j)=(5,21,3), m_d=(d+-5)^2+(-24)
+{0,1,4}: B=1, A'=4 (pair (n,n+a), detect n+b), n_*=16, v=4, (J,d0,j)=(6,25,3), m_d=(d+7)^2+(-48)
+{0,3,8}: B=3, A'=8 (pair (n,n+a), detect n+b), n_*=77, v=2, (J,d0,j)=(4,5,2), m_d=(d+13)^2+(-160)
+{0,5,8}: B=5, A'=8 (pair (n,n+a), detect n+b), n_*=320, v=5, (J,d0,j)=(7,53,4), m_d=(d+11)^2+(-96)
+
+== python3 table.py 1e13
+x = 1e+13; F(t) = exp(-1/(20(t-1/2)(1-t))) on (1/2,1), c_F = 0.166837
+{0,1,2} B=1 A=2 (v,J,d0,j)=(3,5,25,3) d=   89 L_d=0.4573 #u= 167600 smooth=  51777.7 pred=  51150.1 ratio=1.012 | sharp=   615408 pred= 613174.9 ratio=1.004 | T in S: 27791, split failures 0, 2-adic failures 0
+{0,1,2} B=1 A=2 (v,J,d0,j)=(3,5,25,3) d= 1049 L_d=0.4157 #u=  48818 smooth=  13850.6 pred=  13543.9 ratio=1.023 | sharp=   164432 pred= 162361.2 ratio=1.013 | T in S: 6695, split failures 0, 2-adic failures 0
+{0,1,3} B=3 A=1 (v,J,d0,j)=(3,5,1,3) d=   97 L_d=0.4428 #u= 160540 smooth=  47194.0 pred=  47438.2 ratio=0.995 | sharp=   566912 pred= 568677.4 ratio=0.997 | T in S: 25295, split failures 0, 2-adic failures 0
+{0,1,3} B=3 A=1 (v,J,d0,j)=(3,5,1,3) d= 1153 L_d=0.2665 #u=  46564 smooth=   8361.5 pred=   8280.2 ratio=1.010 | sharp=   100456 pred=  99260.5 ratio=1.012 | T in S: 6982, split failures 0, 2-adic failures 0
+{0,2,3} B=1 A=-2 (v,J,d0,j)=(3,5,21,3) d=   53 L_d=0.6224 #u= 217186 smooth=  90689.8 pred=  90209.2 ratio=1.005 | sharp=  1083700 pred=1081406.4 ratio=1.002 | T in S: 53324, split failures 0, 2-adic failures 0
+{0,2,3} B=1 A=-2 (v,J,d0,j)=(3,5,21,3) d= 1013 L_d=0.8508 #u=  49678 smooth=  28237.9 pred=  28206.3 ratio=1.001 | sharp=   339464 pred= 338130.5 ratio=1.004 | T in S: 14865, split failures 0, 2-adic failures 0
+{0,1,4} B=1 A=4 (v,J,d0,j)=(4,6,25,3) d=   89 L_d=0.5240 #u= 167600 smooth=  58831.3 pred=  58606.2 ratio=1.004 | sharp=   703600 pred= 702557.4 ratio=1.001 | T in S: 38176, split failures 0, 2-adic failures 0
+{0,1,4} B=1 A=4 (v,J,d0,j)=(4,6,25,3) d= 1049 L_d=0.4961 #u=  48818 smooth=  16274.7 pred=  16161.7 ratio=1.007 | sharp=   195360 pred= 193742.9 ratio=1.008 | T in S: 13271, split failures 0, 2-adic failures 0
+{0,5,8} B=5 A=8 (v,J,d0,j)=(5,7,53,4) d=  181 L_d=0.5813 #u=  58763 smooth=  22534.3 pred=  22795.8 ratio=0.989 | sharp=   273696 pred= 273270.0 ratio=1.002 | T in S: 14244, split failures 0, 2-adic failures 0
+{0,5,8} B=5 A=8 (v,J,d0,j)=(5,7,53,4) d= 1973 L_d=1.1065 #u=  17798 smooth=  12984.9 pred=  13142.3 ratio=0.988 | sharp=   156356 pred= 157546.3 ratio=0.992 | T in S: 8392, split failures 0, 2-adic failures 0
+
+== python3 table.py 1e12
+x = 1e+12; F(t) = exp(-1/(20(t-1/2)(1-t))) on (1/2,1), c_F = 0.166837
+{0,1,2} B=1 A=2 (v,J,d0,j)=(3,5,25,3) d=   89 L_d=0.4573 #u=  53000 smooth=  16473.1 pred=  16175.1 ratio=1.018 | sharp=   193216 pred= 193902.9 ratio=0.996 | T in S: 9195, split failures 0, 2-adic failures 0
+{0,1,2} B=1 A=2 (v,J,d0,j)=(3,5,25,3) d= 1049 L_d=0.4157 #u=  15438 smooth=   4051.3 pred=   4283.0 ratio=0.946 | sharp=    50824 pred=  51343.1 ratio=0.990 | T in S: 2209, split failures 0, 2-adic failures 0
+{0,1,3} B=3 A=1 (v,J,d0,j)=(3,5,1,3) d=   97 L_d=0.4428 #u=  50767 smooth=  15350.2 pred=  15001.3 ratio=1.023 | sharp=   180784 pred= 179831.6 ratio=1.005 | T in S: 8441, split failures 0, 2-adic failures 0
+{0,1,3} B=3 A=1 (v,J,d0,j)=(3,5,1,3) d= 1153 L_d=0.2665 #u=  14725 smooth=   2610.9 pred=   2618.4 ratio=0.997 | sharp=    31368 pred=  31388.9 ratio=0.999 | T in S: 2280, split failures 0, 2-adic failures 0
+{0,2,3} B=1 A=-2 (v,J,d0,j)=(3,5,21,3) d=   53 L_d=0.6224 #u=  68680 smooth=  28686.8 pred=  28526.7 ratio=1.006 | sharp=   339240 pred= 341970.7 ratio=0.992 | T in S: 17496, split failures 0, 2-adic failures 0
+{0,2,3} B=1 A=-2 (v,J,d0,j)=(3,5,21,3) d= 1013 L_d=0.8508 #u=  15709 smooth=   9051.5 pred=   8919.6 ratio=1.015 | sharp=   107184 pred= 106926.2 ratio=1.002 | T in S: 4902, split failures 0, 2-adic failures 0
+{0,1,4} B=1 A=4 (v,J,d0,j)=(4,6,25,3) d=   89 L_d=0.5240 #u=  53000 smooth=  18495.4 pred=  18532.9 ratio=0.998 | sharp=   222848 pred= 222168.2 ratio=1.003 | T in S: 12577, split failures 0, 2-adic failures 0
+{0,1,4} B=1 A=4 (v,J,d0,j)=(4,6,25,3) d= 1049 L_d=0.4961 #u=  15438 smooth=   5119.5 pred=   5110.8 ratio=1.002 | sharp=    61880 pred=  61266.9 ratio=1.010 | T in S: 4357, split failures 0, 2-adic failures 0
+{0,5,8} B=5 A=8 (v,J,d0,j)=(5,7,53,4) d=  181 L_d=0.5813 #u=  18583 smooth=   7271.0 pred=   7208.7 ratio=1.009 | sharp=    87800 pred=  86415.5 ratio=1.016 | T in S: 4768, split failures 0, 2-adic failures 0
+{0,5,8} B=5 A=8 (v,J,d0,j)=(5,7,53,4) d= 1973 L_d=1.1065 #u=   5628 smooth=   4280.8 pred=   4155.9 ratio=1.030 | sharp=    49920 pred=  49820.5 ratio=1.002 | T in S: 2793, split failures 0, 2-adic failures 0
+
+== python3 typeI.py
+{0,1,2}: d=89, E=8, H=1057, X=2000000:  X^(1/2) H^(1/4) = 8064
+   K/X=2^ 0.0 r=1: main=   1159.1  Xi=  -188.4  |Xi|/main^(1/2)= 5.53
+   K/X=2^ 0.0 r=3: main=   1147.9  Xi=  -189.9  |Xi|/main^(1/2)= 5.61
+   K/X=2^ 2.0 r=1: main=   1154.7  Xi=    20.9  |Xi|/main^(1/2)= 0.62
+   K/X=2^ 2.0 r=3: main=   1153.0  Xi=     6.0  |Xi|/main^(1/2)= 0.18
+   K/X=2^ 4.0 r=1: main=   1153.6  Xi=    18.0  |Xi|/main^(1/2)= 0.53
+   K/X=2^ 4.0 r=3: main=   1152.0  Xi=     3.5  |Xi|/main^(1/2)= 0.10
+   K/X=2^ 6.0 r=1: main=   1153.2  Xi=    16.8  |Xi|/main^(1/2)= 0.49
+   K/X=2^ 6.0 r=3: main=   1153.0  Xi=   -16.1  |Xi|/main^(1/2)= 0.47
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.024;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.73
+{0,1,2}: d=281, E=8, H=10081, X=2000000:  X^(1/2) H^(1/4) = 14171
+   K/X=2^ 0.0 r=1: main=    324.4  Xi=   -48.4  |Xi|/main^(1/2)= 2.69
+   K/X=2^ 0.0 r=3: main=    301.3  Xi=   -47.9  |Xi|/main^(1/2)= 2.76
+   K/X=2^ 2.0 r=1: main=    304.3  Xi=     6.3  |Xi|/main^(1/2)= 0.36
+   K/X=2^ 2.0 r=3: main=    307.6  Xi=    -1.9  |Xi|/main^(1/2)= 0.11
+   K/X=2^ 4.0 r=1: main=    307.4  Xi=    -5.3  |Xi|/main^(1/2)= 0.31
+   K/X=2^ 4.0 r=3: main=    306.4  Xi=     4.7  |Xi|/main^(1/2)= 0.27
+   K/X=2^ 6.0 r=1: main=    306.3  Xi=     2.7  |Xi|/main^(1/2)= 0.16
+   K/X=2^ 6.0 r=3: main=    306.4  Xi=     2.4  |Xi|/main^(1/2)= 0.14
+   K/X=2^ 8.0 r=1: main=    306.2  Xi=     0.8  |Xi|/main^(1/2)= 0.05
+   K/X=2^ 8.0 r=3: main=    306.3  Xi=    -7.7  |Xi|/main^(1/2)= 0.44
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.003;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.98
+{0,2,3}: d=53, E=8, H=285, X=2000000:  X^(1/2) H^(1/4) = 5811
+   K/X=2^ 0.0 r=1: main=   1060.0  Xi=  -164.4  |Xi|/main^(1/2)= 5.05
+   K/X=2^ 0.0 r=3: main=   1051.8  Xi=  -163.7  |Xi|/main^(1/2)= 5.05
+   K/X=2^ 2.0 r=1: main=   1056.8  Xi=    -4.7  |Xi|/main^(1/2)= 0.15
+   K/X=2^ 2.0 r=3: main=   1059.8  Xi=    21.6  |Xi|/main^(1/2)= 0.66
+   K/X=2^ 4.0 r=1: main=   1057.4  Xi=    -9.6  |Xi|/main^(1/2)= 0.29
+   K/X=2^ 4.0 r=3: main=   1056.7  Xi=     8.3  |Xi|/main^(1/2)= 0.25
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.028;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.66
+{0,2,3}: d=181, E=8, H=3869, X=2000000:  X^(1/2) H^(1/4) = 11154
+   K/X=2^ 0.0 r=1: main=    186.4  Xi=   -33.1  |Xi|/main^(1/2)= 2.42
+   K/X=2^ 0.0 r=3: main=    198.9  Xi=   -32.0  |Xi|/main^(1/2)= 2.27
+   K/X=2^ 2.0 r=1: main=    190.0  Xi=    -8.4  |Xi|/main^(1/2)= 0.61
+   K/X=2^ 2.0 r=3: main=    188.6  Xi=    -0.4  |Xi|/main^(1/2)= 0.03
+   K/X=2^ 4.0 r=1: main=    190.9  Xi=     2.4  |Xi|/main^(1/2)= 0.17
+   K/X=2^ 4.0 r=3: main=    192.3  Xi=    -2.1  |Xi|/main^(1/2)= 0.15
+   K/X=2^ 6.0 r=1: main=    191.5  Xi=    -0.7  |Xi|/main^(1/2)= 0.05
+   K/X=2^ 6.0 r=3: main=    191.2  Xi=    -3.5  |Xi|/main^(1/2)= 0.26
+   max over K, r of |Xi_r(K)| / (X^(1/2) H^(1/4)) = 0.003;  max over K >= 4X of |Xi_r(K)| / M_r(K)^(1/2) = 0.97
+
+== python3 heegner_pairs.py
+{0,1,2} d=  89 N=EH=   8456: #Lambda_N=  168 (/N^(1/2)=1.83), P(N)=  340295 (/N=40.243, /(12 #Lambda^2)=1.0047), P_d(N)= 14544 (d*P_d/P=3.80)
+{0,1,2} d= 281 N=EH=  80648: #Lambda_N=  432 (/N^(1/2)=1.52), P(N)= 2241973 (/N=27.799, /(12 #Lambda^2)=1.0011), P_d(N)= 32340 (d*P_d/P=4.05)
+{0,1,2} d= 409 N=EH= 169736: #Lambda_N=  924 (/N^(1/2)=2.24), P(N)=10265141 (/N=60.477, /(12 #Lambda^2)=1.0019), P_d(N)=100226 (d*P_d/P=3.99)
+{0,2,3} d=  53 N=EH=   2280: #Lambda_N=   48 (/N^(1/2)=1.01), P(N)=   28052 (/N=12.304, /(12 #Lambda^2)=1.0146), P_d(N)=  2040 (d*P_d/P=3.85)
+{0,2,3} d= 181 N=EH=  30952: #Lambda_N=  108 (/N^(1/2)=0.61), P(N)=  139495 (/N=4.507, /(12 #Lambda^2)=0.9966), P_d(N)=  2816 (d*P_d/P=3.65)
+{0,2,3} d= 373 N=EH= 135400: #Lambda_N=  330 (/N^(1/2)=0.90), P(N)= 1307175 (/N=9.654, /(12 #Lambda^2)=1.0003), P_d(N)= 13974 (d*P_d/P=3.99)
+
+== python3 kernel_exact.py
+E=8 H=1057 d=89 kappa=1 N=8456: #Lam=168 pairs(all)=340295 (/N=40.24) max#tau=8 (<=12E=96) <1>_alpha=224.0 <alpha|K k|alpha>=416.0 (/N=0.0492, /(N/d)=4.378)
+E=8 H=1057 d=89 kappa=3 N=8456: #Lam=168 pairs(all)=340295 (/N=40.24) max#tau=8 (<=12E=96) <1>_alpha=224.0 <alpha|K k|alpha>=416.0 (/N=0.0492, /(N/d)=4.378)
+E=8 H=285 d=53 kappa=1 N=2280: #Lam=48 pairs(all)=28052 (/N=12.30) max#tau=8 (<=12E=96) <1>_alpha=64.0 <alpha|K k|alpha>=64.0 (/N=0.0281, /(N/d)=1.488)
+E=8 H=285 d=53 kappa=3 N=2280: #Lam=48 pairs(all)=28052 (/N=12.30) max#tau=8 (<=12E=96) <1>_alpha=64.0 <alpha|K k|alpha>=64.0 (/N=0.0281, /(N/d)=1.488)
+E=8 H=3869 d=181 kappa=1 N=30952: #Lam=108 pairs(all)=139495 (/N=4.51) max#tau=8 (<=12E=96) <1>_alpha=144.0 <alpha|K k|alpha>=144.0 (/N=0.0047, /(N/d)=0.842)
+E=8 H=3869 d=181 kappa=3 N=30952: #Lam=108 pairs(all)=139495 (/N=4.51) max#tau=8 (<=12E=96) <1>_alpha=144.0 <alpha|K k|alpha>=144.0 (/N=0.0047, /(N/d)=0.842)

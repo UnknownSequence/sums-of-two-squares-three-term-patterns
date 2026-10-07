@@ -1,0 +1,912 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zt}{\mathbb{Z}_2}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hb}{\mathbb{H}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Lf}{\mathfrak{L}}
+\newcommand{\ga}{\mathfrak{a}}
+\newcommand{\gb}{\mathfrak{b}}
+\newcommand{\gc}{\mathfrak{c}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\gz}{\mathfrak{z}}
+\newcommand{\gw}{\mathfrak{w}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\br}[1]{\langle #1\rangle}
+
+\title[Sums of two squares in three-term patterns, II]{Sums of two squares in three-term patterns, II:\\ automorphic kernels and an improved exponent}
+\date{October 2026}
+
+\begin{document}
+
+\begin{abstract}
+For fixed integers $0<a<b$ let $S_{a,b}(x)$ be the number of $n\le x$ such that $n$, $n+a$ and $n+b$ are all sums of two squares. In an earlier paper we showed that $S_{a,b}(x)\gg x^{1/2+\delta}$ for every $\delta<1/24$. Here we prove this for every $\delta<(1-2\theta)/(10-12\theta)$, where $\theta$ is any exponent towards Selberg's eigenvalue conjecture for congruence subgroups. The Kim--Sarnak bound $\theta=7/64$ gives every $\delta<25/278=0.0899\ldots$, and Selberg's conjecture would give every $\delta<1/10$.
+
+As before, two of the three numbers are made sums of two squares by an identity, and the third runs through the values of a quadratic polynomial attached to a prime $d$. We change the families so that every $2$-adic condition falls on $d$. The third number then becomes $2^{v-2}(E\ell^2+H_d)/d$, where $\ell$ runs over all integers, $E\in\{4,8\}$ and $H_d\asymp d^2$. Its $r$-weighted count leads to Type~I sums for the roots of $E\ell^2+H_d\equiv0$ modulo $dk$ with $k\equiv\pm1\pmod 4$. We parametrise these roots by Heegner points of discriminant $-4EH_d$ on $\Gamma_0(4Ed)$ and estimate the sums with a bound of Grimmelt and Merikoski for weighted averages of automorphic kernels, together with bounds for the two resulting kernels at a single level. This replaces Weil's bound for Kloosterman sums, which was used in the earlier work, and admits primes $d$ up to $x^{(1-2\theta)/(5-6\theta)-\eps}$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $\Sc=\{x^2+y^2:\ x,y\in\Z\}$. For fixed integers $0<a<b$ put
+\[
+S_{a,b}(x)=\#\{1\le n\le x:\ n,\ n+a,\ n+b\in\Sc\}.
+\]
+Hooley \cite{Ho73} proved that $S_{a,b}(x)\to\infty$, answering a question of Littlewood. Freiberg, Kurlberg and Rosenzweig \cite[Conjecture~1.1]{FKR} formulated an analogue of the Hardy--Littlewood conjecture for sums of two squares. It predicts $S_{a,b}(x)\sim\mathfrak S_{\{0,a,b\}}C^3x(\log x)^{-3/2}$, where $C$ is the Landau--Ramanujan constant and $\mathfrak S_{\{0,a,b\}}>0$ is a singular series. Upper bounds of this order follow from sieve methods \cite{CD,No}, but lower bounds are much weaker. We refer to \cite[\S1]{I} for a discussion, and to \cite{MMS} for the triple correlation of the divisor function, where by contrast the order of magnitude is known. In \cite{I} we proved that $S_{a,b}(x)\gg x^{1/2+\delta}$ for every $\delta<1/24$; no bound with $\delta>0$ had previously been known for any pattern. The purpose of this paper is to improve the exponent.
+
+For a congruence subgroup $\Gamma\subseteq\SL_2(\Z)$, let $\lambda_1(\Gamma)$ be the smallest positive eigenvalue of the Laplacian on $\Gamma\backslash\Hb$, and put $\theta(\Gamma)=\max\{0,\operatorname{Re}\sqrt{1/4-\lambda_1(\Gamma)}\}$. We call $\theta\in[0,1/2)$ \emph{admissible} if $\theta(\Gamma_0(q))\le\theta$ for every $q\ge1$. Selberg's eigenvalue conjecture states that $\theta=0$ is admissible, and Kim and Sarnak \cite[Appendix~2]{Kim} proved that $\theta=7/64$ is admissible.
+
+\begin{theorem}\label{thm:main}
+Let $0<a<b$ be fixed integers and let $\theta$ be admissible. For every
+\[
+\delta<\delta_\theta:=\frac{1-2\theta}{10-12\theta}
+\]
+we have $S_{a,b}(x)\gg_{a,b,\delta}x^{1/2+\delta}$ for $x\ge x_0(a,b,\delta)$.
+\end{theorem}
+
+\begin{corollary}\label{cor:main}
+For every $\delta<25/278=0.0899\ldots$ we have $S_{a,b}(x)\gg_{a,b,\delta}x^{1/2+\delta}$. If Selberg's eigenvalue conjecture holds, then this is true for every $\delta<1/10$. In particular, for every $\delta<25/278$ there are $\gg_\delta x^{1/2+\delta}$ integers $n\le x$ such that $n-1$, $n$ and $n+1$ are all sums of two squares.
+\end{corollary}
+
+The corollary is the case $\theta=7/64$, respectively $\theta=0$, of Theorem~\ref{thm:main}. For comparison, $1/24=0.0417\ldots$.
+
+The proof relies on a bound of Grimmelt and Merikoski for weighted averages of automorphic kernels, Theorem~8.1 of their preprint \cite{GM1}, in the form stated in \cite[Theorem~2.1]{GM}; see Theorem~\ref{thm:GM} below. The implied constants in Theorem~\ref{thm:main} are ineffective because Siegel's theorem is used; Remark~\ref{rem:effective} explains how to avoid this.
+
+\subsection{The method}\label{sec:method}
+We recall the approach of \cite{I}. Two of the three numbers are made sums of two squares automatically. Let $B$ be odd and put $Q=2P+B$. If
+\[
+2dQ=u^2+d^2+B^2
+\]
+for integers $d,u$, then $4P(P+B)=(Q-d)^2+u^2$. If $d$ is moreover a prime with $d\equiv1\pmod 4$, then $P$ and $P+B$ are both sums of two squares (Lemma~\ref{lem:split}). The third number $T=P+A$ then satisfies
+\[
+4dT=u^2+m_d,\qquad m_d=d^2+2cd+B^2,\qquad c=2A-B.
+\]
+For a fixed prime $d$ and $u$ in a lattice, $T$ runs through the values of a quadratic polynomial, and $\asymp\sqrt{x/d}$ of these are at most $x$. We show that the $r$-weighted count of these values has the expected size. Summing over primes $d\le x^{\varpi}$ and removing multiplicities at a cost of $x^{\eps}$ then gives $S_{a,b}(x)\gg x^{1/2+\varpi/2-\eps}$.
+
+The weighted count is evaluated by the hyperbola method. This leads to Type~I sums
+\[
+\sum_{k\le\sqrt x}\chi(k)\,\#\{u:\ dk\mid u^2+m_d,\ \dots\}
+\]
+for the roots of a quadratic congruence. The moduli $dk$ go up to about $d\sqrt x$, which exceeds the length $\asymp\sqrt{dx}$ of the $u$-sum by a factor $\asymp\sqrt d$. In \cite{I} these sums were treated by Hooley's method, via Gauss's correspondence and Weil's bound for Kloosterman sums. The resulting error term $x^{3/8+\eps}d$ restricts $d$ to $d\le x^{1/12-\eps}$ and gives $\delta<1/24$.
+
+Here we use the spectral theory of automorphic forms instead, in the form developed by Grimmelt and Merikoski \cite{GM1,GM}. Following Duke, Friedlander and Iwaniec \cite{DFI95}, the roots of $E\ell^2+H\equiv0\pmod\mu$, for all moduli $\mu$ at once, correspond to the integral binary quadratic forms of determinant $N=EH$, that is, to Heegner points of discriminant $-4N$. If the moduli are restricted by a congruence condition that is invariant under $\Gamma_0(q)$, the Type~I sum becomes the pairing of an automorphic kernel for $\Gamma_0(q)$ with a weighted sum over Heegner points. Theorem~2.1 of \cite{GM} bounds such pairings by two simpler kernels. In \cite{GM} these kernels are estimated on average over the level $q$, by a divisor-switching argument that needs the polynomial to stay fixed while the level varies. In our families the polynomial changes with $d$, and each $d$ comes with a single level $q=4Ed$. We therefore estimate the kernels at a single level (Lemmas~\ref{lem:K1} and~\ref{lem:K2}). The outcome, Proposition~\ref{prop:typeI}, is a Type~I estimate with square-root cancellation in the length $X$ of the sum. The price is a factor $H^{1/4}\asymp d^{1/2}$, together with a factor $(1+X/(dH^{1/2}))^\theta$ from possible exceptional eigenvalues.
+
+To apply this, the sums must have exactly this shape. The variable $\ell$ must run over all integers with a smooth weight, and the conditions on the moduli must be $\Gamma_0(q)$-invariant. In \cite{I} the $2$-adic conditions that make $T$ a norm from $\Q_2(i)$ were imposed through a congruence $u\equiv u_0\pmod{2^J}$, with $u_0\ne0$ in general, and this destroys the structure. We therefore change the families. The automatic pair is chosen with odd difference $B$ (Lemma~\ref{lem:choice}), and all $2$-adic conditions are imposed on $d$ alone. By Proposition~\ref{prop:seed} there are $v\ge2$ and $d_0$ with the following property: for every prime $d\equiv d_0\pmod{2^{v+2}}$ and every $u\equiv0\pmod{2^j}$ with $d\mid u^2+B^2$, where $j=\lceil(v+2)/2\rceil$, the number $T$ is $2^{v-2}$ times an integer $\equiv1\pmod 4$. Writing $u=2^j\ell$, the polynomial becomes $2^v(E\ell^2+H_d)$ with $E\in\{4,8\}$ and $H_d=2^{-v}m_d$. The moduli $dk$ with $k\equiv\kappa\pmod 4$ correspond to the $\Gamma_0(4Ed)$-invariant condition $\gc\equiv\kappa Ed\pmod{4Ed}$ on symmetric matrices $\left(\begin{smallmatrix}\ga&\gb\\ \gb&\gc\end{smallmatrix}\right)$. Finding such data for every pattern requires the $2$-adic analysis of \S\ref{sec:2adic}, and it dictates the choice of the pair in Lemma~\ref{lem:choice}.
+
+In the resulting asymptotic formula for the weighted count, the main term is $\gg x^{1/2}d^{-1/2-\eps}$ and the error term is $x^{1/4+\theta/2+\eps}d^{3/4-3\theta/2}$ (Proposition~\ref{prop:asymp}). This allows $d\le x^{\varpi}$ for every $\varpi<(1-2\theta)/(5-6\theta)$, and Theorem~\ref{thm:main} follows. Under Selberg's conjecture the exponent $1/10$ is the one anticipated in \cite[Remark~8.1]{I} from square-root cancellation in the modulus aspect. Remark~\ref{rem:exponent} discusses the main obstruction to further progress. Duke, Friedlander and Iwaniec \cite{DFI12} have also proved bounds for sums of Weyl sums for quadratic roots that are uniform in the discriminant; Remark~\ref{rem:DFI} explains why they do not help here.
+
+\subsection{Notation}
+We write $e(t)=e^{2\pi it}$ and $\hat\psi(\xi)=\int_\R\psi(t)e(-\xi t)\,dt$. The letter $\chi$ denotes the non-principal character modulo $4$, and
+\[
+r(n)=\#\{(x,y)\in\Z^2:\ x^2+y^2=n\}=4\sum_{k\mid n}\chi(k)\qquad(n\ge1).
+\]
+For a prime $\ell$, $v_\ell$ is the $\ell$-adic valuation. The functions $\tau(n)$ and $\omega(n)$ count the divisors and the distinct prime factors of $n$, and $\one\{\cdot\}$ is an indicator function. Throughout, $a$ and $b$ are fixed, $\theta$ is a fixed admissible exponent, and $\eps,\eta>0$ are small. Implied constants may depend on $a$, $b$, $\eps$, $\eta$ and on the fixed smooth functions $F$, $W$ and $\psi_0$ introduced below, but on nothing else unless indicated.
+
+\section{The families}\label{sec:families}
+
+\begin{lemma}\label{lem:reduce}
+If $a$ and $b$ are both even, then $S_{a,b}(x)\ge S_{a/2,b/2}(x/2)$.
+\end{lemma}
+
+\begin{proof}
+If $1\le n'\le x/2$ and $n',\,n'+a/2,\,n'+b/2\in\Sc$, then $n=2n'\le x$ and $n,\,n+a,\,n+b\in\Sc$, because $2\Sc\subseteq\Sc$.
+\end{proof}
+
+\begin{definition}
+A pair $(B,A)\in\Z^2$ is \emph{admissible} if $B>0$ is odd, $A\notin\{0,B\}$, and neither
+\[
+B\equiv1,\ A\equiv3\pmod 4\qquad\text{nor}\qquad B\equiv3,\ A\equiv2\pmod4.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:choice}
+Let $0<a<b$ with $a$ or $b$ odd. There are $p_0\in\{0,a\}$ and an admissible pair $(B,A)$ such that
+\[
+\{n+p_0,\ n+p_0+B,\ n+p_0+A\}=\{n,\ n+a,\ n+b\}\qquad\text{for all }n\in\Z.
+\]
+One such choice is given in Table~\ref{tab:choice}.
+\end{lemma}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llrrrcc}
+\toprule
+& case & $p_0$ & $B$ & $A$ & automatic pair & detected\\
+\midrule
+1 & $a$ odd, $b$ even, $(a,b)\not\equiv(3,2)\pmod 4$ & $0$ & $a$ & $b$ & $n,\ n+a$ & $n+b$\\
+2 & $(a,b)\equiv(3,2)\pmod 4$ & $a$ & $b-a$ & $-a$ & $n+a,\ n+b$ & $n$\\
+3 & $a$ even, $b$ odd, $(a,b)\not\equiv(2,3)\pmod 4$ & $0$ & $b$ & $a$ & $n,\ n+b$ & $n+a$\\
+4 & $(a,b)\equiv(2,3)\pmod 4$ & $a$ & $b-a$ & $-a$ & $n+a,\ n+b$ & $n$\\
+5 & $a,b$ odd, $(a,b)\not\equiv(1,3)\pmod 4$ & $0$ & $a$ & $b$ & $n,\ n+a$ & $n+b$\\
+6 & $(a,b)\equiv(1,3)\pmod 4$ & $0$ & $b$ & $a$ & $n,\ n+b$ & $n+a$\\
+\bottomrule
+\end{tabular}
+\caption{The choice of $(p_0,B,A)$ in Lemma~\ref{lem:choice}.}
+\label{tab:choice}
+\end{table}
+
+\begin{proof}
+The six rows cover all pairs $(a,b)$ with $a$ or $b$ odd. In each row $B>0$ is odd, and the three numbers $n+p_0$, $n+p_0+B$, $n+p_0+A$ are $n$, $n+a$, $n+b$ in some order, so $A\notin\{0,B\}$. In rows~1, 3 and~5 the excluded congruences are exactly those that would violate admissibility. In rows~2, 4 and~6 we have $(B,A)\equiv(3,1)$, $(1,2)$ and $(3,1)\pmod 4$ respectively, and these pairs are admissible.
+\end{proof}
+
+From now on we assume, as we may by Lemma~\ref{lem:reduce}, that $a$ or $b$ is odd, and we fix $p_0$, $B$ and $A$ as in Lemma~\ref{lem:choice}. For $n\in\Z$ we write
+\begin{equation}\label{eq:PTQ}
+P=n+p_0,\qquad T=P+A,\qquad Q=2P+B,
+\end{equation}
+so that $\{P,\,P+B,\,T\}=\{n,\,n+a,\,n+b\}$. The numbers $P$ and $P+B$ form the automatic pair, and $T$ is the detected element. Put
+\begin{equation}\label{eq:md}
+c=2A-B,\qquad m_d=d^2+2cd+B^2=(d+c)^2+4A(B-A).
+\end{equation}
+For example, for $\{0,1,2\}$ Table~\ref{tab:choice} gives $p_0=0$, $(B,A)=(1,2)$ and $m_d=d^2+6d+1$.
+
+\begin{lemma}\label{lem:identity}
+Let $d,u,T\in\Z$ satisfy $4dT=u^2+m_d$, and put $P=T-A$ and $Q=2P+B$. Then $2dQ=u^2+d^2+B^2$ and
+\[
+4P(P+B)=Q^2-B^2=(Q-d)^2+u^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+We have $Q=2T-c$, so $2dQ=4dT-2cd=u^2+m_d-2cd=u^2+d^2+B^2$. Next, $Q-B=2P$ and $Q+B=2(P+B)$. Finally, $(Q-d)^2+u^2=Q^2-2dQ+d^2+u^2=Q^2-B^2$.
+\end{proof}
+
+\begin{lemma}\label{lem:split}
+In Lemma~\ref{lem:identity}, suppose that $d$ is a prime with $d\equiv1\pmod 4$ and that $P\ge1$. Then $P\in\Sc$ and $P+B\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+Recall that $z\ge1$ lies in $\Sc$ if and only if $v_\ell(z)$ is even for every prime $\ell\equiv3\pmod4$. By Lemma~\ref{lem:identity}, $4P(P+B)\in\Sc$, so $P(P+B)\in\Sc$. Let $\ell\equiv3\pmod 4$ be prime. If $\ell$ divides at most one of $P$ and $P+B$, then $v_\ell(P)$ and $v_\ell(P+B)$ are $0$ or $v_\ell(P(P+B))$, hence even. If $\ell$ divides both, then $\ell\mid B$ and $\ell\mid Q=2P+B$, so $\ell\mid u^2+d^2$ by Lemma~\ref{lem:identity}. Since $-1$ is not a square modulo $\ell$, this forces $\ell\mid d$, which is impossible.
+\end{proof}
+
+\begin{lemma}\label{lem:mult}
+Let $n$ be an integer with $P=n+p_0\ge1$, and let $T$ be as in \eqref{eq:PTQ}. Then
+\[
+\#\bigl\{(d,u)\in\Z^2:\ d\ge1,\ 4dT=u^2+m_d\bigr\}\ \le\ r\bigl(P(P+B)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+The number $Q=2P+B$ depends only on $n$. By Lemma~\ref{lem:identity}, the map $(d,u)\mapsto(Q-d,u)$ sends the set on the left injectively into the set of representations of $4P(P+B)$ as a sum of two squares. Finally, $r(4z)=r(z)$.
+\end{proof}
+
+\section{Local analysis at the prime 2}\label{sec:2adic}
+
+Let $\Nc\subset\Zt$ be the set of non-zero $2$-adic integers whose odd part is $\equiv1\pmod 4$. Then $\Sc\smallsetminus\{0\}\subseteq\Nc$, since an odd element of $\Sc$ is $\equiv1\pmod4$. We write $z=2^{v_2(z)}z'$ with $z'$ odd. Recall that a non-zero $z\in\Q_2$ is a square if and only if $v_2(z)$ is even and $z'\equiv1\pmod 8$.
+
+\begin{lemma}\label{lem:nstar}
+Let $(B,A)$ be admissible. There is $n_*\in\Z$ such that
+\begin{enumerate}
+\item[(i)] $Q_*:=2n_*+B\equiv1\pmod 4$;
+\item[(ii)] $n_*(n_*+B)$ is a non-zero square in $\Q_2$;
+\item[(iii)] $T_*:=n_*+A\in\Nc$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\sigma=1$ if $B\equiv1\pmod 4$ and $\sigma=-1$ if $B\equiv3\pmod4$, so that $\sigma B\equiv1\pmod 4$. For an integer $s\ge1$ and an odd integer $o$ put
+\[
+n=4^so\quad(\sigma=1),\qquad n=4^so-B\quad(\sigma=-1).
+\]
+Then $Q=2n+B$ equals $2\cdot4^so+B$, respectively $2\cdot4^so-B$, so $Q\equiv\sigma B\equiv1\pmod 4$ and (i) holds. Moreover $n(n+B)=4^s\,o\,(4^so+\sigma B)$, and since $o^2\equiv1\pmod 8$,
+\[
+o\,(4^so+\sigma B)\equiv4^s+\sigma Bo\pmod 8 .
+\]
+Hence (ii) holds if and only if $o\equiv c_s\pmod8$, where $c_s\equiv\sigma B+4\pmod 8$ if $s=1$ and $c_s\equiv\sigma B\pmod8$ if $s\ge2$. In both cases $c_s\equiv1\pmod4$. Finally $T=n+A=4^so+C$, where $C=A$ if $\sigma=1$ and $C=A-B$ if $\sigma=-1$. We have $C\neq0$, because $A\notin\{0,B\}$. It remains to choose $s$, and the class of $o$ modulo a power of $2$ compatible with $o\equiv c_s\pmod 8$, so that $4^so+C\in\Nc$.
+
+\emph{$C$ odd.} We claim that $C\equiv1\pmod 4$. If $\sigma=1$, then $C=A$ is odd, and admissibility excludes $A\equiv3\pmod 4$. If $\sigma=-1$, then $C=A-B$ is odd, so $A$ is even; admissibility excludes $A\equiv2\pmod 4$, so $A\equiv0\pmod 4$ and $C\equiv-B\equiv1\pmod4$. We take $s=2$ and $o=c_2$; then $T\equiv C\equiv1\pmod 4$.
+
+\emph{$C$ even.} Write $C=2^tw$ with $t\ge1$ and $w$ odd.
+\begin{itemize}
+\item If $w\equiv1\pmod 4$, take $s=\max(2,\lceil(t+2)/2\rceil)$ and $o=c_s$. Then $T=2^t(w+2^{2s-t}o)$ with $2s-t\ge2$, so $w+2^{2s-t}o\equiv1\pmod 4$.
+\item If $w\equiv3\pmod 4$ and $t$ is odd, take $s=(t+1)/2$ and $o=c_s$. Then $T=2^t(w+2o)$ and $w+2o\equiv3+2\equiv1\pmod 4$.
+\item If $w\equiv3\pmod4$ and $t$ is even, take $s=t/2\ge1$. Then $T=2^t(w+o)$, and $w+c_s\equiv0\pmod 4$. If $w+c_s\equiv4\pmod 8$, take $o\equiv4-w\pmod{16}$; then $o\equiv c_s\pmod 8$ and $w+o\equiv4\pmod{16}$. If $w+c_s\equiv0\pmod8$, take $o\equiv8-w\pmod{32}$; then $o\equiv c_s\pmod 8$ and $w+o\equiv8\pmod{32}$. In both cases $w+o\in\Nc$.
+\end{itemize}
+In every case $T\in\Nc$. Taking for $o$ a positive integer in the required class gives $n_*\in\Z$ with (i)--(iii).
+\end{proof}
+
+\begin{proposition}\label{prop:seed}
+Let $(B,A)$ be admissible and let $m_d$ be as in \eqref{eq:md}. There are integers $v\ge2$ and $d_0\equiv1\pmod4$ with the following property. Put $J=v+2$ and $j=\lceil(v+2)/2\rceil$. For all integers $d\equiv d_0\pmod{2^J}$ and $u\equiv0\pmod{2^j}$,
+\[
+v_2(u^2+m_d)=v\qquad\text{and}\qquad2^{-v}(u^2+m_d)\equiv d\pmod 4 .
+\]
+Consequently, if in addition $d\mid u^2+B^2$, then $T=(u^2+m_d)/(4d)$ is an integer of the form $2^{v-2}T'$ with $T'\equiv1\pmod4$.
+\end{proposition}
+
+\begin{proof}
+Let $n_*$, $Q_*$ and $T_*$ be as in Lemma~\ref{lem:nstar}. By (ii) there is $t_*\in\Zt$ with $t_*^2=4n_*(n_*+B)$, and $v_2(n_*(n_*+B))$ is even. It is also positive, because $B$ is odd and so exactly one of $n_*$ and $n_*+B$ is even. Hence $v_2(t_*)\ge2$. Put $d_*=Q_*-t_*$. Then $d_*\equiv Q_*\equiv1\pmod4$ and
+\[
+d_*\,(Q_*+t_*)=Q_*^2-t_*^2=(2n_*+B)^2-4n_*(n_*+B)=B^2 .
+\]
+Hence $d_*^2-2d_*Q_*+B^2=d_*(d_*-2Q_*+Q_*+t_*)=0$, that is, $2d_*Q_*=d_*^2+B^2$. This is the relation of Lemma~\ref{lem:identity} with $u=0$, read $2$-adically, and it gives
+\[
+m_{d_*}=d_*^2+2cd_*+B^2=2d_*(Q_*+c)=4d_*(n_*+A)=4d_*T_*.
+\]
+Let $v=v_2(m_{d_*})=2+v_2(T_*)\ge2$. By (iii), $2^{-v}m_{d_*}=d_*T_*'\equiv d_*\pmod 4$. Choose $d_0\in\Z$ with $d_0\equiv d_*\pmod{2^J}$; then $d_0\equiv1\pmod 4$. If $d\equiv d_0\pmod{2^J}$, then $m_d\equiv m_{d_*}\pmod{2^J}$, because $m_d$ is a polynomial in $d$ with integer coefficients. If moreover $u\equiv0\pmod{2^j}$, then $u^2\equiv0\pmod{2^J}$ since $2j\ge v+2=J$. Hence $u^2+m_d\equiv m_{d_*}\pmod{2^J}$, and since $v_2(m_{d_*})=v=J-2$ we get $v_2(u^2+m_d)=v$ and $2^{-v}(u^2+m_d)\equiv2^{-v}m_{d_*}\equiv d_*\equiv d\pmod4$.
+
+For the last assertion note that $m_d\equiv B^2\pmod d$, so $d\mid u^2+m_d$. Since $d\equiv1\pmod 4$ is odd and $4\mid u^2+m_d$, $T$ is an integer with $v_2(T)=v-2$, and its odd part $T'$ satisfies $dT'=2^{-v}(u^2+m_d)\equiv d\pmod4$, that is, $T'\equiv1\pmod 4$.
+\end{proof}
+
+\section{Good primes and the deduction of Theorem~\ref{thm:main}}\label{sec:good}
+
+We fix $v$ and $d_0$ as in Proposition~\ref{prop:seed} and put
+\begin{equation}\label{eq:JjE}
+J=v+2,\qquad j=\lceil(v+2)/2\rceil,\qquad E=2^{2j-v}\in\{4,8\}.
+\end{equation}
+Note that $j\le v$, because $v\ge2$. Let $d_1=8(|c|+B)$. For $d>d_1$ we have $d>B$ and $|2cd+B^2|\le d^2/2$, so $\frac12d^2\le m_d\le2d^2$.
+
+\begin{definition}
+A prime $d$ is \emph{good} if $d\equiv d_0\pmod{2^J}$, $d>d_1$, and neither $m_d$ nor $m_d/3$ is a perfect square.
+\end{definition}
+
+Let $d$ be a good prime. Then $d\equiv1\pmod4$ and $d\nmid B$. Since $m_d\equiv B^2\pmod d$, also $d\nmid m_d$. By Proposition~\ref{prop:seed} with $u=0$, $v_2(m_d)=v$, so
+\[
+H_d:=2^{-v}m_d
+\]
+is an odd positive integer with $d\nmid H_d$. Since $2^vE=2^{2j}$, we have
+\begin{equation}\label{eq:poly}
+(2^j\ell)^2+m_d=2^v\bigl(E\ell^2+H_d\bigr)\qquad(\ell\in\Z).
+\end{equation}
+Moreover $N_d:=EH_d=4^{j-v}m_d$, and since $j\le v$, $N_d$ is neither a square nor three times a square: if $N_d=s^2$ or $N_d=3s^2$, then $m_d=(2^{v-j}s)^2$ or $m_d=3(2^{v-j}s)^2$.
+
+Fix a smooth $F:\R\to[0,1]$ supported in $[1/2,1]$ and not identically zero, and put $c_F=\int_0^1F(t)t^{-1/2}\,dt>0$. For a good prime $d$ and $x\ge1$ define
+\begin{equation}\label{eq:Sigma}
+\Sigma_d(x)=\sum_{\substack{\ell\in\Z\\ d\mid E\ell^2+H_d}}r\bigl(T_d(\ell)\bigr)\,F\Bigl(\frac{T_d(\ell)}x\Bigr),\qquad T_d(\ell)=\frac{2^{v-2}(E\ell^2+H_d)}{d}=\frac{(2^j\ell)^2+m_d}{4d}.
+\end{equation}
+By \eqref{eq:poly}, and since $m_d\equiv B^2\pmod d$, we have $d\mid E\ell^2+H_d$ if and only if $d\mid u^2+B^2$, where $u=2^j\ell$. Proposition~\ref{prop:seed} therefore shows that for every $\ell$ in \eqref{eq:Sigma} the number $T_d(\ell)$ is an integer of the form $2^{v-2}T'$ with $T'\equiv1\pmod 4$.
+
+\begin{proposition}\label{prop:reduction}
+Let $\Dc$ be a finite set of good primes and $x\ge x_0$. Then
+\[
+\sum_{d\in\Dc}\Sigma_d(x)\ \le\ S_{a,b}(x)\cdot\max_{n\le x}\ r(T)\,r\bigl(P(P+B)\bigr)\ \ll_\eps\ S_{a,b}(x)\,x^{\eps},
+\]
+with $P$ and $T$ given by \eqref{eq:PTQ}.
+\end{proposition}
+
+\begin{proof}
+Let $d\in\Dc$, and let $\ell$ be such that the corresponding term in \eqref{eq:Sigma} is non-zero. Put $u=2^j\ell$ and $T=T_d(\ell)$. Then $T$ is an integer, $4dT=u^2+m_d$, $x/2\le T\le x$ and $T\in\Sc$. Put $P=T-A$ and $n=P-p_0$. Then $\{n,n+a,n+b\}=\{P,P+B,T\}$, and since $n$ is the smallest of these numbers, $T-b\le n\le T$. Hence $1\le n\le x$, and $P\ge n\ge1$, for $x\ge x_0$. By Lemmas~\ref{lem:identity} and~\ref{lem:split}, $P$ and $P+B$ lie in $\Sc$. So $n$ is counted by $S_{a,b}(x)$. By Lemma~\ref{lem:mult}, each such $n$ arises from at most $r(P(P+B))$ pairs $(d,u)$, and $u$ determines $\ell$. The last bound follows from $r(z)\le4\tau(z)\ll z^{\eps}$.
+\end{proof}
+
+\begin{theorem}\label{thm:Sigma}
+Let $0<\varpi<\varpi_\theta:=(1-2\theta)/(5-6\theta)$. There is $\eps_0=\eps_0(\varpi,\theta)>0$ such that for $0<\eps\le\eps_0$ and $x\ge x_0(a,b,\varpi,\eps)$,
+\[
+\Sigma_d(x)\gg_\eps x^{1/2}d^{-1/2-\eps}
+\]
+for every good prime $d\le x^{\varpi}$. The implied constant is ineffective.
+\end{theorem}
+
+\begin{proof}[Deduction of Theorem~\ref{thm:main}]
+Let $\delta<\delta_\theta=\varpi_\theta/2$. Choose $\varpi$ with $2\delta<\varpi<\varpi_\theta$, and then $\eps\le\eps_0(\varpi,\theta)$ with $\varpi(\frac12-\eps)-2\eps>\delta$. By Lemma~\ref{lem:reduce}, applied repeatedly with $x$ replaced by $x/2^i$, we may assume that $a$ or $b$ is odd.
+
+The primes $d\le x^{\varpi}$ with $d\equiv d_0\pmod{2^J}$ that are not good are of three kinds. There are $O(1)$ primes $d\le d_1$. There are $O(1)$ primes with $m_d=s^2$, because $(d+c)^2-s^2=-4A(B-A)\ne0$ has finitely many solutions. Finally, there are the primes with $m_d=3s^2$. The equation $(d+c)^2-3s^2=-4A(B-A)$ has $O(\log x)$ solutions with $0<d\le x$, because its solutions form finitely many orbits under the units of $\Z[\sqrt3]$.
+
+Let $\Dc$ be the set of good primes $d\le x^{\varpi}$. The prime number theorem in arithmetic progressions gives $\sum_{d\in\Dc}d^{-1/2-\eps}\gg x^{\varpi(1/2-\eps)}(\log x)^{-1}$. By Theorem~\ref{thm:Sigma} and Proposition~\ref{prop:reduction},
+\[
+S_{a,b}(x)\gg x^{-\eps}\sum_{d\in\Dc}\Sigma_d(x)\gg x^{1/2+\varpi(1/2-\eps)-\eps}(\log x)^{-1}\gg x^{1/2+\delta}.\qedhere
+\]
+\end{proof}
+
+For $\theta=7/64$ we get $\varpi_\theta=25/139$ and $\delta_\theta=25/278$, and for $\theta=0$ we get $\varpi_\theta=1/5$ and $\delta_\theta=1/10$. This proves Corollary~\ref{cor:main}. The rest of the paper proves Theorem~\ref{thm:Sigma}.
+
+\section{Arithmetic preliminaries}\label{sec:prelim}
+
+This section is essentially \cite[\S5]{I}, adapted to the present families. We include the proofs for completeness.
+
+\subsection{A smoothed hyperbola identity}
+Fix a smooth non-increasing $\lambda_0:\R\to[0,1]$ with $\lambda_0(t)=1$ for $t\le-\log2$ and $\lambda_0(t)=0$ for $t\ge\log 2$. Put $\lambda(t)=\frac12(\lambda_0(t)+1-\lambda_0(-t))$ and $W(t)=\lambda(\log t)$ for $t>0$. Then $W$ is smooth with values in $[0,1]$, and
+\begin{equation}\label{eq:omega}
+W(t)=1\ (t\le\tfrac12),\qquad W(t)=0\ (t\ge2),\qquad W(t)+W(1/t)=1 .
+\end{equation}
+
+\begin{lemma}\label{lem:hyperbola}
+Let $s\ge0$ be an integer and $T=2^sT'$ with $T'\equiv1\pmod 4$. Then
+\[
+r(T)=8\sum_{k\mid T}\chi(k)\,W\bigl(2^{s/2}k/\sqrt T\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+First, $r(T)=r(T')=4\sum_{k\mid T'}\chi(k)$. By \eqref{eq:omega},
+\[
+\sum_{k\mid T'}\chi(k)=\sum_{k\mid T'}\chi(k)\,W(k/\sqrt{T'})+\sum_{k\mid T'}\chi(k)\,W(\sqrt{T'}/k).
+\]
+In the second sum substitute $k=T'/i$ and use $\chi(T'/i)=\chi(i)$, which holds because $T'\equiv1\pmod 4$. So the two sums are equal. Finally, the odd divisors of $T$ are those of $T'$, $\chi$ vanishes on even numbers, and $\sqrt{T'}=2^{-s/2}\sqrt T$.
+\end{proof}
+
+\subsection{\texorpdfstring{Roots of $\nu^2\equiv-m_d$}{Square roots of -m}}
+Throughout this subsection and the next, $d$ is a good prime, $m=m_d$ and $H=H_d$. For $n\ge1$ let
+\[
+\varrho(n)=\#\{\nu\bmod n:\ \nu^2+m\equiv0\pmod n\},
+\]
+a multiplicative function.
+
+\begin{lemma}\label{lem:rho}
+\begin{enumerate}
+\item[(a)] For odd $n$, $\varrho(n)=\#\{t\bmod n:\ Et^2+H\equiv0\pmod n\}$.
+\item[(b)] Let $\ell$ be an odd prime and $i\ge1$. If $\ell\nmid m$ then $\varrho(\ell^i)=1+\leg{-m}{\ell}$. In general $\varrho(\ell^i)\le2\,\ell^{\min(i,v_\ell(m))/2}$. Consequently $\varrho(n)\le 2^{\omega(n)}\gcd(n,m)^{1/2}\ll_\eps n^{\eps}d$ for odd $n$.
+\item[(c)] $\varrho(d^i)=2$ for all $i\ge1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) This follows from \eqref{eq:poly}, since $2^v$ and $2^j$ are invertible modulo $n$.
+
+(b) For $\ell\nmid m$ use Hensel's lemma. Let $\alpha=v_\ell(m)\ge1$. For $i\le\alpha$ the congruence reads $\nu^2\equiv0\pmod{\ell^i}$, which has $\ell^{\lfloor i/2\rfloor}$ solutions. For $i>\alpha$ a solution has $v_\ell(\nu)=\alpha/2$, so there are none unless $\alpha$ is even. In that case $\nu=\ell^{\alpha/2}\nu_1$, where $\nu_1$ is taken modulo $\ell^{i-\alpha/2}$ and satisfies $\nu_1^2\equiv-m\ell^{-\alpha}\pmod{\ell^{i-\alpha}}$. There are at most $2$ such $\nu_1$ modulo $\ell^{i-\alpha}$, each with $\ell^{\alpha/2}$ lifts. The consequence follows by multiplicativity and $m\le2d^2$.
+
+(c) Since $m\equiv B^2\pmod d$ with $d\nmid B$ and $d\equiv1\pmod 4$, we get $\varrho(d^i)=1+\leg{-B^2}{d}=2$.
+\end{proof}
+
+For odd $k$ put $f(k)=\varrho(dk)/2$. Then $f$ is multiplicative on odd integers, with
+\begin{equation}\label{eq:f}
+f(d^i)=1,\qquad f(\ell^i)=\varrho(\ell^i)\quad(\ell\ne d).
+\end{equation}
+
+\subsection{The singular series}
+Let $\psi(n)=\leg mn$ (Jacobi symbol) for odd $n\ge1$, and $\psi(n)=0$ for even $n$.
+
+\begin{lemma}\label{lem:L}
+\begin{enumerate}
+\item[(a)] $\psi$ is a non-principal real Dirichlet character modulo $8m$.
+\item[(b)] For $t\ge1$, $A(t):=\sum_{k\le t}\chi(k)f(k)\ll_\eps t^{1/2+\eps}d^{1+\eps}$.
+\item[(c)] The series $\Lf_d:=\sum_{k\ge1}\chi(k)f(k)/k$ converges, $|\Lf_d|\ll d^{1+\eps}$, and
+\[
+\Lf_d=L(1,\chi)\,L(1,\psi)\,\mathcal P_d\qquad\text{with}\qquad \mathcal P_d\ge\frac{6}{\pi^2}\cdot\frac{\phi(dm)}{dm}.
+\]
+\item[(d)] $\Lf_d\gg_\eps d^{-\eps}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Write $m=2^{t}m'$ with $m'$ odd. For odd $n>0$, quadratic reciprocity for Jacobi symbols gives
+\[
+\leg mn=\leg2n^{t}\,(-1)^{\frac{m'-1}2\frac{n-1}2}\leg n{m'},
+\]
+which is a character modulo $8m'\mid 8m$. It is non-principal because $m$ is not a square. If $m'$ is not a square, then $\leg{\cdot}{m'}$ is non-principal, and the Chinese remainder theorem gives $n\equiv1\pmod 8$ with $\psi(n)=\leg n{m'}=-1$. If $m'=s^2$, then $t$ is odd. Choose $n\equiv3\pmod 8$ with $n\equiv1\pmod s$; then $\psi(n)=(-1)^{t}\cdot(-1)^{\frac{m'-1}2\frac{n-1}2}\leg ns^2=-1$, because $t$ is odd and $m'=s^2\equiv1\pmod 8$.
+
+(b) We compare the Euler factors of $\chi f$ and $\chi*\psi$, writing $Y=\ell^{-s}$.
+\begin{itemize}
+\item At $\ell=2$, both $\chi f$ and $\chi*\psi$ have factor $1$.
+\item For odd $\ell\nmid dm$, \eqref{eq:f} and Lemma~\ref{lem:rho}(b) give, with $\psi(\ell)=\chi(\ell)\leg{-m}\ell$,
+\[
+\sum_{i\ge0}\chi(\ell^i)f(\ell^i)Y^i=1+\Bigl(1+\leg{-m}\ell\Bigr)\frac{\chi(\ell)Y}{1-\chi(\ell)Y}=\frac{1-Y^2}{(1-\chi(\ell)Y)(1-\psi(\ell)Y)}.
+\]
+\item At $\ell=d$, $\chi(d)=1$ because $d\equiv1\pmod 4$, and $\psi(d)=\leg{B^2}d=1$. The factor of $\chi f$ is $(1-Y)^{-1}=(1-Y)\cdot(1-Y)^{-2}$.
+\item For odd $\ell\mid m$, $\psi(\ell)=0$. The factor of $\chi f$ is $P_\ell(Y):=\sum_i\chi(\ell)^i\varrho(\ell^i)Y^i=(1-\chi(\ell)Y)P_\ell(Y)\cdot(1-\chi(\ell)Y)^{-1}$.
+\end{itemize}
+Hence $\chi f=(\chi*\psi)*\beta$, where $\beta$ is multiplicative, supported on odd integers, and given as follows: $\beta(\ell^2)=-1$ and $\beta(\ell^i)=0$ for $i\ne0,2$ when $\ell\nmid 2dm$; $\beta(d)=-1$ and $\beta(d^i)=0$ for $i\ge2$; and $\beta(\ell^i)=\chi(\ell)^i(\varrho(\ell^i)-\varrho(\ell^{i-1}))$ for odd $\ell\mid m$. By Lemma~\ref{lem:rho}(b), $|\beta(\ell^i)|\le 2\ell^{\min(i,\alpha)/2}$ for odd $\ell\mid m$ with $\alpha=v_\ell(m)$, so
+\[
+\sum_{i\ge0}|\beta(\ell^i)|\ell^{-i(1/2+\eps)}\le1+2\alpha+2\sum_{i\ge1}\ell^{-i/2}\le2\alpha+5 .
+\]
+Therefore $\sum_n|\beta(n)|n^{-1/2-\eps}\le\zeta(1+2\eps)(1+d^{-1/2})\prod_{\ell\mid m}(2v_\ell(m)+5)\ll_\eps d^{\eps}$.
+
+The P\'olya--Vinogradov inequality \cite[Ch.~23]{Da}, applied to the primitive character inducing $\psi$ together with M\"obius inversion over the remaining primes dividing $8m$, gives $\Psi^*\ll_\eps m^{1/2+\eps}$, where $\Psi^*:=\sup_y\bigl|\sum_{n\le y}\psi(n)\bigr|$. The hyperbola method with parameter $\sqrt y$ gives $|\sum_{n\le y}(\chi*\psi)(n)|\le3\sqrt y(\Psi^*+1)$ for $y\ge1$. Finally $A(t)=\sum_{i\le t}\beta(i)\sum_{n\le t/i}(\chi*\psi)(n)$, so
+\[
+|A(t)|\ll m^{1/2+\eps}\sum_{i\le t}|\beta(i)|(t/i)^{1/2}\le m^{1/2+\eps}t^{1/2+\eps}\sum_i|\beta(i)|i^{-1/2-\eps}\ll t^{1/2+\eps}d^{1+3\eps}.
+\]
+Renaming $\eps$ gives (b).
+
+(c) Partial summation and (b) give convergence and $|\Lf_d|\le\int_1^\infty|A(t)|t^{-2}dt\ll d^{1+\eps}$. For $\operatorname{Re}s>1$ we have $\sum_k\chi(k)f(k)k^{-s}=L(s,\chi)L(s,\psi)\mathcal P_d(s)$ with $\mathcal P_d(s)=\sum_n\beta(n)n^{-s}$. Both sides are analytic for $\operatorname{Re}s>1/2$: the left-hand side because it converges there by (b), and the right-hand side because $\chi$ and $\psi$ are non-principal and $\mathcal P_d(s)$ converges absolutely. So the identity extends to $s=1$, with $\mathcal P_d:=\mathcal P_d(1)=\prod_\ell\beta_\ell(\ell^{-1})$, where $\beta_\ell(Y)=\sum_i\beta(\ell^i)Y^i$.
+
+The Euler factors are $1-\ell^{-2}$ for $\ell\nmid2dm$, $1-d^{-1}$ at $\ell=d$, and $(1-\chi(\ell)\ell^{-1})P_\ell(\ell^{-1})$ for odd $\ell\mid m$. In the last case, if $\chi(\ell)=1$ then $P_\ell(\ell^{-1})\ge1$. If $\chi(\ell)=-1$, let $u$ be distributed according to Haar measure on $\Z_\ell$. Since $\varrho(\ell^i)\ell^{-i}=\mathrm{Prob}(\ell^i\mid u^2+m)$, we get
+\[
+P_\ell(\ell^{-1})=\sum_{i\ge0}(-1)^i\,\mathrm{Prob}\bigl(\ell^i\mid u^2+m\bigr)=\mathrm{Prob}\bigl(v_\ell(u^2+m)\ \text{even}\bigr)\ \ge\ \mathrm{Prob}(\ell\nmid u^2+m)=1-\frac1\ell,
+\]
+since $\varrho(\ell)=1$. In all cases the factor is $\ge1-\ell^{-1}$, which gives the lower bound for $\mathcal P_d$.
+
+(d) We have $L(1,\chi)=\pi/4$. Let $\psi^*$ be the primitive character inducing $\psi$. Its conductor $q^*$ divides $8m$, and $L(1,\psi)\ge L(1,\psi^*)\,\phi(8m)/(8m)$. By Siegel's theorem \cite[Ch.~21]{Da}, $L(1,\psi^*)\gg_\eps(q^*)^{-\eps}$. Combine these bounds with (c) and with $\phi(n)/n\gg(\log\log 3n)^{-1}$.
+\end{proof}
+
+\section{A single-level Type I estimate}\label{sec:typeI}
+
+\subsection{The automorphic input}
+Let $G=\SL_2(\R)$, acting on the upper half-plane $\Hb$ by M\"obius transformations. For $g=\left(\begin{smallmatrix}g_1&g_2\\g_3&g_4\end{smallmatrix}\right)\in G$ write $g\cdot i=x(g)+iy(g)$, so that
+\[
+y(g)=\frac1{g_3^2+g_4^2},\qquad x(g)=(g_1g_3+g_2g_4)\,y(g),
+\]
+and for $R>0$ put
+\[
+u_R(g)=\tfrac14\bigl(g_1^2+(g_2/R)^2+(g_3R)^2+g_4^2-2\bigr).
+\]
+Since $g_1^2+g_4^2+(g_2/R)^2+(g_3R)^2\ge2|g_1g_4|+2|g_2g_3|\ge2$, we have $u_R(g)\ge0$. A short computation gives $u_1(g)=u(g\cdot i,i)$, where $u(z,w)=|z-w|^2/(4\operatorname{Im}z\operatorname{Im}w)$ is the standard point-pair invariant \cite[Ch.~1]{Iw}. Hence
+\begin{equation}\label{eq:pointpair}
+u_1(g_1^{-1}g_2)=u(g_2\cdot i,\,g_1\cdot i)\qquad(g_1,g_2\in G).
+\end{equation}
+
+Fix a Haar measure $dg$ on $G$. For $q\ge1$ let $\Gamma=\Gamma_0(q)$. For compactly supported $F:G\to\C$ put
+\[
+K_qF(g_1,g_2)=\sum_{\gamma\in\Gamma}F(g_1^{-1}\gamma g_2),\qquad\Delta_qF(g_1,g_2)=K_qF(g_1,g_2)-\frac{1}{\vol(\Gamma\backslash G)}\int_GF(g)\,dg.
+\]
+By a \emph{functional} we mean a finitely supported function $\alpha:G\to\R$. It acts on functions by $\br{f}_\alpha=\sum_g\alpha(g)f(g)$, and on functions $\Phi$ on $G\times G$ by $\br{\alpha_1|\Phi|\alpha_2}=\sum_{g_1,g_2}\alpha_1(g_1)\alpha_2(g_2)\Phi(g_1,g_2)$. We write $I$ for the functional $\br{f}_I=f(\mathrm{id})$.
+
+\begin{theorem}[Grimmelt--Merikoski {\cite[Theorem~2.1]{GM}}, {\cite[Theorem~8.1]{GM1}}]\label{thm:GM}
+Let $q\ge1$, let $\bX,\bY>0$ and $\delta\in(0,1)$ with $\bX/\bY>\delta$. Let $f$ be a smooth function supported on $[-1,1]\times[1,2]$ and satisfying $\partial_x^{\nu_1}\partial_y^{\nu_2}f\ll_{\nu_1,\nu_2}\delta^{-\nu_1-\nu_2}$, and put $F(g)=f(x(g)/\bX,\,y(g)/\bY)$. Let $\alpha_1,\alpha_2$ be functionals. Then for any choice of $Z_0,Z_1,Z_2\ge1$ with $Z_0Z_1Z_2\ge\bX/\bY+1$ we have
+\[
+\br{\alpha_1|\Delta_qF|\alpha_2}\ll q^{o(1)}\delta^{-O(1)}\Bigl(\frac{\bX}{\bY}\Bigr)^{1/2+o(1)}Z_0^{\theta(\Gamma_0(q))}\,\br{\alpha_1|\Delta_qk_{Z_1^2,\bX}|\alpha_1}^{1/2}\,\br{\alpha_2|\Delta_qk_{Z_2^2,1}|\alpha_2}^{1/2},
+\]
+for certain smooth functions $k_{Y,R}:G\to[0,1]$ which satisfy
+\[
+k_{Y,R}(g)\le\frac{\one\{u_R(g)\le Y\}}{\sqrt{1+u_R(g)}}.
+\]
+\end{theorem}
+
+This is the case of \cite[Theorem~2.1]{GM} without Hecke operators: there one takes coefficients $\beta(h)$ supported on $h=1$, so that the Hecke operator is the identity. The functionals in \cite{GM} are general compactly supported linear functionals, which include ours. As in \cite{GM}, we read $q^{o(1)}(\bX/\bY)^{o(1)}$ as $\ll_\eta(q\bX/\bY)^{\eta}$ for every $\eta>0$, with implied constants depending on $\eta$ and on the implied constants in the hypothesis on $f$. Since $Z_0\ge1$, we may replace $\theta(\Gamma_0(q))$ by any admissible $\theta$. We shall apply the theorem with $\delta=1/(2\Delta)$, where $\Delta\ge1$ bounds the derivatives of $f$ in the sense that $\partial_x^{\nu_1}\partial_y^{\nu_2}f\ll\Delta^{\nu_1+\nu_2}$; then $\delta^{-O(1)}\ll\Delta^{O(1)}$. Only the pointwise majorant of $k_{Y,R}$ and the polynomial dependence on $\Delta$ will be used. The two quantities under the square roots arise in \cite{GM1} after an application of the Cauchy--Schwarz inequality. We only use upper bounds for their absolute values, and these upper bounds include the contribution of the subtracted integrals.
+
+\subsection{Symmetric matrices and Heegner points}
+For an integer $N\ge1$ let $\Qc_N$ be the set of integral symmetric matrices $\fg=\left(\begin{smallmatrix}\ga&\gb\\ \gb&\gc\end{smallmatrix}\right)$ with $\ga,\gc>0$ and $\ga\gc-\gb^2=N$. The group $\SL_2(\Z)$ acts on $\Qc_N$ by $\gamma\diamond\fg=\gamma\fg\gamma^{t}$. To $\fg\in\Qc_N$ we attach the point
+\[
+z(\fg)=\frac{\gb+i\sqrt N}{\gc}\in\Hb .
+\]
+Every positive definite real symmetric matrix of determinant $1$ has the form $hh^t$ with $h\in G$, and $h\cdot i$ depends only on $hh^t$: if $h=\left(\begin{smallmatrix}y^{1/2}&xy^{-1/2}\\0&y^{-1/2}\end{smallmatrix}\right)k$ with $k\in\mathrm{SO}(2)$, then $hh^t=\left(\begin{smallmatrix}y+x^2/y&x/y\\x/y&1/y\end{smallmatrix}\right)$ and $h\cdot i=x+iy$. Hence if $\fg=N^{1/2}hh^t$, then
+\begin{equation}\label{eq:zg}
+z(\fg)=h\cdot i,\qquad \gamma\diamond\fg=N^{1/2}(\gamma h)(\gamma h)^t,\qquad z(\gamma\diamond\fg)=\gamma\cdot z(\fg)\quad(\gamma\in\SL_2(\Z)).
+\end{equation}
+We call $\fg$ \emph{reduced} if $|2\gb|\le\gc\le\ga$. This means that $z(\fg)$ lies in the closure of the standard fundamental domain, since $|z(\fg)|^2=\ga/\gc$; in particular $\operatorname{Im}z(\fg)\ge\sqrt3/2$. Every $\SL_2(\Z)$-orbit in $\Qc_N$ contains a reduced element, and there are finitely many reduced elements.
+
+\begin{lemma}\label{lem:param}
+Let $N\ge1$ be neither a square nor three times a square.
+\begin{enumerate}
+\item[(a)] The stabiliser of every $\fg\in\Qc_N$ in $\SL_2(\Z)$ is $\{\pm I\}$.
+\item[(b)] Let $\Lambda_N$ be a set of reduced representatives of the $\SL_2(\Z)$-orbits on $\Qc_N$, and for $\gz\in\Lambda_N$ fix $\sigma_\gz\in G$ with $N^{1/2}\sigma_\gz\sigma_\gz^t=\gz$. Let $q\ge1$, let $\Tc_q$ be a set of representatives of $\Gamma_0(q)\backslash\SL_2(\Z)$, and let $\Qc\subseteq\Qc_N$ be invariant under $\Gamma_0(q)$. Define the functional $\alpha_\Qc$ by
+\[
+\br{f}_{\alpha_\Qc}=\frac12\sum_{\gz\in\Lambda_N}\ \sum_{\substack{\tau\in\Tc_q\\ \tau\diamond\gz\in\Qc}}f(\tau\sigma_\gz).
+\]
+Then for every compactly supported $F:G\to\C$ of the form $F(g)=F_\diamond(gg^t)$,
+\[
+\br{I|K_qF|\alpha_\Qc}=\sum_{\fg\in\Qc}F_\diamond(N^{-1/2}\fg).
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $w\in\Z^2$ we have $(\gamma^tw)^t\fg(\gamma^tw)=w^t(\gamma\diamond\fg)w$. So $\gamma\diamond\fg=\fg$ says that $\gamma^t$ is a proper automorph of the positive definite binary form $\ga X^2+2\gb XY+\gc Y^2$. A positive definite form with a proper automorph other than $\pm I$ is equivalent to a multiple of $X^2+Y^2$ or of $X^2+XY+Y^2$. The only such forms with even middle coefficient are equivalent to $[t,0,t]$ or $[2t,2t,2t]$, of determinants $t^2$ and $3t^2$, which are excluded.
+
+(b) Write $\Gamma=\Gamma_0(q)$. For $\tau\in\SL_2(\Z)$ and $\gamma\in\Gamma$, \eqref{eq:zg} gives $F(\gamma\tau\sigma_\gz)=F_\diamond(N^{-1/2}\,\gamma\tau\diamond\gz)$. As $\gamma$ runs over $\Gamma$, the matrix $\gamma\tau\diamond\gz$ runs over the $\Gamma$-orbit of $\tau\diamond\gz$, and by (a) each element of this orbit is attained exactly twice. Every element $g\diamond\gz$ of the $\SL_2(\Z)$-orbit of $\gz$ lies in such an orbit: write $g=\gamma\tau$ with $\tau\in\Tc_q$. These orbits are pairwise distinct: if $\tau'\diamond\gz=\gamma\tau\diamond\gz$ with $\tau,\tau'\in\Tc_q$, then $\tau'^{-1}\gamma\tau=\pm I$ by (a), so $\Gamma\tau'=\Gamma\tau$, as $-I\in\Gamma$. Since $\Qc$ is a union of $\Gamma$-orbits, we obtain
+\[
+\br{I|K_qF|\alpha_\Qc}=\frac12\sum_{\gz\in\Lambda_N}\sum_{\substack{\tau\in\Tc_q\\ \tau\diamond\gz\in\Qc}}\sum_{\gamma\in\Gamma}F(\gamma\tau\sigma_\gz)=\sum_{\fg\in\Qc}F_\diamond(N^{-1/2}\fg).
+\]
+All sums are finite because $F$ has compact support.
+\end{proof}
+
+\subsection{Two kernel bounds at a single level}
+
+\begin{lemma}\label{lem:K1}
+Let $q\ge2$, $Y\ge1$ and $R>0$. Then
+\[
+\sum_{\gamma\in\Gamma_0(q)}\frac{\one\{u_R(\gamma)\le Y\}}{\sqrt{1+u_R(\gamma)}}\ll_\eta\Bigl(1+R+\frac{Y^{1/2}+R^{-1}}{q}\Bigr)(Y+R^{-1})^{\eta}
+\]
+and
+\[
+\frac{1}{\vol(\Gamma_0(q)\backslash G)}\int_G\frac{\one\{u_R(g)\le Y\}}{\sqrt{1+u_R(g)}}\,dg\ll\frac{Y^{1/2}}q .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\gamma=\left(\begin{smallmatrix}\gamma_1&\gamma_2\\ \gamma_3&\gamma_4\end{smallmatrix}\right)\in\Gamma_0(q)$ with $u_R(\gamma)\le Y$. Then $\gamma_1^2+\gamma_4^2+(\gamma_2/R)^2+(\gamma_3R)^2\le4Y+2\le6Y$, and
+\[
+1+u_R(\gamma)\ge\tfrac14\max\bigl(2,\ \gamma_1^2,\ \gamma_4^2,\ (\gamma_3R)^2\bigr).
+\]
+
+\emph{The terms with $\gamma_3=0$.} Here $\gamma_1\gamma_4=1$, so $\gamma_1=\gamma_4=\pm1$ and $u_R(\gamma)=\gamma_2^2/(4R^2)$. These terms contribute at most
+\[
+2\sum_{|b|\le2R\sqrt Y}\Bigl(1+\frac{b^2}{4R^2}\Bigr)^{-1/2}\le2+4\sum_{1\le b\le2R\sqrt Y}\min\Bigl(1,\frac{2R}b\Bigr)\ll1+R\log(2+Y).
+\]
+
+\emph{The terms with $\gamma_3\ne0$.} Then $q\mid\gamma_3$, so $|\gamma_3|\ge2$, and $|\gamma_3|\le\sqrt{6Y}/R$. Fix such a $\gamma_3$. Let $M=\max(|\gamma_1|,|\gamma_4|)$, so that $1\le M\le\sqrt{6Y}$; $M=0$ is impossible because $\gamma_2\gamma_3=-1$ has no solutions. We count the triples $(\gamma_1,\gamma_2,\gamma_4)$ with $\gamma_1\gamma_4-\gamma_2\gamma_3=1$ and $A/2<M\le A$, for a power of two $A$. Then $|\gamma_2\gamma_3|=|\gamma_1\gamma_4-1|\le A^2+1$, so $\gamma_2$ takes at most $1+2(A^2+1)/|\gamma_3|$ values. For each $\gamma_2$, the number $1+\gamma_2\gamma_3$ is non-zero because $|\gamma_3|\ge2$, and the number of pairs $(\gamma_1,\gamma_4)$ with $\gamma_1\gamma_4=1+\gamma_2\gamma_3$ is $2\tau(|1+\gamma_2\gamma_3|)\ll_\eta A^{2\eta}$. The weight is at most $2/\max(M,|\gamma_3|R)\le4/\max(A,|\gamma_3|R)$. Summing over $A\le2\sqrt{6Y}$, the contribution of $\gamma_3$ is
+\[
+\ll_\eta Y^{\eta}\sum_{A}\Bigl(1+\frac{A^2}{|\gamma_3|}\Bigr)\frac{1}{\max(A,|\gamma_3|R)}\ll Y^{\eta}\Bigl(\frac{\log(2+Y)}{\max(1,|\gamma_3|R)}+\frac{Y^{1/2}}{|\gamma_3|}\Bigr).
+\]
+Now sum over $\gamma_3=qc'$ with $1\le|c'|\le C'$, where $C'=\sqrt{6Y}/(qR)$. We have
+\[
+\sum_{c'}\frac{Y^{1/2}}{q|c'|}\ll\frac{Y^{1/2}}q\log(2+C'),\qquad\sum_{c'}\frac1{\max(1,q|c'|R)}\ll\frac{\log(2+C')}{qR}.
+\]
+For the second sum, if $qR\ge1$ this is the harmonic sum, and if $qR<1$ the terms with $|c'|\le(qR)^{-1}$ contribute at most $2(qR)^{-1}$. Since $\log(2+C')\ll\log(2+Y+R^{-1})$, the terms with $\gamma_3\ne0$ contribute $\ll_\eta q^{-1}(Y^{1/2}+R^{-1})(Y+R^{-1})^{2\eta}$. Renaming $\eta$ gives the first bound.
+
+For the second bound, let $D_R=\mathrm{diag}(R^{1/2},R^{-1/2})$. Then $u_R(g)=u_1(D_R^{-1}gD_R)$, and Haar measure is invariant under conjugation. In the Cartan decomposition $g=k_1\,\mathrm{diag}(e^{\rho/2},e^{-\rho/2})\,k_2$ we have $u_1(g)=\sinh^2(\rho/2)$, and $dg$ is a constant multiple of $\sinh\rho\,d\rho\,dk_1\,dk_2$. Since $du_1=\frac12\sinh\rho\,d\rho$, the integral is $\ll\int_0^Y(1+u)^{-1/2}du\ll Y^{1/2}$. Finally, $\vol(\Gamma_0(q)\backslash G)=[\SL_2(\Z):\Gamma_0(q)]\vol(\SL_2(\Z)\backslash G)\gg q$.
+\end{proof}
+
+\begin{lemma}\label{lem:K2}
+Let $E\in\{4,8\}$, let $H\ge1$ be odd, and let $d\ge3$ be a prime with $d\nmid H$. Suppose that $N=EH$ is neither a square nor three times a square, and put $q=4Ed$. Let $\Qc\subseteq\{\fg\in\Qc_N:\ d\mid\gc\}$ be invariant under $\Gamma_0(q)$, and let $\alpha=\alpha_\Qc$ be as in Lemma~\ref{lem:param}. Then, for every function $k:G\to[0,1]$ with $k(g)\le\one\{u_1(g)\le1\}$,
+\[
+0\le\br{\alpha|K_qk|\alpha}\ll_\eta N^{1+\eta}\qquad\text{and}\qquad\frac{\br{1}_\alpha^2}{\vol(\Gamma_0(q)\backslash G)}\int_Gk(g)\,dg\ll_\eta N^{1+\eta}.
+\]
+\end{lemma}
+
+\begin{proof}
+For $\fg=\left(\begin{smallmatrix}\ga&\gb\\ \gb&\gc\end{smallmatrix}\right)$ let $\varphi_\fg(X,Y)=\ga X^2+2\gb XY+\gc Y^2$, and for $\gz\in\Lambda_N$ write $\sigma_1=\sigma_\gz$ and $z=z(\gz)=\sigma_\gz\cdot i$.
+
+\emph{Step 1: the number of $\tau$.} We claim that for every $\fg\in\Qc_N$,
+\begin{equation}\label{eq:ntau}
+\#\{\tau\in\Tc_q:\ \tau\diamond\fg\in\Qc\}\le12E\le96 .
+\end{equation}
+Let $\tau,\tau'\in\SL_2(\Z)$ have bottom rows $(c_0,d_0)$ and $(c_0',d_0')$ with $(c_0',d_0')\equiv\lambda(c_0,d_0)\pmod q$ for some integer $\lambda$. Then the bottom row of $\tau'\tau^{-1}$ is $\equiv(0,\lambda)\pmod q$, so $\Gamma_0(q)\tau'=\Gamma_0(q)\tau$. Hence the map sending $\tau\in\Tc_q$ to the point $(c_0:d_0)\in\mathbb P^1(\Z/q\Z)$ given by its bottom row is injective. By the Chinese remainder theorem, $\mathbb P^1(\Z/q\Z)=\mathbb P^1(\Z/4E\Z)\times\mathbb P^1(\mathbb F_d)$. The lower right entry of $\tau\diamond\fg$ is $\varphi_\fg(c_0,d_0)$, and $\tau\diamond\fg\in\Qc$ requires $d\mid\varphi_\fg(c_0,d_0)$, which depends only on the image of $(c_0:d_0)$ in $\mathbb P^1(\mathbb F_d)$. The form $\varphi_\fg$ does not vanish identically modulo $d$: otherwise $d^2\mid\ga\gc-\gb^2=N$, which is impossible because $d$ is odd and $d\nmid H$. So it has at most two zeros in $\mathbb P^1(\mathbb F_d)$. Since $\#\mathbb P^1(\Z/2^r\Z)=3\cdot2^{r-1}$, this gives \eqref{eq:ntau}.
+
+\emph{Step 2: reduction to a count of pairs.} By definition,
+\[
+\br{\alpha|K_qk|\alpha}=\frac14\sum_{\gz_1,\gz_2\in\Lambda_N}\ \sum_{\substack{\tau_1,\tau_2\in\Tc_q\\ \tau_i\diamond\gz_i\in\Qc}}\ \sum_{\gamma\in\Gamma_0(q)}k\bigl(\sigma_{\gz_1}^{-1}\tau_1^{-1}\gamma\tau_2\sigma_{\gz_2}\bigr),
+\]
+which is non-negative. By \eqref{eq:pointpair}, the summand is at most $\one\{u(\gamma\tau_2\cdot z_2,\tau_1\cdot z_1)\le1\}$, where $z_i=z(\gz_i)$. Fix $\tau_1$. The map $(\gamma,\tau_2)\mapsto g=\tau_1^{-1}\gamma\tau_2$ is a bijection from $\Gamma_0(q)\times\Tc_q$ onto $\SL_2(\Z)$. Under it, $u(\gamma\tau_2\cdot z_2,\tau_1\cdot z_1)=u(g\cdot z_2,z_1)$, and $\tau_2\diamond\gz_2\in\Qc$ if and only if $\gamma\tau_2\diamond\gz_2=\tau_1g\diamond\gz_2\in\Qc$. Therefore, by \eqref{eq:ntau},
+\[
+\br{\alpha|K_qk|\alpha}\le\frac{96}4\sum_{\gz_1,\gz_2\in\Lambda_N}\ \sum_{g\in\SL_2(\Z)}\one\{u(g\cdot z_2,z_1)\le1\}=48\sum_{\gz_1\in\Lambda_N}\#\bigl\{\gw\in\Qc_N:\ u(z(\gw),z(\gz_1))\le1\bigr\}.
+\]
+Here we used \eqref{eq:zg} and Lemma~\ref{lem:param}(a): as $\gz_2$ runs over $\Lambda_N$ and $g$ over $\SL_2(\Z)$, the matrix $\gw=g\diamond\gz_2$ runs over $\Qc_N$, taking each value twice, and $z(\gw)=g\cdot z_2$.
+
+\emph{Step 3: counting.} Let $\varrho_N(\gc)=\#\{\beta\bmod\gc:\ \beta^2+N\equiv0\pmod\gc\}$. As in Lemma~\ref{lem:rho}(b), $\varrho_N(\ell^i)\le2\ell^{\min(i,v_\ell(N))/2}$ for odd primes $\ell$. Similarly $\varrho_N(2^i)\le4\cdot2^{\min(i,v_2(N))/2}$. Indeed, for $i\le v_2(N)$ the solutions are the multiples of $2^{\lceil i/2\rceil}$. For $i>v_2(N)=:\alpha$ a solution has the form $\beta=2^{\alpha/2}\beta_1$, where $\beta_1$ is taken modulo $2^{i-\alpha/2}$ and $\beta_1^2\equiv-N2^{-\alpha}\pmod{2^{i-\alpha}}$; there are at most $4$ such $\beta_1$ modulo $2^{i-\alpha}$, each with $2^{\alpha/2}$ lifts. Hence $\varrho_N(\gc)\le4\cdot2^{\omega(\gc)}\gcd(\gc,N)^{1/2}$, and since $2^{\omega(i\gc')}\le\tau(i)\tau(\gc')$,
+\[
+\sum_{\gc\le y}\varrho_N(\gc)\le4\sum_{i\mid N}i^{1/2}\tau(i)\sum_{\gc'\le y/i}\tau(\gc')\ll y\log(2y)\,\tau(N)^2\ll_\eta yN^{\eta}\log(2y).
+\]
+A reduced $\gz$ satisfies $\gc^2\le\ga\gc=N+\gb^2\le N+\gc^2/4$, so $\gc\le2\sqrt{N/3}$, and $\gb$ lies in an interval of length $\gc$; hence $\#\Lambda_N\le2\sum_{\gc\le2\sqrt N}\varrho_N(\gc)\ll N^{1/2+2\eta}$.
+
+Now fix $\gz_1\in\Lambda_N$ with $z_1=x_1+iy_1$, so that $y_1\ge\sqrt3/2$, and let $\gw\in\Qc_N$ with $w=z(\gw)=x_w+iy_w$ and $u(w,z_1)\le1$, that is $|w-z_1|^2\le4y_wy_1$. Then $(y_w-y_1)^2\le4y_wy_1$, so $y_w/y_1\in[3-2\sqrt2,3+2\sqrt2]\subset[1/6,6]$. Also $(x_w-x_1)^2\le24y_1^2$. Since $y_w=\sqrt N/\gc$ and $x_w=\gb/\gc$, we get $\gc\le6\sqrt N/y_1<7\sqrt N$, and $\gb$ lies in an interval of length $10\gc y_1\le60\sqrt N$. Given $\gb$ and $\gc$, $\ga$ is determined. Therefore
+\[
+\#\{\gw:\ u(z(\gw),z_1)\le1\}\le\sum_{\gc\le7\sqrt N}\Bigl(\frac{60\sqrt N}{\gc}+1\Bigr)\varrho_N(\gc)\ll_\eta N^{1/2+2\eta},
+\]
+by partial summation. Together with the bound for $\#\Lambda_N$, this proves the first assertion after renaming $\eta$.
+
+For the second assertion, $\br{1}_\alpha\le\frac12\cdot96\cdot\#\Lambda_N\ll N^{1/2+2\eta}$ by \eqref{eq:ntau}, and $\vol(\Gamma_0(q)\backslash G)^{-1}\int_Gk\ll q^{-1}$ by Lemma~\ref{lem:K1}.
+\end{proof}
+
+\subsection{The Type I estimate}
+
+\begin{proposition}\label{prop:typeI}
+Let $E\in\{4,8\}$, let $H\ge1$ be odd, and let $d\ge3$ be a prime with $d\nmid H$. Suppose that $N=EH$ is neither a square nor three times a square, and put $q=4Ed$. Let $\kappa\in\{1,3\}$, $\Delta\ge1$, $X\ge N^{1/2}$ and $1\le K\le qX$. Let $\psi_1,\psi_2:\R\to\C$ be smooth, with $\psi_1$ supported in $[1,2]$ and $\psi_2$ supported in $[-1,1]$, and suppose that $\|\psi_i^{(\nu)}\|_\infty\le C_\nu\Delta^\nu$ for all $\nu\ge0$. Put
+\[
+\varrho_{E,H}(\mu)=\#\{\ell\bmod\mu:\ E\ell^2+H\equiv0\pmod\mu\}
+\]
+and
+\[
+\Xi=\sum_{\mu\equiv\kappa d\ (4d)}\psi_1\Bigl(\frac\mu K\Bigr)\Bigl(\sum_{\substack{\ell\in\Z\\ \mu\mid E\ell^2+H}}\psi_2\Bigl(\frac\ell X\Bigr)-\frac{\varrho_{E,H}(\mu)}{\mu}\,X\int_\R\psi_2(t)\,dt\Bigr).
+\]
+Then for every $\eta>0$ there is $C(\eta)$ such that
+\[
+\Xi\ll_\eta\Delta^{C(\eta)}(qXH)^{\eta}\,X^{1/2}H^{1/4}\Bigl(1+\frac{X}{dH^{1/2}}\Bigr)^{\theta},
+\]
+where the implied constant depends only on $\eta$ and on the $C_\nu$.
+\end{proposition}
+
+\begin{proof}
+We may assume that $\eta<1/4$. Write $\Gamma=\Gamma_0(q)$, $\varrho=\varrho_{E,H}$, and
+\[
+\mathfrak M=\sum_{\mu\equiv\kappa d\ (4d)}\psi_1\Bigl(\frac\mu K\Bigr)\frac{\varrho(\mu)}{\mu}\,X\int_\R\psi_2 .
+\]
+
+\emph{Step 1: Poisson summation.} Let $Y\ge1$ and let $\psi$ be smooth and supported in $[-1,1]$, with $\|\psi^{(\nu)}\|_\infty\le C_\nu\Delta^\nu$. Splitting $\ell$ into residue classes modulo $\mu$ and applying Poisson summation, we get
+\begin{equation}\label{eq:poisson}
+\sum_{\substack{\ell\in\Z\\ \mu\mid E\ell^2+H}}\psi\Bigl(\frac\ell Y\Bigr)=\frac Y\mu\sum_{h\in\Z}\hat\psi\Bigl(\frac{hY}{\mu}\Bigr)\sum_{\substack{\nu\bmod\mu\\ E\nu^2+H\equiv0\ (\mu)}}e\Bigl(\frac{h\nu}\mu\Bigr).
+\end{equation}
+The term $h=0$ equals $(Y/\mu)\varrho(\mu)\hat\psi(0)$. For $\xi\ne0$, integration by parts gives the bound $|\hat\psi(\xi)|\le2C_A\Delta^A(2\pi|\xi|)^{-A}$. Suppose that $K\le Y^{1-\eta}$. For $\mu\le2K$ and $h\ne0$ we then have $|hY/\mu|\ge|h|Y^{\eta}/2$. Using $\varrho(\mu)\le\mu$, we see that the terms with $h\ne0$ contribute, summed over $\mu\le2K$, at most
+\[
+\ll_A\Delta^A\sum_{\mu\le2K}Y\,Y^{-\eta A}\ll\Delta^AY^{2-\eta A}\le\Delta^AY^{-1}\qquad(A=\lceil3/\eta\rceil).
+\]
+
+If $K\le X^{1-\eta}$, we apply this with $Y=X$ and $\psi=\psi_2$. The terms $h=0$ give exactly $\mathfrak M$, so $\Xi\ll\Delta^{\lceil3/\eta\rceil}$, and we are done. From now on let $K>X^{1-\eta}$. Put $X_1=X$ and $X_2=K^{1/(1-\eta)}$, so that $X\le X_2\le(qX)^2$, and for $i\in\{1,2\}$ let
+\[
+\Xi_i=\sum_{\mu\equiv\kappa d\ (4d)}\psi_1\Bigl(\frac\mu K\Bigr)\sum_{\substack{\ell\in\Z\\ \mu\mid E\ell^2+H}}\frac X{X_i}\,\psi_2\Bigl(\frac\ell{X_i}\Bigr).
+\]
+Then $\Xi=\Xi_1-\Xi_2+(\Xi_2-\mathfrak M)$. Since $K=X_2^{1-\eta}$, Step~1 with $Y=X_2$ and $\psi=(X/X_2)\psi_2$ gives $\Xi_2-\mathfrak M\ll\Delta^{\lceil3/\eta\rceil}$.
+
+\emph{Step 2: passage to symmetric matrices.} Let
+\[
+\Qc^{\kappa}=\{\fg\in\Qc_N:\ \gb\equiv0\pmod E,\ \gc\equiv\kappa Ed\pmod{4Ed}\}.
+\]
+The map $(\mu,\ell)\mapsto\left(\begin{smallmatrix}(E\ell^2+H)/\mu&E\ell\\ E\ell&E\mu\end{smallmatrix}\right)$ is a bijection from the set of pairs $(\mu,\ell)\in\Z^2$ with $\mu\ge1$, $\mu\equiv\kappa d\pmod{4d}$ and $\mu\mid E\ell^2+H$ onto $\Qc^{\kappa}$. Indeed, the determinant of the image is $E(E\ell^2+H)-E^2\ell^2=N$. Conversely, for $\fg\in\Qc^\kappa$ write $\gb=E\ell$ and $\gc=E\mu$; then $\mu\equiv\kappa d\pmod{4d}$ and $\ga\mu=E\ell^2+H$.
+
+The set $\Qc^{\kappa}$ is $\Gamma$-invariant. Let $\gamma=\left(\begin{smallmatrix}\gamma_1&\gamma_2\\ \gamma_3&\gamma_4\end{smallmatrix}\right)\in\Gamma$, so that $q\mid\gamma_3$ and $\gamma_4$ is odd. The lower right entry of $\gamma\diamond\fg$ is $\gamma_3^2\ga+2\gamma_3\gamma_4\gb+\gamma_4^2\gc\equiv\gamma_4^2\gc\pmod q$. Moreover $\gamma_4^2\gc\equiv\gc\pmod{4Ed}$, because $4\mid\gamma_4^2-1$ and $Ed\mid\gc$. The off-diagonal entry is $\gamma_1\gamma_3\ga+(\gamma_1\gamma_4+\gamma_2\gamma_3)\gb+\gamma_2\gamma_4\gc\equiv0\pmod E$, because $E$ divides $\gamma_3$, $\gb$ and $\gc$.
+
+By hypothesis, $N$ is neither a square nor three times a square, so Lemma~\ref{lem:param} applies. Let $\alpha=\alpha_{\Qc^\kappa}$. For a real symmetric matrix $\mathfrak h=\left(\begin{smallmatrix}h_{11}&h_{12}\\ h_{12}&h_{22}\end{smallmatrix}\right)$ and $i\in\{1,2\}$ put
+\[
+F_{\diamond,i}(\mathfrak h)=\psi_1\Bigl(\frac{h_{22}N^{1/2}}{EK}\Bigr)\,\frac X{X_i}\,\psi_2\Bigl(\frac{h_{12}N^{1/2}}{EX_i}\Bigr),\qquad F_i(g)=F_{\diamond,i}(gg^t).
+\]
+If $\fg\in\Qc^\kappa$ corresponds to $(\mu,\ell)$, then $F_{\diamond,i}(N^{-1/2}\fg)=\psi_1(\mu/K)(X/X_i)\psi_2(\ell/X_i)$. Hence Lemma~\ref{lem:param} gives
+\[
+\Xi_i=\br{I|K_qF_i|\alpha}\qquad(i=1,2).
+\]
+Since $gg^t=\left(\begin{smallmatrix}*&x(g)/y(g)\\ x(g)/y(g)&1/y(g)\end{smallmatrix}\right)$, we have $F_i(g)=f_i(x(g)/\bX_i,\,y(g)/\bY)$ with
+\[
+\bY=\frac{N^{1/2}}{2EK},\qquad\bX_i=\frac{X_i}K,\qquad f_i(x',y')=\frac X{X_i}\,\psi_1\Bigl(\frac2{y'}\Bigr)\psi_2\Bigl(\frac{2x'}{y'}\Bigr).
+\]
+The function $f_i$ is supported in $[-1,1]\times[1,2]$, and $\partial_{x'}^{\nu_1}\partial_{y'}^{\nu_2}f_i\ll\Delta^{\nu_1+\nu_2}$ with implied constants depending only on the $C_\nu$. Moreover $\bX_i/\bY=2EX_i/N^{1/2}\ge2E>1$. Also, $F_i$ has compact support, because it is right $\mathrm{SO}(2)$-invariant and vanishes unless $g\cdot i$ lies in a fixed compact set.
+
+In the Iwasawa coordinates $g=\left(\begin{smallmatrix}1&x\\0&1\end{smallmatrix}\right)\left(\begin{smallmatrix}y^{1/2}&0\\0&y^{-1/2}\end{smallmatrix}\right)k$, $k\in\mathrm{SO}(2)$, Haar measure is a constant multiple of $y^{-2}\,dx\,dy\,dk$. Hence, for some constant $c_G>0$,
+\[
+\int_GF_i(g)\,dg=c_G\,\frac{\bX_i}{\bY}\iint f_i(x',y')\,\frac{dx'\,dy'}{y'^2}=c_G\,\frac{X}{K\bY}\iint\psi_1\Bigl(\frac2{y'}\Bigr)\psi_2\Bigl(\frac{2x'}{y'}\Bigr)\frac{dx'\,dy'}{y'^2},
+\]
+which does not depend on $i$. Therefore
+\begin{equation}\label{eq:difference}
+\Xi_1-\Xi_2=\br{I|\Delta_qF_1|\alpha}-\br{I|\Delta_qF_2|\alpha}.
+\end{equation}
+
+\emph{Step 3: application of Theorem~\ref{thm:GM}.} We apply Theorem~\ref{thm:GM} to $F_1$ and to $(X_2/X)F_2$, with $\delta=1/(2\Delta)$, $Z_1=q$, $Z_2=1$ and $Z_0=\max\{1,(\bX_i/\bY+1)/q\}$. By Lemma~\ref{lem:K2}, applied to $\Qc^\kappa\subseteq\{\fg:\ d\mid\gc\}$ and $k=k_{1,1}$,
+\[
+|\br{\alpha|\Delta_qk_{1,1}|\alpha}|\le\br{\alpha|K_qk_{1,1}|\alpha}+\frac{\br1_\alpha^2}{\vol(\Gamma\backslash G)}\int_Gk_{1,1}\ll N^{1+\eta}.
+\]
+By Lemma~\ref{lem:K1} with $Y=q^2$ and $R=\bX_i$,
+\[
+|\br{I|\Delta_qk_{q^2,\bX_i}|I}|\le\sum_{\gamma\in\Gamma}k_{q^2,\bX_i}(\gamma)+\frac{1}{\vol(\Gamma\backslash G)}\int_Gk_{q^2,\bX_i}\ll\Bigl(1+\bX_i+1+\frac1{q\bX_i}\Bigr)(q^2+\bX_i^{-1})^{\eta}.
+\]
+For $i=1$ we have $q^{-1}\le\bX_1=X/K\le X^{\eta}$, because $X^{1-\eta}<K\le qX$. For $i=2$ we have $1\le\bX_2=K^{\eta/(1-\eta)}\le(qX)^{2\eta}$. In both cases the last bound is $\ll(qX)^{4\eta}$.
+
+For $i=1$, Theorem~\ref{thm:GM} therefore gives
+\[
+\br{I|\Delta_qF_1|\alpha}\ll\Delta^{O(1)}(qXN)^{5\eta}\Bigl(\frac{X}{N^{1/2}}\Bigr)^{1/2}Z_0^{\theta}N^{1/2}=\Delta^{O(1)}(qXN)^{5\eta}X^{1/2}N^{1/4}Z_0^\theta .
+\]
+Since $X\ge N^{1/2}$ and $N^{1/2}\ge2H^{1/2}$, here
+\[
+Z_0\le1+\frac{2EX/N^{1/2}+1}{q}\le1+\frac{3EX}{qN^{1/2}}=1+\frac{3X}{4dN^{1/2}}\le1+\frac X{dH^{1/2}} .
+\]
+For $i=2$ we obtain in the same way, using $X_2\le(qX)^2$ and $Z_0\le1+3EX_2/(qN^{1/2})\le(X_2/X)(1+X/(dH^{1/2}))$,
+\[
+\br{I|\Delta_qF_2|\alpha}\ll\frac X{X_2}\,\Delta^{O(1)}(qXN)^{9\eta}\Bigl(\frac{X_2}{N^{1/2}}\Bigr)^{1/2}\Bigl(\frac{X_2}X\Bigr)^{\theta}\Bigl(1+\frac X{dH^{1/2}}\Bigr)^\theta N^{1/2}.
+\]
+This is the bound for $i=1$ multiplied by $(qXN)^{4\eta}(X/X_2)^{1/2-\theta}\le(qXN)^{4\eta}$, as $\theta<1/2$. By \eqref{eq:difference} and Step~1, and since $N\le8H$, the proposition follows after renaming $\eta$.
+\end{proof}
+
+\begin{remark}\label{rem:typeI}
+For $X<K\le qX$ the moduli exceed the length of the $\ell$-sum. Throughout the range $K\le qX$, Proposition~\ref{prop:typeI} gives square-root cancellation in $X$, with a loss $H^{1/4}$ that does not depend on $K$. The condition $K\le qX$ ensures $q\bX_1\ge1$, so that the choice $Z_1=q$ costs nothing in Lemma~\ref{lem:K1}. Proposition~\ref{prop:typeI} is a single-level analogue, with a residue class condition on the moduli, of the case $D=1$ of \cite[Theorem~1.4]{GM}, where the bound is $X^{1/2}(1+h^{1/4})(1+X/(1+h^{1/2}))^\theta$. When the estimate is averaged over levels $d\le D$, as in \cite[Theorem~1.4]{GM}, the total bound is $D^{1/2}X^{1/2}(D^{1/2}+h^{1/4})(\cdots)^\theta$. For $h\ge D^2$ this saves a factor $D^{1/2}$ for each level, through the divisor-switching argument discussed in Remark~\ref{rem:exponent}. That saving is not available here, because our polynomials change with $d$.
+\end{remark}
+
+\section{\texorpdfstring{The asymptotic formula for $\Sigma_d(x)$}{The asymptotic formula for Sigma\_d(x)}}\label{sec:asymp}
+
+Throughout this section $d$ is a good prime, $m=m_d$, $H=H_d$, $N=EH$, $q=4Ed$, $0<\eps<1/100$, and
+\begin{equation}\label{eq:range}
+d\le x^{1/4},\qquad x\ge x_0(a,b,\eps).
+\end{equation}
+
+\begin{proposition}\label{prop:asymp}
+Under \eqref{eq:range},
+\[
+\Sigma_d(x)=\frac{32\,c_F\,\Lf_d}{2^j}\sqrt{\frac xd}+O\bigl(x^{1/4+\eps}d^{1/2+\eps}+x^{1/4+\theta/2+\eps}d^{3/4-3\theta/2}\bigr).
+\]
+\end{proposition}
+
+\subsection{Set-up}
+For real $t$ put $T(t)=2^{v-2}(Et^2+H)/d$, so that $T(\ell)=T_d(\ell)$, and let $X>0$ be defined by $T(X)=x$. Since $T(0)=m/(4d)\le d/2$,
+\begin{equation}\label{eq:Xsize}
+\frac{dx}{2^{v-1}E}\le X^2\le\frac{dx}{2^{v-2}E}.
+\end{equation}
+In particular $X\asymp(dx)^{1/2}$, and $X\ge N^{1/2}$ because $N\le2Ed^2$. For $y>0$ and $t\in\R$ put
+\[
+\Phi_y(t)=F\bigl(T(t)/x\bigr)\,W\Bigl(\frac{2^{(v-2)/2}y}{\sqrt{T(t)}}\Bigr).
+\]
+
+Let $\ell\in\Z$ with $d\mid E\ell^2+H$. By \S\ref{sec:good}, $T(\ell)=2^{v-2}T'$ with $T'\equiv1\pmod 4$, so Lemma~\ref{lem:hyperbola} applies with $s=v-2$. For odd $k$ we have $k\mid T(\ell)$ if and only if $k\mid T'$, that is, if and only if $dk\mid E\ell^2+H$, since $E\ell^2+H=dT'$. Hence
+\begin{equation}\label{eq:Sigma2}
+\Sigma_d(x)=8\sum_{k\ \mathrm{odd}}\chi(k)\sum_{\substack{\ell\in\Z\\ dk\mid E\ell^2+H}}\Phi_k(\ell).
+\end{equation}
+Only $k<k_+:=2^{1-(v-2)/2}\sqrt x$ contribute, because $W(t)=0$ for $t\ge2$ and $T(t)\le x$ on the support of $F(T(t)/x)$. We put
+\begin{equation}\label{eq:ME}
+\mathcal M_d=8\sum_{k\ \mathrm{odd}}\chi(k)\,\frac{\varrho(dk)}{dk}\int_\R\Phi_k(t)\,dt,\qquad\mathcal E_d=\Sigma_d(x)-\mathcal M_d .
+\end{equation}
+By Lemma~\ref{lem:rho}(a), $\varrho(dk)=\varrho_{E,H}(dk)$ for odd $k$.
+
+\subsection{The main term}
+
+\begin{lemma}\label{lem:main}
+$\mathcal M_d=\dfrac{32\,c_F\,\Lf_d}{2^j}\sqrt{\dfrac xd}+O(x^{1/4+\eps}d^{1/2+\eps})$.
+\end{lemma}
+
+\begin{proof}
+Since $\varrho(dk)=2f(k)$ for odd $k$ and the sum over $k$ is finite,
+\[
+\mathcal M_d=\frac{16}{d}\int_\R F\bigl(T(t)/x\bigr)\,G\bigl(2^{-(v-2)/2}\sqrt{T(t)}\bigr)\,dt,\qquad G(y):=\sum_{k\ge1}\frac{\chi(k)f(k)}k\,W(k/y).
+\]
+By \eqref{eq:omega}, partial summation and Lemma~\ref{lem:L}(b),
+\[
+\Lf_d-G(y)=-\int_{y/2}^\infty A(u)\,\frac{d}{du}\Bigl(\frac{1-W(u/y)}u\Bigr)du\ll y^{-1/2+\eps}d^{1+\eps}\qquad(y\ge1).
+\]
+On $t>0$ we substitute $T=T(t)$. Since $2^{v-1}E=2^{2j-1}$ and $2^{v-2}H=m/4$, we have $dT/dt=2^{2j-1}t/d$ and $2^{j}t=\sqrt{4dT-m}$, so $dt=2^{1-j}d\,dT/\sqrt{4dT-m}$. As the integrand is even in $t$,
+\[
+\mathcal M_d=\frac{64}{2^j}\int_{x/2}^x\frac{F(T/x)\,G\bigl(\sqrt{T/2^{v-2}}\bigr)}{\sqrt{4dT-m}}\,dT .
+\]
+Replacing $G$ by $\Lf_d$ costs $\ll2^{-j}\int_{x/2}^xx^{-1/4+\eps}d^{1+\eps}(dT)^{-1/2}dT\ll x^{1/4+\eps}d^{1/2+\eps}$. Replacing $(4dT-m)^{-1/2}$ by $(4dT)^{-1/2}$ costs $\ll|\Lf_d|\,x\,m\,(dx)^{-3/2}\ll d^{3/2+\eps}x^{-1/2}$, using $|\Lf_d|\ll d^{1+\eps}$. Finally $\int F(T/x)(4dT)^{-1/2}dT=c_F\sqrt x/(2\sqrt d)$.
+\end{proof}
+
+\subsection{The error term}
+
+\begin{lemma}\label{lem:error}
+$\mathcal E_d\ll x^{1/4+\theta/2+\eps}d^{3/4-3\theta/2}$.
+\end{lemma}
+
+\begin{proof}
+Fix a smooth $\psi_0\ge0$ supported in $[1,2]$ with $\sum_{i\in\Z}\psi_0(t/2^{i/2})=1$ for all $t>0$. For instance, take a smooth $\phi\ge0$ supported in $[1,2]$ and positive on $(1,2)$, and put $\psi_0=\phi/\sum_i\phi(\cdot/2^{i/2})$. Let $\mathcal K=\{2^{i/2}:\ i\in\Z,\ 2^{i/2}\ge1/2\}$, so that $\sum_{K\in\mathcal K}\psi_0(k/K)=1$ for every integer $k\ge1$. Writing $\chi(k)=\sum_{\kappa\in\{1,3\}}\chi(\kappa)\one\{k\equiv\kappa\ (4)\}$, we get from \eqref{eq:Sigma2} and \eqref{eq:ME}
+\[
+\mathcal E_d=8\sum_{K\in\mathcal K}\sum_{\kappa\in\{1,3\}}\chi(\kappa)\,\mathcal E(K,\kappa),
+\]
+where
+\[
+\mathcal E(K,\kappa)=\sum_{k\equiv\kappa\ (4)}\psi_0\Bigl(\frac kK\Bigr)\Bigl(\sum_{\substack{\ell\in\Z\\ dk\mid E\ell^2+H}}\Phi_k(\ell)-\frac{\varrho(dk)}{dk}\int_\R\Phi_k(t)\,dt\Bigr).
+\]
+If $K\ge k_+$ then $\mathcal E(K,\kappa)=0$, because $\Phi_k=0$ for $k\ge k_+$. So only $O(\log x)$ values of $K$ contribute. Put $k_-=2^{-3-(v-2)/2}\sqrt x$.
+
+Write $\mu=dk$. Then $k\equiv\kappa\pmod 4$ if and only if $\mu\equiv\kappa d\pmod{4d}$, and $\psi_0(k/K)=\psi_0(\mu/(dK))$. Let $\psi_2(s)=F(T(Xs)/x)$. Since $T(Xs)/x=\alpha s^2+1-\alpha$ with $\alpha=EX^2/(EX^2+H)\in[\frac12,1]$, the function $\psi_2$ is supported in $[-1,1]$, and its derivatives are bounded in terms of $F$.
+
+\emph{The case $K\le k_-$.} If $\psi_0(k/K)\ne0$ and $F(T(t)/x)\ne0$, then $2^{(v-2)/2}k/\sqrt{T(t)}\le2^{(v-2)/2}\cdot2k_-/\sqrt{x/2}=2^{-3/2}<1/2$. Hence $W(\cdot)=1$ and $\Phi_k(t)=\psi_2(t/X)$. Thus $\mathcal E(K,\kappa)$ is the sum $\Xi$ of Proposition~\ref{prop:typeI}, with $K$ replaced by $dK$, $\psi_1=\psi_0$, $\psi_2$ as above and $\Delta=1$.
+
+\emph{The case $k_-<K<k_+$.} Let $\widetilde W(w)=\int_0^\infty W(y)y^{w-1}\,dy$ for $\operatorname{Re}w>0$. Since $W'$ is supported in $[\frac12,2]$, integration by parts gives $\widetilde W(w)=-w^{-1}\int W'(y)y^{w}\,dy$, and repeating it gives $|\widetilde W(w)|\ll_A(1+|w|)^{-A}$ for $\operatorname{Re}w=1$. By Mellin inversion, $W(y)=\frac1{2\pi i}\int_{(1)}\widetilde W(w)y^{-w}\,dw$ for $y>0$. Hence, whenever $\psi_0(k/K)\ne0$,
+\[
+\psi_0\Bigl(\frac kK\Bigr)\Phi_k(t)=\frac1{2\pi i}\int_{(1)}\widetilde W(w)\,\psi_{1,w}\Bigl(\frac kK\Bigr)\psi_{2,w}\Bigl(\frac tX\Bigr)dw,
+\]
+where
+\[
+\psi_{1,w}(s)=\psi_0(s)s^{-w},\qquad\psi_{2,w}(s)=\psi_2(s)\,(\alpha s^2+1-\alpha)^{w/2}\Bigl(\frac{\sqrt x}{2^{(v-2)/2}K}\Bigr)^{w}.
+\]
+For $\operatorname{Re}w=1$ we have $|(\sqrt x/(2^{(v-2)/2}K))^w|=\sqrt x/(2^{(v-2)/2}K)\le8$, and $\alpha s^2+1-\alpha\in[\frac12,1]$ on the support of $\psi_2$. So $\|\psi_{i,w}^{(\nu)}\|_\infty\ll_\nu(1+|w|)^\nu$ for $i=1,2$. We insert this into $\mathcal E(K,\kappa)$, interchange the finite sums with the integral, and use $\int_\R\psi_{2,w}(t/X)\,dt=X\int_\R\psi_{2,w}$. This gives
+\[
+\mathcal E(K,\kappa)=\frac1{2\pi i}\int_{(1)}\widetilde W(w)\,\Xi_w\,dw,
+\]
+where $\Xi_w$ is the sum of Proposition~\ref{prop:typeI} with $K$ replaced by $dK$, $\psi_1=\psi_{1,w}$, $\psi_2=\psi_{2,w}$ and $\Delta=1+|w|$.
+
+\emph{Application of Proposition~\ref{prop:typeI}.} The hypotheses hold. By \S\ref{sec:good}, $H$ is odd, $d\nmid H$, and $N$ is neither a square nor three times a square. We have $X\ge N^{1/2}$, and $1\le dK\le dk_+\le qX$ by \eqref{eq:Xsize}. Moreover $q\ll d$, $H\asymp d^2$, and by \eqref{eq:Xsize} and \eqref{eq:range}
+\[
+X^{1/2}H^{1/4}\asymp x^{1/4}d^{3/4},\qquad\frac X{dH^{1/2}}\asymp x^{1/2}d^{-3/2}\ge1 .
+\]
+Proposition~\ref{prop:typeI} with $\eta$ small in terms of $\eps$ therefore gives, in both cases,
+\[
+\Xi_w\ll(1+|w|)^{C}x^{1/4+\theta/2+\eps/2}d^{3/4-3\theta/2}
+\]
+for some constant $C$, and the same bound for $\Xi$. Integrating against $|\widetilde W(w)|$ and summing over the $O(\log x)$ values of $K$ and the two values of $\kappa$ proves the lemma.
+\end{proof}
+
+Proposition~\ref{prop:asymp} follows from Lemmas~\ref{lem:main} and~\ref{lem:error}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:Sigma}]
+Let $\varpi<\varpi_\theta$ and let $d\le x^{\varpi}$ be a good prime. Since $\varpi_\theta\le1/5$, \eqref{eq:range} holds. By Lemma~\ref{lem:L}(d), the main term in Proposition~\ref{prop:asymp} is $\ge c(\eps)\,x^{1/2}d^{-1/2-\eps}$. The error terms are smaller by a factor
+\[
+\ll x^{-1/4+\eps}d^{1+2\eps}+x^{-1/4+\theta/2+\eps}d^{5/4-3\theta/2+\eps}\le x^{-1/4+\eps+\varpi(1+2\eps)}+x^{-1/4+\theta/2+\eps+\varpi(5/4-3\theta/2+\eps)}.
+\]
+Both exponents are negative once $\eps$ is small enough in terms of $\varpi$ and $\theta$: the first because $\varpi<1/4$, and the second because $\varpi(5/4-3\theta/2)<1/4-\theta/2$.
+\end{proof}
+
+This completes the proof of Theorem~\ref{thm:main}.
+
+\section{Remarks}\label{sec:remarks}
+
+\begin{remark}[The exponent and the main obstruction]\label{rem:exponent}
+The exponent comes from comparing the error term $x^{1/4+\theta/2}d^{3/4-3\theta/2}$ in Proposition~\ref{prop:asymp} with the main term $x^{1/2}d^{-1/2}$. In Proposition~\ref{prop:typeI} the factor $H^{1/4}\asymp d^{1/2}$ comes from the bound $N^{1+\eta}$ in Lemma~\ref{lem:K2}. For the count of pairs in Step~3 of its proof this bound is essentially sharp. Since a disc $\{w:\ u(w,z)\le1\}$ has hyperbolic area $4\pi$ and a fundamental domain for $\SL_2(\Z)$ has area $\pi/3$, the equidistribution of Heegner points \cite{Du88} suggests that there are about $12(\#\Lambda_N)^2=N^{1+o(1)}$ pairs $(\gz,\gw)\in\Lambda_N\times\Qc_N$ with $u(z(\gw),z(\gz))\le1$, and the computations in \S\ref{sec:numerics} confirm this.
+
+The kernel $\br{\alpha|K_qk|\alpha}$ itself is much smaller. In Step~2 of the proof of Lemma~\ref{lem:K2} we discarded the condition $\tau_1g\diamond\gz_2\in\Qc$. Together with $\tau_1\diamond\gz_1\in\Qc$, it implies that the binary forms of $\gz_1$ and $\gw=g\diamond\gz_2$ have a common zero in $\mathbb P^1(\mathbb F_d)$, and this happens for only about $4/d$ of the pairs (\S\ref{sec:numerics}). In the examples of \S\ref{sec:numerics}, the exact value of $\br{\alpha|K_qk|\alpha}$ for $k=\one\{u_1\le1\}$ is at most twice the diagonal contribution $\br{1}_\alpha$, which is $O(N^{1/2+o(1)})$. In \cite{GM}, where the polynomial is fixed and the level varies, the analogous congruence is exploited by summing over the level with a divisor bound \cite[Proposition~4.1]{GM}; at a single level this is not possible. A bound $N^{1+\eta}/d+N^{1/2+\eta}$ in Lemma~\ref{lem:K2} would improve Proposition~\ref{prop:typeI} by a factor $d^{-1/2}$. Together with an easy improvement of the error term in Lemma~\ref{lem:main}, this would give $\varpi<1/3$ and $\delta<1/6$ for every $\theta<1/2$. For that improvement, shift the contour in the Mellin integral representing $G(y)$ to $\operatorname{Re}w=-1/2+\eps$ and use the convexity bound for $L(s,\psi)$; this gives $\Lf_d-G(y)\ll y^{-1/2+\eps}d^{1/2+\eps}$. A bound of this kind for the kernel amounts to a pair-correlation statement for Heegner points of discriminant $-4N$ on $X_0(d)$ at the scale of their mean spacing. This seems out of reach; compare \cite{Du88} for equidistribution at a fixed scale.
+
+The exponent $1/6$ is in any case the limit for arguments that treat the primes $d$ separately. For $d>x^{1/3}$ the polynomial $T_d$ takes fewer than $d$ values up to $x$, fewer than the number $h(-4N_d)=N_d^{1/2+o(1)}$ of classes of forms that govern its roots. Going beyond requires averaging over $d$. For the patterns with $B=1$, such as $\{0,1,2\}$, this is a question about the equidistribution, in residue classes, of norms of hyperbolic lattice points; see \cite[Remarks~8.1 and~8.5]{I} and \cite{FI09}.
+\end{remark}
+
+\begin{remark}[Why the hyperbola method is kept]\label{rem:complementary}
+One might try to evaluate $\Sigma_d(x)$ without Lemma~\ref{lem:hyperbola}, by applying Proposition~\ref{prop:typeI} to all divisors of $T'=(E\ell^2+H)/d$. The moduli would then go up to about $X^2$, far beyond the range $K\le qX$ of Proposition~\ref{prop:typeI}, and in that range no estimate of this kind can hold. Indeed, the moduli $\mu=E\ell^2+H$, with complementary divisor $1$, all satisfy $\mu\equiv H\pmod 4$, so they lie in only one of the two classes $\kappa$. For $K\asymp X^2$ about $X/d$ of them lie in $[K,2K]$ and are divisible by $d$, which is the size of the expected main term. The hyperbola identity avoids such moduli. It needs $T$ to be $2^{v-2}$ times a number $\equiv1\pmod 4$ for all $\ell$ in a lattice, and this is what forces the $2$-adic analysis of \S\ref{sec:2adic}.
+\end{remark}
+
+\begin{remark}[Weyl sums uniformly in the discriminant]\label{rem:DFI}
+Duke, Friedlander and Iwaniec \cite[Theorem~1.1]{DFI12} bound the sums
+\[
+\sum_{c\equiv0\ (q)}f(c)\sum_{\substack{b\bmod c\\ b^2\equiv D\ (c)}}e\Bigl(\frac{hb}c\Bigr),
+\]
+for $f$ supported on $[Y,2Y]$, by $h^{1/4}(Y+h\sqrt D)^{3/4}D^{1/8-1/1331}$. The bound is uniform in the positive fundamental discriminant $D$ and in $q$, and by \cite[\S16]{DFI12} the same holds for negative fundamental discriminants. Its strength is the uniformity in $D$, which makes it non-trivial even for $Y$ somewhat smaller than $\sqrt D$. In our application the moduli are odd, and the relevant discriminant is $-EH_d$, that is, $-4H_d$ or $-8H_d$. It has size $d^2$, and it is fundamental exactly when $H_d$ is squarefree, although Duke, Friedlander and Iwaniec note that non-fundamental discriminants can also be treated. The moduli go up to $d\sqrt x$, far beyond $\sqrt D$. In this range the bound saves the same power $Y^{1/4}$ as the estimate obtained from Weil's bound in \cite[Proposition~6.3]{I}, so it would not improve the exponent of \cite{I} significantly. The method of \cite{DFI95,DFI12}, in which the roots are parametrised by quadratic forms and the resulting automorphic kernels are analysed spectrally, is the starting point of \cite{GM1,GM} and hence of the present paper.
+\end{remark}
+
+\begin{remark}[Effectivity]\label{rem:effective}
+Siegel's theorem enters only through Lemma~\ref{lem:L}(d), and it can be avoided. Let $s$ be the squarefree part of $m_d$. By the Landau--Page theorem, at most one primitive real character $\psi'$ of conductor $\ll x^{2\varpi}$ has $L(1,\psi')<c_{\mathrm{LP}}/\log x$, for a suitable absolute constant $c_{\mathrm{LP}}>0$. The primitive character attached to $d$ depends only on $s$. For fixed $s$, the equation $(d+c)^2-sy^2=-4A(B-A)$ has $O(\log x)$ solutions with $0<d\le x$, by the theory of Pell equations. Discarding these $O(\log x)$ primes $d$ leaves $\Lf_d\gg(\log x)^{-1}(\log\log x)^{-2}$ effectively. The other inputs, in particular Theorem~\ref{thm:GM} and the Kim--Sarnak bound, are effective.
+\end{remark}
+
+\begin{remark}[Correlations of $r$]\label{rem:correlation}
+Let $n$ arise from some $(d,\ell)$ in \eqref{eq:Sigma}. By the proof of Lemma~\ref{lem:split}, no prime $\ell'\equiv3\pmod4$ divides both $P$ and $P+B$. Since $r/4$ is multiplicative, it follows that $r(P(P+B))\le\frac14r(P)r(P+B)$. Combined with Lemma~\ref{lem:mult} and Proposition~\ref{prop:reduction}, this gives
+\[
+\sum_{d\ \mathrm{good}}\Sigma_d(x)\le\frac14\sum_{n\le x}r(n)\,r(n+a)\,r(n+b).
+\]
+Hence $\sum_{n\le x}r(n)r(n+a)r(n+b)\gg x^{1/2+\delta}$ for every $\delta<\delta_\theta$. Conjecturally this correlation is $\asymp x$.
+\end{remark}
+
+\section{Numerical checks}\label{sec:numerics}
+
+The computations reported here were carried out with the scripts that accompany this manuscript.
+
+\emph{The $2$-adic set-up.} For each of the $3725$ patterns $\{0,a,b\}$ with $b\le100$ and $a$ or $b$ odd, we chose $(p_0,B,A)$ by Table~\ref{tab:choice}, constructed $n_*$ as in the proof of Lemma~\ref{lem:nstar}, and computed $t_*$, $d_*$, $v$ and $d_0$ as in the proof of Proposition~\ref{prop:seed}. We then checked the conclusion of Proposition~\ref{prop:seed} for $40$ random pairs $(d,u)$ with $d\equiv d_0\pmod{2^J}$ and $u\equiv0\pmod{2^j}$ for each pattern. There were no failures. Table~\ref{tab:seeds} lists some of the data.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{crrrrrrrrl}
+\toprule
+pattern & $p_0$ & $B$ & $A$ & $n_*$ & $v$ & $J$ & $d_0$ & $E$ & $m_d$\\
+\midrule
+$\{0,1,2\}$ & $0$ & $1$ & $2$ & $16$ & $3$ & $5$ & $25$ & $8$ & $d^2+6d+1$\\
+$\{0,1,3\}$ & $0$ & $3$ & $1$ & $1$ & $3$ & $5$ & $1$ & $8$ & $d^2-2d+9$\\
+$\{0,2,3\}$ & $2$ & $1$ & $-2$ & $20$ & $3$ & $5$ & $21$ & $8$ & $d^2-10d+1$\\
+$\{0,1,4\}$ & $0$ & $1$ & $4$ & $16$ & $4$ & $6$ & $25$ & $4$ & $d^2+14d+1$\\
+$\{0,3,8\}$ & $0$ & $3$ & $8$ & $77$ & $2$ & $4$ & $5$ & $4$ & $d^2+26d+9$\\
+$\{0,5,8\}$ & $0$ & $5$ & $8$ & $320$ & $5$ & $7$ & $53$ & $8$ & $d^2+22d+25$\\
+\bottomrule
+\end{tabular}
+\caption{The data of Lemmas~\ref{lem:choice} and~\ref{lem:nstar} and Proposition~\ref{prop:seed} for some patterns.}
+\label{tab:seeds}
+\end{table}
+
+\emph{The main term.} Table~\ref{tab:main} compares the sums $\Sigma_d^+(x)$, defined as in \eqref{eq:Sigma} but over $\ell\ge1$ only, with half of the main term of Proposition~\ref{prop:asymp}, at $x=10^{13}$. For each pattern we took the first good prime $d>d_1$ and the first good prime $d>1000$. We used $F(t)=\exp\bigl(-1/(20(t-\frac12)(1-t))\bigr)$ for $\frac12<t<1$, for which $c_F=0.16684$. The constant $\Lf_d$ was evaluated as $L(1,\chi)L(1,\psi)\mathcal P_d$ (Lemma~\ref{lem:L}(c)), with $L(1,\psi)$ computed from the rapidly convergent series supplied by the functional equation. The last column gives the corresponding ratio for the sharp cut-off, that is, for $\sum_{\ell\ge1}r(T_d(\ell))$ over $T_d(\ell)\le x$, compared with the same formula with $c_F$ replaced by $2$; this case is not covered by Proposition~\ref{prop:asymp}. In all these computations every $T_d(\ell)$ was an integer of the form $2^{v-2}T'$ with $T'\equiv1\pmod 4$, as Proposition~\ref{prop:seed} predicts, and $P,P+B\in\Sc$ in every case, as Lemma~\ref{lem:split} predicts.
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{crrrrcc}
+\toprule
+pattern & $d$ & $\#\{\ell\}$ & $\Sigma^+_d(x)$ & main term$/2$ & ratio & sharp ratio\\
+\midrule
+$\{0,1,2\}$ & 89 & 167\,600 & 51\,778 & 51\,150 & 1.012 & 1.004\\
+ & 1049 & 48\,818 & 13\,851 & 13\,544 & 1.023 & 1.013\\
+$\{0,1,3\}$ & 97 & 160\,540 & 47\,194 & 47\,438 & 0.995 & 0.997\\
+ & 1153 & 46\,564 & 8\,362 & 8\,280 & 1.010 & 1.012\\
+$\{0,2,3\}$ & 53 & 217\,186 & 90\,690 & 90\,209 & 1.005 & 1.002\\
+ & 1013 & 49\,678 & 28\,238 & 28\,206 & 1.001 & 1.004\\
+$\{0,1,4\}$ & 89 & 167\,600 & 58\,831 & 58\,606 & 1.004 & 1.001\\
+ & 1049 & 48\,818 & 16\,275 & 16\,162 & 1.007 & 1.008\\
+$\{0,5,8\}$ & 181 & 58\,763 & 22\,534 & 22\,796 & 0.989 & 1.002\\
+ & 1973 & 17\,798 & 12\,985 & 13\,142 & 0.988 & 0.992\\
+\bottomrule
+\end{tabular}
+\caption{The sums $\Sigma^+_d(x)$ at $x=10^{13}$ compared with half of the main term $32c_F\Lf_d2^{-j}\sqrt{x/d}$ of Proposition~\ref{prop:asymp}. Here $\#\{\ell\}$ is the number of $\ell\ge1$ with $d\mid E\ell^2+H_d$ and $T_d(\ell)\le x$.}
+\label{tab:main}
+\end{table}
+
+\emph{Type I sums.} We computed the sums $\Xi$ of Proposition~\ref{prop:typeI} for $(E,H)=(8,1057)$ and $(8,10081)$, which come from the pattern $\{0,1,2\}$ with $d=89$ and $d=281$, and for $(E,H)=(8,285)$ and $(8,3869)$, which come from $\{0,2,3\}$ with $d=53$ and $d=181$. We took $\psi_1(t)=\phi(2t-3)$ and $\psi_2=\phi$ with $\phi(t)=\exp(-1/(1-t^2))$, $X=2\cdot10^6$, $\kappa\in\{1,3\}$, and $K=2^{i/2}X$ for $0\le i\le2\log_2d$. In all cases $|\Xi|\le0.03\,X^{1/2}H^{1/4}$; the maxima of $|\Xi|/(X^{1/2}H^{1/4})$ were $0.024$, $0.003$, $0.028$ and $0.003$. The largest values of $|\Xi|$ occur for $K$ close to $X$. For $K\ge4X$ we always found $|\Xi|$ at most the square root of the main term $\mathfrak M$, which is roughly the number of terms. This suggests that the loss $H^{1/4}$ in Proposition~\ref{prop:typeI} is a feature of the method (Remark~\ref{rem:exponent}).
+
+\emph{Pairs of Heegner points.} For $N=EH_d$ with the pattern $\{0,1,2\}$ and $d\in\{89,281,409\}$, and with the pattern $\{0,2,3\}$ and $d\in\{53,181,373\}$, we counted the pairs $(\gz,\gw)\in\Lambda_N\times\Qc_N$ with $u(z(\gw),z(\gz))\le1$; this is the quantity bounded in Step~3 of the proof of Lemma~\ref{lem:K2}. The number of pairs lay between $4.5N$ and $61N$, and in each case it agreed with $12(\#\Lambda_N)^2$ to within $1.5\%$, as equidistribution predicts (Remark~\ref{rem:exponent}). The number of pairs whose binary forms have a common zero in $\mathbb P^1(\mathbb F_d)$ was between $3.6/d$ and $4.1/d$ times the number of all pairs. Finally, for $(E,H,d)=(8,1057,89)$, $(8,285,53)$ and $(8,3869,181)$ and both values of $\kappa$, we computed the exact value of $\br{\alpha|K_qk|\alpha}$ in Lemma~\ref{lem:K2}, for $\Qc=\Qc^\kappa$ and $k=\one\{u_1\le1\}$, by means of the unfolding in Step~2 of its proof. The values are $416$, $64$ and $144$, against the diagonal contributions $\br1_\alpha=224$, $64$ and $144$ and against $N=8456$, $2280$ and $30952$. At most $8$ cosets $\tau$ satisfied $\tau\diamond\gz\in\Qc^\kappa$, against the bound $12E=96$ of \eqref{eq:ntau}.
+
+\begin{thebibliography}{99}
+
+\bibitem{CD} T.~Cochrane and R.~E.~Dressler, \emph{Consecutive triples of sums of two squares}, Arch. Math. (Basel) \textbf{49} (1987), 301--304.
+
+\bibitem{Da} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Graduate Texts in Mathematics 74, Springer, 2000.
+
+\bibitem{Du88} W.~Duke, \emph{Hyperbolic distribution problems and half-integral weight Maass forms}, Invent. Math. \textbf{92} (1988), 73--90.
+
+\bibitem{DFI95} W.~Duke, J.~B.~Friedlander and H.~Iwaniec, \emph{Equidistribution of roots of a quadratic congruence to prime moduli}, Ann. of Math. (2) \textbf{141} (1995), 423--441.
+
+\bibitem{DFI12} W.~Duke, J.~B.~Friedlander and H.~Iwaniec, \emph{Weyl sums for quadratic roots}, Int. Math. Res. Not. IMRN \textbf{2012}, no.~11, 2493--2549.
+
+\bibitem{FKR} T.~Freiberg, P.~Kurlberg and L.~Rosenzweig, \emph{Poisson distribution for gaps between sums of two squares and level spacings for toral point scatterers}, Commun. Number Theory Phys. \textbf{11} (2017), 837--877.
+
+\bibitem{FI09} J.~Friedlander and H.~Iwaniec, \emph{Hyperbolic prime number theorem}, Acta Math. \textbf{202} (2009), 1--19.
+
+\bibitem{GM1} L.~Grimmelt and J.~Merikoski, \emph{Weighted averages of $\mathrm{SL}_2(\mathbb R)$ automorphic kernel, part I: non-oscillatory functions}, arXiv:2505.00489 (2025).
+
+\bibitem{GM} L.~Grimmelt and J.~Merikoski, \emph{On the greatest prime factor and uniform equidistribution of quadratic polynomials}, arXiv:2505.00493 (2025).
+
+\bibitem{Ho73} C.~Hooley, \emph{On the intervals between numbers that are sums of two squares. II}, J. Number Theory \textbf{5} (1973), 215--217.
+
+\bibitem{I} \emph{Sums of two squares in three-term patterns: beyond the square-root bound}, manuscript, October 2026 (referred to as [I]).
+
+\bibitem{Iw} H.~Iwaniec, \emph{Spectral Methods of Automorphic Forms}, 2nd ed., Graduate Studies in Mathematics 53, AMS, 2002.
+
+\bibitem{Kim} H.~H.~Kim, \emph{Functoriality for the exterior square of $\mathrm{GL}_4$ and the symmetric fourth of $\mathrm{GL}_2$}, with Appendix~1 by D.~Ramakrishnan and Appendix~2 by H.~H.~Kim and P.~Sarnak, J. Amer. Math. Soc. \textbf{16} (2003), 139--183.
+
+\bibitem{MMS} B.~Misra, M.~Ram Murty and B.~Saha, \emph{A triple convolution sum of the divisor function}, arXiv:2508.13082 (2025).
+
+\bibitem{No} W.~G.~Nowak, \emph{On the distribution of $M$-tuples of $B$-numbers}, Publ. Inst. Math. (Beograd) (N.S.) \textbf{77(91)} (2005), 71--78.
+
+\end{thebibliography}
+
+\end{document}
