@@ -131,7 +131,7 @@ The project uses Lean `v4.34.1` and Mathlib `v4.34.1`.
 cd triples_lean
 lake exe cache get          # download the compiled Mathlib
 lake build                  # build the project
-lake env lean Report.lean   # axioms of the main theorems and lemmas; checks that no sorry is reached
+lake env lean Report.lean   # print the axioms used and any sorry dependencies
 ```
 
 ## Provenance
