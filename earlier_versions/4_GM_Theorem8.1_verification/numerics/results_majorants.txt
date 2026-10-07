@@ -1,0 +1,68 @@
+=== 1. Lemma 4.2 near u = 0 ===
+GM bound: |phi_{l1,l2}(a_u,nu)| << min{log(1+u),(Re nu)^{-1}} (1+u)^{-1/2+Re nu}
+u=1e-01, nu=0.1: |phi_00|=0.9773,  GM bound=9.17e-02 (ratio 1.1e+01),  with log(2+u): 0.714
+u=1e-01, nu=2j: |phi_00|=0.6345,  GM bound=9.09e-02 (ratio 7.0e+00),  with log(2+u): 0.707
+u=1e-02, nu=0.1: |phi_00|=0.9976,  GM bound=9.91e-03 (ratio 1.0e+02),  with log(2+u): 0.695
+u=1e-02, nu=2j: |phi_00|=0.9582,  GM bound=9.90e-03 (ratio 9.7e+01),  with log(2+u): 0.695
+u=1e-03, nu=0.1: |phi_00|=0.9998,  GM bound=9.99e-04 (ratio 1.0e+03),  with log(2+u): 0.693
+u=1e-03, nu=2j: |phi_00|=0.9958,  GM bound=9.99e-04 (ratio 1.0e+03),  with log(2+u): 0.693
+u=1e-04, nu=0.1: |phi_00|=1.0000,  GM bound=1.00e-04 (ratio 1.0e+04),  with log(2+u): 0.693
+u=1e-04, nu=2j: |phi_00|=0.9996,  GM bound=1.00e-04 (ratio 1.0e+04),  with log(2+u): 0.693
+Triangle-inequality bound actually proved: |phi_{l1,l2}(a_u,nu)| <= phi_{0,0}(a_u,Re nu); check:
+max_l |phi_(l1,l2)(a_u,nu)| / phi_(0,0)(a_u,Re nu) over the grid = 1.000000  (<= 1 as claimed)
+
+=== 2. Lemma 4.3: phi_{l,l}(a_u,nu) for large u (l even) ===
+ratio phi / M, where M = (Gamma(2nu)cos(pi nu)/pi)(-1)^{l/2} Gamma(1/2+l/2-nu)/Gamma(1/2+l/2+nu) u^{-1/2+nu}
+nu=0.05     l=0   0.52118  0.69846  0.80975  0.87996  0.92426
+nu=0.05     l=2   0.28126  0.54949  0.71580  0.82068  0.88686
+nu=0.05     l=4   0.16976  0.48504  0.67524  0.79509  0.87071
+nu=0.05     l=10  -0.02807  0.38143  0.61056  0.75429  0.84497
+nu=0.109375 l=0   0.80083  0.92774  0.97362  0.99037  0.99648
+nu=0.109375 l=2   0.50933  0.82407  0.93580  0.97656  0.99144
+nu=0.109375 l=4   0.32577  0.76409  0.91401  0.96860  0.98853
+nu=0.109375 l=10  -0.07009  0.64716  0.87203  0.95328  0.98294
+nu=0.2      l=0   0.94860  0.99205  0.99874  0.99980  0.99997
+nu=0.2      l=2   0.71222  0.95661  0.99315  0.99891  0.99983
+nu=0.2      l=4   0.48157  0.92544  0.98828  0.99814  0.99971
+nu=0.2      l=10  -0.18368  0.84315  0.97572  0.99616  0.99939
+nu=0.3      l=0   0.98897  0.99935  0.99996  1.00000  1.00000
+nu=0.3      l=2   0.81472  0.98957  0.99936  0.99996  1.00000
+nu=0.3      l=4   0.54877  0.97612  0.99855  0.99991  0.99999
+nu=0.3      l=10  -0.48679  0.92559  0.99563  0.99973  0.99998
+cross-check of the large-u formula against scipy hyp2f1 / Lemma 4.1 at moderate u:
+max relative discrepancy 2.92e-09
+signs of phi_{l,l}(a_u,nu) at u=1e8, nu=0.1, l=0,2,4,6,8: + - + - +
+=> phi_{l,l} ~ (-1)^{l/2} |...|: Lemma 4.3 holds for |phi_{l,l}|; the sign is (-1)^{l/2} for even l.
+
+=== 3. [GM0, Prop. 6.1] / GM-I Prop. 6.1: the product kernel k0 = f(rho) F(phi+vartheta) ===
+Phi_{l,l}(k0,nu) = c Fhat(l) * 2 int f(rho(u)) phi_{l,l}(a_u,nu) du.  [GM0] treat the last integral as
+~ int f (Taylor approximation). Ratio J(l,nu) = int f phi_{l,l} du / int f du, f = bump(C K rho), C=8:
+K=10, nu=0.0: min over |l|<=L of J for L=K,4K,10K,20K: +1.000  +0.995  +0.971  +0.888
+K=10, nu=10j: min over |l|<=L of J for L=K,4K,10K,20K: +0.999  +0.994  +0.970  +0.887
+K=40, nu=0.0: min over |l|<=L of J for L=K,4K,10K,20K: +1.000  +0.995  +0.971  +0.888
+K=40, nu=40j: min over |l|<=L of J for L=K,4K,10K,20K: +0.999  +0.994  +0.970  +0.887
+=> for L <= K the integral is ~ int f (J ~ 1), as in [GM0]. For L/K large it collapses and changes sign
+   (see results_prop61_lemma64.txt: sign change near l = 100 K for C = 8), so the construction of
+   [GM0, Prop. 6.1] needs L <~ C K.  GM-I state Prop. 6.1 only for T >= L and apply it with
+   T' = max(T,L), so GM-I is unaffected.
+
+=== 4. GM-I Prop. 6.2 lower bound: int psi_Z(u) phi_{l,l}(a_u,nu) du with psi_Z = Z^{-1/4} psi(u/sqrt Z) ===
+nu=0.06     l=0:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +4.4197  +5.2089  +5.5182  +5.5489
+nu=0.06     l=2:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -8.7674  -11.7812  -12.9622  -13.0791
+nu=0.06     l=4:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +12.3351  +17.7780  +19.9104  +20.1214
+nu=0.06     l=6:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -15.4097  -23.4072  -26.5393  -26.8492
+nu=0.109375 l=0:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +3.3434  +3.5150  +3.5364  +3.5367
+nu=0.109375 l=2:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -5.8963  -6.6998  -6.8001  -6.8014
+nu=0.109375 l=4:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +8.0483  +9.5990  +9.7924  +9.7948
+nu=0.109375 l=6:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -9.8926  -12.2640  -12.5594  -12.5632
+nu=0.2      l=0:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +2.5050  +2.5168  +2.5170  +2.5170
+nu=0.2      l=2:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -3.1520  -3.2346  -3.2362  -3.2362
+nu=0.2      l=4:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +3.9406  +4.1212  +4.1245  +4.1245
+nu=0.2      l=6:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -4.6159  -4.9134  -4.9189  -4.9189
+nu=0.25     l=0:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +2.3137  +2.3165  +2.3165  +2.3165
+nu=0.25     l=2:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -2.2912  -2.3163  -2.3165  -2.3165
+nu=0.25     l=4:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: +2.6983  +2.7573  +2.7577  +2.7577
+nu=0.25     l=6:  I(1+|l|)/Z^(nu/2) for log Z = 20,40,80,160: -3.0566  -3.1582  -3.1588  -3.1588
+=> |I| >> Z^{nu/2}/(1+|l|) with constant sign (-1)^{l/2}; Lemma 6.3 only needs |<f_Z,P>|^2.
+
+(Lemma 6.4 is checked in check_prop61_lemma64.py with a theta-grid adapted to |sin theta| < 20/sqrt(1+u).)

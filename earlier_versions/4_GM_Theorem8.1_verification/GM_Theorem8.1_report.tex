@@ -1,0 +1,402 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs,tabularx}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\numberwithin{equation}{section}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Hb}{\mathbb{H}}
+\newcommand{\G}{\mathrm{G}}
+\newcommand{\K}{\mathrm{K}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\br}[1]{\langle #1\rangle}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ra}{\mathrm{a}}
+\newcommand{\rn}{\mathrm{n}}
+\newcommand{\rk}{\mathrm{k}}
+
+\title[Theorem 8.1 of Grimmelt--Merikoski]{Theorem 8.1 of Grimmelt--Merikoski:\\ a verification report}
+\date{October 2026}
+
+\begin{document}
+
+\begin{abstract}
+The paper \emph{Sums of two squares in three-term patterns, II} \cite{II} uses one external input that is not yet published: Theorem~8.1 of Grimmelt and Merikoski's preprint \cite{GM1} (restated as \cite[Theorem~2.1]{GM2}), a bound for weighted averages of automorphic kernels attached to right $\K$-invariant functions. This report records a line-by-line check of that theorem and of the results it imports from the authors' earlier preprint \cite{GM0}. Our conclusion is that the theorem is correct as stated. We found one sign error that invalidates a step of a proof (Proposition~5.1 of \cite{GM1}). We also found a gap in an imported proof (Proposition~6.1 of \cite{GM0}), which does not affect \cite{GM1} because \cite{GM1} only uses that result in the range where its proof is valid. The remaining findings are an incorrect but unused two-sided estimate, an inconsistent normalisation constant, and a number of minor slips. Each has a local repair, and none changes the statement. For the special case used in \cite{II} we give a complete proof along the lines of \cite{GM1}, incorporating all repairs; this covers the fact that the weights in \cite{II} are not dyadically supported in~$x$. We also prove directly that the normalised harmonics $\Pc^{(\ell_1,\ell_2)}_\nu$ of \cite{GM1} are unitary matrix coefficients, which gives a short independent proof of the spectral expansion in \cite[\S3]{GM1}. We tested the analytic lemmas numerically. Finally, the companion paper \cite{KUZ} derives the Type~I estimate of \cite{II}, and hence its main theorem, without \cite{GM1}, using the Kuznetsov formula and the large sieve inequalities of Deshouillers--Iwaniec and Pascadi.
+\end{abstract}
+
+\maketitle
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\section{Summary}\label{sec:summary}
+
+\subsection*{What was checked}
+We checked Theorem~8.1 of \cite{GM1} (arXiv:2505.00489v2, the current version), together with everything its proof depends on: \cite[\S\S2--8]{GM1} and the imported results \cite[Propositions~5.1, 5.2, 6.1, Lemmas~6.2--6.4, \S7.3]{GM0} (arXiv:2404.08502v2). We read the proofs, redid the computations, and wrote independent proofs where that was simpler. The analytic lemmas about the harmonics on $\G=\SL_2(\R)$ were also tested numerically (\S\ref{sec:numerics}). We did not re-derive the spectral decomposition of $L^2(\Gamma\backslash\G)$ (\cite[Proposition~2.2]{GM1}), which is classical.
+
+\subsection*{Verdict}
+Theorem~8.1 of \cite{GM1} is correct as stated. In the special case used in \cite{II}, namely $H=1$, $\Gamma=\Gamma_0(q)$, trivial character, finitely supported real functionals, and a smooth weight $f$ supported on $[-1,1]\times[1,2]$ in the scaled variables, it holds exactly as stated in \cite[Theorem~6.1]{II}. Section~\ref{sec:proof} gives a complete proof of this case.
+
+\subsection*{Findings}
+Table~\ref{tab:findings} lists everything of substance we found. ``Repaired'' means that the statement stays as printed and the proof becomes correct after the indicated local change.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+& finding & effect on \cite{GM1} / \cite{II}\\
+\midrule
+F1 & \cite[Prop.~5.1]{GM1}: the operator $\Xi=1+\delta^2((\tfrac14-\Omega)-\partial_\varphi^2-\partial_\vartheta^2)$ acts on $\Pc^{(\ell_1,\ell_2)}_{it}$ by $1+\delta^2(\ell_1^2+\ell_2^2-t^2)$, which can vanish. Replace $\tfrac14-\Omega$ by $\Omega-\tfrac14$ (\S\ref{sec:decay}). & repaired; none\\
+F2 & \cite[Prop.~6.1]{GM0} is stated for all $K,L\ge1$, but its proof drops the phase $e^{i\ell(\varphi+\vartheta)}$ and gives the required lower bound only for $L\ll K$ (\S\ref{sec:majorants}). & none: \cite{GM1} assumes $T\ge L$\\
+F3 & \cite[(2.36)]{GM1}: the two-sided estimate is false; the truth is $\asymp((1+\ell_2)/(1+\ell_1))^{\nu}$ for $\nu\le\frac12-\eta$. Only the upper bound is used. & none\\
+F4 & \cite[Lemma~4.2]{GM1}: $\log(1+u)$ must be $\log(2+u)$; the bound fails as $u\to0$. & none ($U\ge1$)\\
+F5 & \cite[Lemma~4.3]{GM1}: the main term carries the sign $(-1)^{\ell/2}$ ($\ell$ even); the estimate holds for $|\phi_{\ell,\ell}|$. The closed form for odd $\ell$ has the wrong overall sign. & none ($|\cdot|^2$ used)\\
+F6 & \cite[Prop.~6.2]{GM1}: with the error term of Lemma~4.3 the proof needs $\nu\le\frac14$, which holds for congruence groups; with the sharper \eqref{eq:43main} it works for $\nu\le\frac12-\eta$. One display should read $\gg Z^{\nu/2}/L$. & none\\
+F7 & \cite[\S\S7.3--7.4]{GM1}: as printed, the dyadic bookkeeping in the proof of Theorem~7.1 is a few powers short for $J=10$; $J\ge14$ suffices. Theorem~8.1 holds with $C^{10}$ as stated (\S\ref{sec:proof}). & none\\
+F8 & \cite[Thm.~8.1]{GM1} asks for dyadic support in $x$; \cite[Thm.~2.1]{GM2} and \cite{II} use $|x|\le X$. The proof never uses dyadic support (Theorem~\ref{thm:main}). & none\\
+F9 & \cite[(2.14)]{GM1}: the Iwasawa and Cartan expressions for Haar measure differ by a factor $2\pi$. & constants only\\
+F10 & Typographical slips (Appendix~\ref{app:typos}). & none\\
+\bottomrule
+\end{tabularx}
+\caption{Findings.}\label{tab:findings}
+\end{table}
+
+\subsection*{Positive confirmations}
+Lemma~2.1 and the explicit formula of Lemma~4.1 of \cite{GM1} agree with the definition (2.20) to $3\cdot10^{-12}$ in $140$ test cases. The normalisation (2.27)--(2.30) is correct. We prove in Lemma~\ref{lem:matrixcoeff} that $\Pc^{(\ell_1,\ell_2)}_\nu$ is the unitary matrix coefficient $\br{\pi(h)\varphi^{(\ell_2)},\varphi^{(\ell_1)}}$, and Parseval's identity $\sum_{\ell}|\Pc^{(\ell,0)}_\nu|^2=1$ holds numerically to $3\cdot10^{-12}$. Propositions~3.1--3.2, Lemma~4.4 (verified numerically to $12$ digits for $k\le8$), Lemmas~6.3--6.4, and the imported \cite[Propositions~5.1, 5.2, Lemmas~6.2--6.4, \S7.3]{GM0} are correct, up to the slips listed in Appendix~\ref{app:typos}.
+
+\subsection*{Confidence}
+We regard the special case used in \cite{II} as established. Section~\ref{sec:proof} uses only classical spectral theory, the elementary estimates of \cite[\S\S4--6]{GM1} as repaired here, and \cite[Proposition~6.1]{GM0} in the range $T\ge L$, where we checked its proof. In addition, \cite{KUZ} recovers the consequence needed in \cite{II}, namely the Type~I estimate \cite[Proposition~6.5]{II}, by an independent method that relies only on published results.
+
+\section{The statement}\label{sec:statement}
+
+We use the notation of \cite{GM1}: $\G=\SL_2(\R)$, $\rn[x]=\left(\begin{smallmatrix}1&x\\&1\end{smallmatrix}\right)$, $\ra[y]=\mathrm{diag}(y^{1/2},y^{-1/2})$, $\rk[\theta]=\left(\begin{smallmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{smallmatrix}\right)$, Iwasawa coordinates $g=\rn[x]\ra[y]\rk[\theta]$, Cartan coordinates $g=\rk[\varphi]\ra[e^{-\varrho}]\rk[\vartheta]$ with $\cosh\varrho=2u+1$, $\ra_u=\ra[e^{-\varrho}]$, and
+\[
+u_R(g)=\tfrac14\bigl(a^2+(b/R)^2+(cR)^2+d^2-2\bigr),\qquad u=u_1,\qquad g=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right).
+\]
+For a congruence subgroup $\Gamma$ with character $\chi$ and $F:\G\to\C$ compactly supported, $\Kc F(\tau_1,\tau_2)=\sum_{\gamma\in\Gamma}\overline{\chi}(\gamma)F(\tau_1^{-1}\gamma\tau_2)$, and $\Delta F=\Kc F-\one_{\chi=1}|\Gamma\backslash\G|^{-1}\int_\G F$. The pairing of \cite[Definitions~1 and~4]{GM1} is sesquilinear: for finitely supported $\alpha_1,\alpha_2$ it is $\br{\alpha_1|\Phi|\alpha_2}=\sum_{\tau_1,\tau_2}\overline{\alpha_1(\tau_1)}\alpha_2(\tau_2)\Phi(\tau_1,\tau_2)$. In \cite{II} the bilinear version without the bar is used. The two agree for real functionals, which are the only ones occurring in \cite{II}. Finally $\theta=\theta(\Gamma,\chi)=\max\{0,\operatorname{Re}\sqrt{1/4-\lambda_1}\}$.
+
+\begin{theorem}[{\cite[Theorem~8.1]{GM1}}]\label{thm:GM81}
+Let $\Gamma$ be a congruence subgroup of level $q$ and $\chi$ a character of $\Gamma$. Let $X,Y>0$ and $\delta\in(0,1)$ with $X/Y>\delta$, and let $f\in C^{10}_\delta(X,Y)$, that is, $f$ is supported on $|x|\in[X,2X]$, $|y|\in[Y,2Y]$ and $\|\partial_x^{J_1}\partial_y^{J_2}f\|_\infty\le(\delta X)^{-J_1}(\delta Y)^{-J_2}$ for $J_1+J_2\le10$. Put $F(\rn[x]\ra[y]\rk)=f(x,y)$. Let $H\ge1$, let $\beta(h)$ be supported on $h\le H$, and let $\alpha_1,\alpha_{2,h}\in\mathcal L_c(\G)$. Then for all $Z_0,Z_1,Z_2\ge1$ with $Z_0Z_1Z_2\ge X/Y+1$,
+\begin{multline*}
+\sum_{(h,q)=1}\beta(h)\br{\alpha_1|T_{h,1}\Delta F|\alpha_{2,h}}\ll q^{o(1)}\delta^{-O(1)}\Bigl(\frac XY\Bigr)^{\frac12+o(1)}H^{\frac12}Z_0^\theta\\
+\times\br{\alpha_1|\Delta k_{Z_1^2,X}|\alpha_1}^{\frac12}\Bigl(\sum_{h\le H}|\beta(h)|^2\br{\alpha_{2,h}|\Delta k_{Z_2^2,1}|\alpha_{2,h}}\Bigr)^{\frac12},
+\end{multline*}
+where $\br{\alpha|\Delta k_{Y,R}|\alpha}\ge0$ and $k_{Y,R}:\G\to[0,1]$ are smooth functions with $k_{Y,R}(g)\le\one\{u_R(g)\le Y\}/\sqrt{1+u_R(g)}$.
+\end{theorem}
+
+The form used in \cite{II} is \cite[Theorem~2.1]{GM2} with $H=1$, $\beta(1)=1$, $\Gamma=\Gamma_0(q)$ and $\chi=1$:
+
+\begin{theorem}[{\cite[Theorem~6.1]{II}}]\label{thm:II61}
+Let $q\ge1$, $\bX,\bY>0$ and $\delta\in(0,1)$ with $\bX/\bY>\delta$. Let $f$ be smooth, supported on $[-1,1]\times[1,2]$, with $\partial_x^{\nu_1}\partial_y^{\nu_2}f\ll_{\nu_1,\nu_2}\delta^{-\nu_1-\nu_2}$, and put $F(g)=f(x(g)/\bX,y(g)/\bY)$. Let $\alpha_1,\alpha_2$ be finitely supported functionals. Then for all $Z_0,Z_1,Z_2\ge1$ with $Z_0Z_1Z_2\ge\bX/\bY+1$,
+\[
+\br{\alpha_1|\Delta_qF|\alpha_2}\ll q^{o(1)}\delta^{-O(1)}\Bigl(\frac{\bX}{\bY}\Bigr)^{\frac12+o(1)}Z_0^{\theta(\Gamma_0(q))}\br{\alpha_1|\Delta_qk_{Z_1^2,\bX}|\alpha_1}^{\frac12}\br{\alpha_2|\Delta_qk_{Z_2^2,1}|\alpha_2}^{\frac12}
+\]
+with $k_{Y,R}$ as above.
+\end{theorem}
+
+Theorem~\ref{thm:II61} is not literally a special case of Theorem~\ref{thm:GM81}, because the $x$-support is $[-\bX,\bX]$ and not dyadic. We prove it directly in \S\ref{sec:proof}, in a slightly stronger form (Theorem~\ref{thm:main}).
+
+\section{Structure of the proof in \texorpdfstring{\cite{GM1}}{[GM1]}}\label{sec:structure}
+
+The proof of Theorem~\ref{thm:GM81} is that of \cite[Theorem~7.1]{GM1} with two changes: the unskewing uses $R_1=X$, $R_2=1$, and the Hecke eigenvalues are kept on the $\alpha_1$-side of the Cauchy--Schwarz inequality and bounded by Rankin--Selberg. The dependencies are as follows.
+\begin{enumerate}
+\item \emph{Background} \cite[\S2]{GM1}: coordinates (Lemma~2.1), raising and lowering operators, the Casimir $\Omega$ in Iwasawa and Cartan coordinates (2.11), (2.12), Haar measure (2.14), the spectral decomposition of $L^2(\Gamma\backslash\G,\chi)$ (Proposition~2.2), Hecke operators, and the normalised harmonics $\Pc^{(\ell_1,\ell_2)}_\nu$ (2.26)--(2.36).
+\item \emph{Pre-trace formula with types} \cite[\S3]{GM1}: Proposition~3.2, which for $\ell_1=\ell_2$ is \cite[Proposition~5.2]{GM0}, and Proposition~3.1.
+\item \emph{Harmonics} \cite[\S4]{GM1}: Lemmas~4.1--4.4.
+\item \emph{Decay} \cite[\S5]{GM1}: Proposition~5.1.
+\item \emph{Majorants} \cite[\S6]{GM1}: Proposition~6.1, imported from \cite[Proposition~6.1]{GM0}; Proposition~6.2 with Lemmas~6.3 (from the proof of \cite[Lemma~6.4]{GM0}) and~6.4.
+\item \emph{Assembly} \cite[\S\S7--8]{GM1}: unskewing, spectral expansion, the bound $U^{\tilde\nu}\le(Z_0Z_1Z_2)^{\tilde\nu}$ for the exceptional factor, Cauchy--Schwarz, and dyadic summation against the majorants.
+\end{enumerate}
+In the case of \cite{II}, the right type is $0$ and $H=1$. So only harmonics $\Pc^{(\ell,0)}$ occur, the discrete series never contributes (it has no vectors of $\K$-type $0$), and no Hecke operators appear.
+
+\section{Verification}\label{sec:verification}
+
+\subsection{Background (\texorpdfstring{\cite[\S2]{GM1}}{[GM1, §2]})}
+The Iwasawa formulas (2.1)--(2.2) and Lemma~2.1 are correct. We verified Lemma~2.1 numerically through Lemma~4.1, which uses it (\S\ref{sec:numerics}). The Iwasawa expressions for $e^\pm$ are correct, but the formula in terms of $x_1,x_2,x_3$ should read $e^+=2ix_1+x_2-ix_3$; the factor $i$ on $x_1$ is missing. On $\phi_\ell(g,\nu)=y^{1/2+\nu}e^{i\ell\theta}$ one finds
+\begin{equation}\label{eq:raise}
+e^+\phi_\ell=(1+2\nu+\ell)\phi_{\ell+2},\qquad e^-\phi_\ell=(1+2\nu-\ell)\phi_{\ell-2},
+\end{equation}
+and (2.9) gives $\Omega\phi_\ell=(\frac14-\nu^2)\phi_\ell$, as stated. For the Cartan form (2.12) we checked numerically that $e^{i\ell_1\varphi}\phi_{\ell_1,\ell_2}(\ra_u,\nu)e^{i\ell_2\vartheta}$ is an eigenfunction of $\Omega$ with eigenvalue $\frac14-\nu^2$, to a relative accuracy of $3\cdot10^{-8}$ (\S\ref{sec:numerics}). So $\Omega$ is the \emph{positive} Laplacian; this is relevant for F1.
+
+\emph{Haar measure.} The two expressions in (2.14) are not consistent. For $U>0$, the Iwasawa expression gives $\vol\{u\le U\}=4\pi U$, the hyperbolic area of a disc, while the Cartan expression gives $2U$. The Cartan expression should be multiplied by $2\pi$ (finding F9). Only constants are affected: every identity in \cite{GM1} uses a single measure on both sides, and in the estimates the measure enters only through $\ll$.
+
+Proposition~2.2 is the standard spectral decomposition; for $\Gamma_0(q)$ it is \cite[\S4]{DFI02}, see also \cite[Chapters~4, 7]{Iw}.
+
+\emph{Normalisation.} The constants (2.27) follow from (2.9), which gives
+\[
+-\tfrac14e^-e^+=\Omega-\tfrac14x_3^2-\tfrac12ix_3,\qquad\text{so}\qquad \|e^+\varphi^{(\ell)}\|^2=-\br{e^-e^+\varphi^{(\ell)},\varphi^{(\ell)}}=(\ell+1)^2-4\nu^2
+\]
+for a unit vector $\varphi^{(\ell)}$ of type $\ell\ge0$ in a representation with Casimir eigenvalue $\frac14-\nu^2$. Iterating gives $|G(\nu,\ell)|^{-1}=2^{\ell/2}\prod_{0\le j<\ell/2}((j+\frac12)^2-\nu^2)^{1/2}$, which is (2.27) for $\kappa=0$. The case $\kappa=1$ and the discrete series are similar. Likewise \eqref{eq:raise} gives (2.28). The ratio (2.33) is correct. For $\nu\in(0,\frac12-\eta]$, Stirling's formula gives
+\begin{equation}\label{eq:236fix}
+\frac{G_\phi(\nu,\ell_1)G(\nu,\ell_2)}{G_\phi(\nu,\ell_2)G(\nu,\ell_1)}\asymp_\eta\Bigl(\frac{1+\ell_2}{1+\ell_1}\Bigr)^{\nu}\qquad(\ell_1,\ell_2\ge0),
+\end{equation}
+and not $\asymp(1+\ell_1)^{2\nu}(1+\ell_2)^{2\nu}$ as stated in (2.36) (finding F3; see Table~\ref{tab:236}). The constants in \eqref{eq:236fix} are not uniform as $\nu\to\frac12$ when $\ell_1=0$ or $\ell_2=0$, because a factor $\Gamma(\frac12-\nu)^{\pm1/2}$ appears. This is immaterial for congruence groups, where $\nu\le\frac7{64}$. The upper bound $\ll_\eta(1+\ell_1)^{2\nu}(1+\ell_2)^{2\nu}$ is a consequence of \eqref{eq:236fix}, and it is the only part of (2.36) that is used (in the proof of Proposition~5.1).
+
+\subsection{The normalised harmonics are matrix coefficients}\label{sec:matrix}
+The next lemma is not stated in \cite{GM1}. It explains the normalisation (2.30), gives a short proof of \cite[Proposition~3.2]{GM1}, and yields the uniform bound $|\Pc|\le1$.
+
+\begin{lemma}\label{lem:matrixcoeff}
+Let $\chi$ be trivial (so $\kappa=0$), and let $V\subset L^2(\Gamma\backslash\G)$ be an irreducible cuspidal subspace with spectral parameter $\nu=\nu_V$, in the principal, complementary or discrete series. Let $\varphi_V^{(\ell)}$ be the orthonormal basis of \cite[(2.27)]{GM1}, and let $\pi$ denote right translation, $(\pi(h)f)(g)=f(gh)$. Then for all $\K$-types $\ell_1,\ell_2$ of $V$ and all $h\in\G$,
+\[
+\br{\pi(h)\varphi_V^{(\ell_2)},\varphi_V^{(\ell_1)}}_{\Gamma\backslash\G}=\Pc^{(\ell_1,\ell_2)}_{\nu}(h).
+\]
+In particular $|\Pc^{(\ell_1,\ell_2)}_\nu(h)|\le1$, $\sum_{\ell_1}|\Pc^{(\ell_1,\ell_2)}_\nu(h)|^2=1$ for every $h$ and every type $\ell_2$ of $V$, and $|\Pc^{(\ell_1,\ell_2)}_\nu(\ra_u)|=|\Pc^{(\ell_2,\ell_1)}_\nu(\ra_u)|$.
+\end{lemma}
+
+\begin{proof}
+We treat the principal and complementary series; the discrete series is the same with the constants of (2.27) for $\nu=(k-1)/2$. (For $\kappa=1$ the same argument works once the phases of $\varphi^{(\pm1)}$ are fixed compatibly; we do not need this case.) Let $I_\nu$ be the span of the functions $\phi_\ell(\cdot,\nu)$, $\ell$ even. It is the space of $\K$-finite vectors in the induced representation $\{f:f(\rn[x]\ra[y]g)=y^{1/2+\nu}f(g)\}$, on which $\G$ acts by right translation. For $h\in\G$ the function $g\mapsto\phi_{\ell_2}(gh,\nu)$ lies in this representation. Its component of type $\ell_1$ is a multiple of $\phi_{\ell_1}(\cdot,\nu)$. Evaluating at $g=1$ and using (2.20) and $\phi_{\ell_1}(1,\nu)=1$, this multiple is $\phi_{\ell_1,\ell_2}(h,\nu)$, so
+\begin{equation}\label{eq:indmatrix}
+\phi_{\ell_2}(\cdot\,h,\nu)=\sum_{\ell_1}\phi_{\ell_1,\ell_2}(h,\nu)\,\phi_{\ell_1}(\cdot,\nu).
+\end{equation}
+Define a linear map $T$ from the $\K$-finite vectors of $V$ to $I_\nu$ by
+\[
+T\varphi_V^{(\ell)}=c_\ell\,\phi_\ell(\cdot,\nu),\qquad c_\ell=G(\nu,|\ell|)/G_\phi(\nu,|\ell|).
+\]
+By (2.27), (2.28) and \eqref{eq:raise}, $T$ commutes with $e^+$ on types $\ell\ge0$, with $e^-$ on types $\ell\le0$, and with $x_3$. It also commutes with $e^-$ on types $\ell\ge2$ and with $e^+$ on types $\ell\le-2$. Indeed, $e^-e^+$ acts on vectors of type $\ell$ by the same scalar $-((\ell+1)^2-4\nu^2)\ne0$ on $V$ and on $I_\nu$, since both have Casimir eigenvalue $\frac14-\nu^2$. So $T$ is an isomorphism of $(\mathfrak g,\K)$-modules. The function $M(h):=\br{\pi(h)\varphi^{(\ell_2)},\varphi^{(\ell_1)}}$ is real-analytic in $h$, because $\K$-finite vectors of an irreducible unitary representation are analytic vectors (Harish-Chandra). The function $c_{\ell_2}c_{\ell_1}^{-1}\phi_{\ell_1,\ell_2}(h,\nu)$ is real-analytic by Lemma~4.1 of \cite{GM1}. Apply any element of the universal enveloping algebra (acting by right differentiation) and evaluate at $h=1$. For $M$ this gives the $\ell_1$-coefficient of that element applied to $\varphi^{(\ell_2)}$, computed in $V$. For the second function it gives, by \eqref{eq:indmatrix}, the same coefficient computed in $I_\nu$, multiplied by $c_{\ell_2}c_{\ell_1}^{-1}$. These agree because $T$ is an isomorphism of $(\mathfrak g,\K)$-modules that is diagonal in the two bases. Hence $M(h)=c_{\ell_2}c_{\ell_1}^{-1}\phi_{\ell_1,\ell_2}(h,\nu)$, which is \cite[(2.30)]{GM1}. The bound $|M|\le1$ and Parseval's identity follow from $\|\pi(h)\varphi^{(\ell_2)}\|=1$ in the orthonormal basis $\varphi_V^{(\ell)}$. For the symmetry, note that $\overline{M(h)}=\br{\pi(h^{-1})\varphi^{(\ell_1)},\varphi^{(\ell_2)}}$ and that $\ra_u^{-1}=\rk[\frac\pi2]\ra_u\rk[-\frac\pi2]$; the types then only contribute unimodular factors.
+\end{proof}
+
+We verified the identity $\sum_\ell|\Pc_\nu^{(\ell,0)}(\ra_u)|^2=1$ numerically for $\nu\in\{0.4i,3i,12i\}$ and $\nu\in\{0.03,7/64,0.25,0.45\}$, and $u\in[0.02,400]$, together with the analogous identity for the discrete series of weights $2$, $4$, $7$. The error was at most $3\cdot10^{-12}$ (Table~\ref{tab:num}). Lemma~4.4 of \cite{GM1} is a statement about the function $u\mapsto\Pc(\ra_u)$ and does not depend on the normalisation of Haar measure. Via Lemma~\ref{lem:matrixcoeff} and Schur orthogonality it is equivalent to the formal degree of the weight-$k$ discrete series being $(k-1)/(4\pi)$ for $dg=dx\,dy\,d\theta/(2\pi y^2)$. We checked Lemma~4.4 numerically to $12$ digits for $k\le8$.
+
+\subsection{The spectral expansion of the kernel (\texorpdfstring{\cite[\S3]{GM1}}{[GM1, §3]})}\label{sec:pretrace}
+Proposition~3.2 of \cite{GM1} follows directly from Lemma~\ref{lem:matrixcoeff}. Write $F'=\Fc_{\ell_1,\ell_2}F$ and substitute $g=\tau h$. Expanding $\pi(h)\varphi^{(\ell_2)}=\sum_{\ell'}\Pc^{(\ell',\ell_2)}_V(h)\varphi^{(\ell')}$ gives
+\[
+\int_\G F'(\tau^{-1}g)\overline{\varphi_V^{(\ell_2)}(g)}\,dg=\sum_{\ell'}\br{F',\Pc_V^{(\ell',\ell_2)}}_\G\,\overline{\varphi_V^{(\ell')}(\tau)}=\br{F,\Pc_V^{(\ell_1,\ell_2)}}_\G\,\overline{\varphi_V^{(\ell_1)}(\tau)},
+\]
+because $F'$ has left type $\ell_1$ and $\Pc^{(\ell',\ell_2)}$ has left type $\ell'$. For the Eisenstein series the same computation applies. With the unnormalised $E^{(\ell)}_{\mathfrak c}$ of \cite{GM1}, \eqref{eq:indmatrix} shows that the correct coefficient is $\br{F,\phi_{\ell_1,\ell_2}(\cdot,\nu)}_\G$. By (2.34) this differs from $\br{F,\Pc^{(\ell_1,\ell_2)}_\nu}_\G$ by a factor of modulus $1$ (but not equal to $1$), which is harmless because only absolute values are used. Proposition~3.1 then follows by expanding $\Kc F(\tau_1,\cdot)$ with Proposition~2.2 and unfolding, exactly as \cite[Proposition~5.1]{GM0} follows from \cite[Proposition~5.2]{GM0}. In the printed statement the complex conjugates sit on the $\tau_1$-factors, which is consistent with the types. The pointwise application to finitely supported functionals is justified because $\Kc F$ is smooth and compactly supported modulo $\Gamma$ in each variable.
+
+\emph{The imports from \cite{GM0}.} Propositions~5.1 and~5.2 of \cite{GM0} (the pre-trace formula for $\ell_1=\ell_2$) are correct. There are minor slips: in Lemma~5.10 the hypothesis ``$f\in L^2(\G)$'' should read ``$f$ smooth''; the division by $f(g)$ in Lemmas~5.9--5.10 is harmless (argue at points where $f\ne0$ and use real-analyticity); and the proof of Proposition~5.1 refers to ``Proposition~6.1'' where Proposition~5.1 is meant. The differential equation used in the proof of Lemma~5.8 is the correct one, since the type-$(\ell,\ell)$ spherical function satisfies $u(u+1)P''+(2u+1)P'+(\lambda+\ell^2/(4(u+1)))P=0$. We checked this through \eqref{eq:hyp} below. The uniqueness argument only needs that $u=0$ is a regular singular point with double indicial root $0$, whatever the sign conventions.
+
+\subsection{Estimates for harmonics (\texorpdfstring{\cite[\S4]{GM1}}{[GM1, §4]})}\label{sec:harmonics}
+\emph{Lemma~4.1} is correct. Both formulas agree with the definition (2.20) to $3\cdot10^{-12}$. For $\ell_1=\ell_2=\ell$, expanding both factors in powers of $\tanh(\varrho/2)$ gives
+\begin{equation}\label{eq:hyp}
+\phi_{\ell,\ell}(\ra_u,\nu)=(1+u)^{-\frac12-\nu}\,{}_2F_1\Bigl(\tfrac12+\nu+\tfrac\ell2,\ \tfrac12+\nu-\tfrac\ell2;\ 1;\ \tfrac u{1+u}\Bigr),
+\end{equation}
+which we used for large $u$.
+
+\emph{Lemma~4.2.} The proof shows $|\phi_{\ell_1,\ell_2}(\ra_u,\nu)|\le\phi_{0,0}(\ra_u,\operatorname{Re}\nu)$, which we confirmed numerically. For $\nu=it$ this is the Harish-Chandra bound $|\Pc^{(\ell_1,\ell_2)}_{it}|\le\Xi$, since the ratio in (2.30) has modulus $1$ by (2.34). The stated majorant $\min\{\log(1+u),(\operatorname{Re}\nu)^{-1}\}(1+u)^{-1/2+\operatorname{Re}\nu}$ is false for small $u$: at $u=10^{-4}$ the left side is $\approx1$ and the right side $\approx10^{-4}$. The correct form has $\log(2+u)$ (finding F4). In \cite{GM1} the lemma is only used for $\int_0^U$ with $U\ge1$, where the two versions agree up to a constant.
+
+\emph{Lemma~4.3.} Writing ${}_2F_1$ in \eqref{eq:hyp} through its connection formula at $z=1$ gives, for even $\ell$ and $0<\nu<\frac12$,
+\begin{equation}\label{eq:43main}
+\phi_{\ell,\ell}(\ra_u,\nu)=\frac{\Gamma(2\nu)\cos(\pi\nu)}{\pi}\,(-1)^{\ell/2}\,\frac{\Gamma(\frac12+\frac{|\ell|}2-\nu)}{\Gamma(\frac12+\frac{|\ell|}2+\nu)}\,u^{-\frac12+\nu}\Bigl(1+O\bigl((1+\ell^2)^{2\nu}u^{-2\nu}+(1+\ell^2)u^{-1}\bigr)\Bigr).
+\end{equation}
+This matches the proof in \cite{GM1}: for even $\ell$, the completed integral evaluated there equals the constant in \eqref{eq:43main} (and is symmetric under $n\mapsto-n$ by the reflection formula). The modulus of the main term is $\asymp u^{-1/2+\nu}/(\nu(1+|\ell|)^{2\nu})$, as claimed, and the error terms of \cite{GM1} dominate ours. However, the statement claims $\phi_{\ell,\ell}\asymp(\text{positive})$ and omits the sign $(-1)^{\ell/2}$. In addition, the closed form given for odd $\ell$ has the wrong overall sign; for instance, for $\ell=1$ the integral equals $+\sqrt\pi\,\Gamma(\frac12+\nu)/\Gamma(1+\nu)$ (finding F5). Lemma~4.3 is used only in the proof of Proposition~6.2, where only $|\br{f_Z,\Pc^{(\ell,\ell)}}|^2$ enters, and only even $\ell$ occur when $\kappa=0$. So neither sign matters. Numerically, $\phi_{\ell,\ell}/(\text{main term})\to1$ at the predicted rate, and the signs at $u=10^8$, $\nu=0.1$, $\ell=0,2,4,6,8$ are $+,-,+,-,+$.
+
+\emph{Lemma~4.4} is correct; see \S\ref{sec:matrix}.
+
+\subsection{Decay in the spectrum (\texorpdfstring{\cite[\S5]{GM1}}{[GM1, §5]})}\label{sec:decay}
+Proposition~5.1 of \cite{GM1} is proved by integrating by parts against
+\[
+\Xi=1+\delta^2\bigl((\tfrac14-\Omega)-\partial_\varphi^2-\partial_\vartheta^2\bigr),
+\]
+with the claim that $\Xi^J\Pc^{(\ell_1,\ell_2)}_\nu=(1+(\delta\nu)^2+(\delta\ell_1)^2+(\delta\ell_2)^2)^J\Pc^{(\ell_1,\ell_2)}_\nu$, read as $1+\delta^2(|\nu|^2+\ell_1^2+\ell_2^2)$. Since $\Omega\Pc_\nu=(\frac14-\nu^2)\Pc_\nu$, the actual eigenvalue is $1+\delta^2(\nu^2+\ell_1^2+\ell_2^2)$. For $\nu=it$ this is $1+\delta^2(\ell_1^2+\ell_2^2-t^2)$, which vanishes or is negative for large $t$ (finding F1). For example, $t=30$, $(\ell_1,\ell_2)=(4,0)$ and $\delta=0.1$ give $-7.84$. As printed, the division in the proof is invalid on the principal series. The repair is to use
+\[
+\Xi'=1+\delta^2\bigl((\Omega-\tfrac14)-\partial_\varphi^2-\partial_\vartheta^2\bigr).
+\]
+Its eigenvalue on $\Pc^{(\ell_1,\ell_2)}_\nu$ is $1+\delta^2(\ell_1^2+\ell_2^2-\nu^2)$. For $\nu=it$ this equals $1+\delta^2(t^2+\ell_1^2+\ell_2^2)$. For $\nu\in(0,\frac12)$ and $\delta\le1$ it is at least $\frac34(1+\delta^2(\ell_1^2+\ell_2^2))$. For $\nu=(k-1)/2$ and $|\ell_i|\ge k$ it is at least $\frac12(1+\delta^2(\nu^2+\ell_1^2+\ell_2^2))$, because then $\ell_i^2\ge k^2>4\nu^2$. The hypothesis (5.1) bounds $\Xi'^JF$ exactly as it bounds $\Xi^JF$. Here we use that $\Omega$ commutes with $\partial_\varphi$ and $\partial_\vartheta$, which generate left and right $\K$-translations, and that all three operators are symmetric for compactly supported $F$. The range of the hypothesis should read $2J_0+J_1+J_2\le2J$; the printed $J_0+2J_1+2J_2\le2J$ does not cover the terms of $\Xi^J$. With these changes the proof gives Proposition~5.1 as stated.
+
+For $\nu\in(0,\frac12)$ one uses $|\Pc^{(\ell_1,\ell_2)}_\nu(\ra_u)|\ll_\eta\phi_{0,0}(\ra_u,\nu)$ for $\nu\le\frac12-\eta$, which is sharper than the bound with $(1+\ell_1)(1+\ell_2)$ in \cite{GM1}. To prove it, use the symmetry in Lemma~\ref{lem:matrixcoeff} to reduce to $|\ell_2|\le|\ell_1|$. Then the ratio in (2.30) is $\ll_\eta1$ by \eqref{eq:236fix}, and Lemma~4.2 gives the bound. (Without the symmetry, (2.33) and Lemma~4.2 alone do not suffice, since the ratio is unbounded for $|\ell_2|>|\ell_1|$.)
+
+\subsection{Spectral majorants (\texorpdfstring{\cite[\S6]{GM1}}{[GM1, §6]}) and the imports from \texorpdfstring{\cite{GM0}}{[GM0]}}\label{sec:majorants}
+
+\emph{\cite[Proposition~6.1]{GM0}.} The construction takes $k=k_0*k_0$ with $k_0=C^4K^2Lf(\varrho)F(\varphi+\vartheta)$, where $f$ is supported on $|\varrho|\le(CK)^{-1}$ and $F$ on an $O((CL)^{-1})$-neighbourhood of $\{0,\pi\}$. Lemmas~6.2--6.4 of \cite{GM0} show that $\Phi_{\ell,\ell}(k,\nu)=\Phi_{\ell,\ell}(k_0,\nu)^2\ge0$; we checked them. In Lemma~6.3 an intermediate display contains a spurious factor $y_0^{-1}$, but the result is correct. Realness of $\Phi_{\ell,\ell}(k_0,\nu)$ for $\nu\in\R\cup i\R$ also follows from $\Phi_{\ell,\ell}(k_0,\nu)=C^4K^2L\,\hat F(\ell)\int f(\varrho)\phi_{\ell,\ell}(\ra_u,\nu)\,d\mu(u)$ and \eqref{eq:hyp}, where $d\mu$ is the radial part of Haar measure. The proof needs the lower bound $\Phi_{\ell,\ell}(k_0,\nu)\ge C^{1/2}$ for $|\nu|\le K$, $|\ell|\le L$. It is obtained by evaluating $\int_\G k_{0,\ell,\ell}\overline{\phi_\ell}$ in Iwasawa coordinates, and the phase $e^{i\ell(\varphi+\vartheta)}$ of $k_{0,\ell,\ell}$ is dropped in that computation. Near the identity $\varphi+\vartheta\approx x/2$ with $|x|\ll(CK)^{-1}$, so the phase is $1+O(L/(CK))$. The argument is therefore valid only when $L\ll K$, with the implied constant depending on $C$ (finding F2). For $L\gg CK$ the lower bound fails, because $\phi_{\ell,\ell}(\ra_u,\nu)$ oscillates on the scale $\varrho\asymp(|\nu|^2+\ell^2/4)^{-1/2}$. (Positivity of $\Phi_{\ell,\ell}(k,\nu)=\Phi_{\ell,\ell}(k_0,\nu)^2$ is not affected.) Numerically, with $C=8$ the ratio $\int f\phi_{\ell,\ell}\,d\mu/\int f\,d\mu$ is $\ge0.97$ for $\ell\le10K$, falls to $0.01$ at $\ell=80K$, and is $-0.10$ at $\ell=100K$ (Table~\ref{tab:num}).
+
+This does not affect \cite{GM1}. There Proposition~6.1 is stated only for $T\ge L$, and in \cite[\S7.4]{GM1} it is applied with $T'=\max\{T,L\}$. Its use in \cite[\S7.3]{GM0} is also covered: dyadic blocks with $L>K$ can be treated with $(L,L)$ in place of $(K,L)$, at the cost of a polynomial factor absorbed by the decay. The support claim $k^{\rm reg}_{1/T}\ll\one\{u\le1/T\}$ is correct, and in fact $u\ll T^{-2}$; the normalising factor $T^2L$ is as stated.
+
+\emph{\cite[Proposition~6.2]{GM1}.} The function $f_Z=\psi_Z(u)F(\varphi+\vartheta)$ gives
+\[
+\br{f_Z,\Pc^{(\ell,\ell)}_\nu}=2\hat F(\ell)\int\psi_Z(\ra_u)\phi_{\ell,\ell}(\ra_u,\nu)\,du
+\]
+in the normalisation of (2.14). The integral is $\asymp Z^{\nu/2}/(1+|\ell|)$ in absolute value, provided the error terms in the asymptotic for $\phi_{\ell,\ell}$ are small on $u\asymp Z^{1/2}$. With the error terms of Lemma~4.3 this requires $(1+\ell^6)Z^{-1/4}$ and $\nu^{-1}Z^{-\nu/20}$ to be small. The proof deduces this from $Z^\nu>c_0L^6$, which gives $Z^{1/4}>c_0L^6$ only if $\nu\le\frac14$ (finding F6). This is harmless. For congruence subgroups $\nu\le\frac14$ holds by Selberg's bound $\lambda_1\ge\frac3{16}$, and $\nu\le\frac7{64}$ by Kim--Sarnak \cite{Kim}. Moreover, with the sharper error term in \eqref{eq:43main} it suffices that $L^2\le c\,Z^{1/2}$, which follows from $Z^\nu>c_0L^6$ for every $\nu<\frac12$. The second-to-last display of the proof should read $\int\psi_Z\Pc\gg Z^{\nu/2}/(1+|\ell|)\gg Z^{\nu/2}/L$; the printed version has ``$\ll Z^{\nu/2}/L$''. With $\hat F(\ell)\gg L^{-1}$ this gives $|\br{f_Z,\Pc}|\gg Z^{\nu/2}/L^2$, and hence $L^4|\br{f_Z,\Pc}|^2\gg Z^\nu$, as claimed. Numerically, $|\int\psi_Z\phi_{\ell,\ell}|(1+|\ell|)Z^{-\nu/2}\in[2.3,27]$ for $\nu\in[0.06,0.25]$, $\ell\le6$ and $\log Z\in[20,160]$, with sign $(-1)^{\ell/2}$.
+
+\emph{Lemma~6.3} is correct. If $f$ is real and conjugation-invariant, then $\pi(f\triangleright f)=\pi(f)^*\pi(f)\ge0$ and $\pi(f)$ preserves $\K$-types. Equivalently, the type-$(\ell,\ell)$ spherical transform of $f\triangleright f$ is $|\cdot|^2$ of that of $f$ for every real eigenvalue, that is, for all $\nu\in\R\cup i\R$.
+
+\emph{Lemma~6.4} is correct. In its proof, the condition derived from $u(\ra_v\rk[\theta]\ra_u)\asymp\sqrt Z$ is $|\cos\theta|^2\ll\sqrt Z\,v'u'$, not $|\sin\theta|^2$: with $\ra_u=\ra[u']$, $u'<1$, the entry $\cos\theta/\sqrt{u'v'}$ is the large one. The resulting bound is the same. By the triangle inequality for hyperbolic distance, $k_Z$ is supported on $u\le64Z+16\sqrt Z\le81Z$. Numerically, $k_Z(\ra_u)\sqrt{1+u}$ lies in $[0.95,1.43]$ for $1\le u\le10Z$, is $0.01$ at $u=40Z$, and vanishes for $u\ge64Z$, for $Z=10^4$, $10^6$ and $10^8$.
+
+\subsection{The assembly (\texorpdfstring{\cite[\S\S7--8]{GM1}}{[GM1, §§7--8]})}\label{sec:assembly}
+Unskewing (\S7.1) is correct. For Theorem~8.1 with $R_1=X$ and $R_2=1$ the unskewed weight is $F_1(g)=f(Xx(g),Xy(g))$, which is supported on $u\ll X/Y+\delta^{-1}$. In \S7.2 the derivative hypothesis (5.1) is verified via \cite[\S7.3]{GM0}. We checked that computation; it is the chain rule in the coordinates (2.2). For right $\K$-invariant $F$ it reduces to the elementary bounds in Step~1 of \S\ref{sec:proof}. In \S7.3, summing the weight over the second $\K$-type costs a factor $\delta^{-2}$ and one power of $(1+\cdots)^{-1}$, which the text does not record. In \S7.4, using the bounds as printed (with the factor $(1+|\ell_1|)(1+|\ell_2|)$ from (2.36)), the polynomial factor in front of $\br{\alpha_j|\Delta k^{\rm reg}_{1/T'}|\alpha_j}$ has total degree about $10$ in $(T,L)$. The dyadic sums then need slightly more decay than $J=10$ provides; $J\ge14$ certainly suffices (finding F7). For Theorem~8.1 this is not an issue. There only one $\K$-type is summed on each side, and $|\Pc^{(\ell,0)}_\nu|\ll\phi_{0,0}(\cdot,\operatorname{Re}\nu)$ removes the factor $(1+|\ell|)$. So ten derivatives give decay of order $10$ against degree $9$, and the theorem holds with $C^{10}$ as stated (see the proof of Theorem~\ref{thm:main}, which uses $J=5$). Replacing $Z_j$ by $\min\{Z_j,X/Y+1\}$ preserves the hypothesis and only shrinks the support of the majorant. So the factors $Z_j^\eta$ arising from the range $2\tilde\nu<\eta$ are absorbed into $(X/Y)^{o(1)}$.
+
+The kernels produced by the dyadic summation are continuous with the stated majorant. They are $C^m$ when the decay exponent is large in terms of $m$, which is automatic for $C^\infty$ weights. Applications that use only the majorant, such as \cite{GM2} and \cite{II}, need nothing more.
+
+For Theorem~8.1 with $H>1$, the Hecke operators $T_h$, $(h,q)=1$, commute with right translations and are normal. So each $V$ may be chosen as a joint eigenspace. In the Cauchy--Schwarz inequality, the factor $\sum_{h\le H}|\lambda_V(h)|^2\le((1+|\nu_V|)q)^{o(1)}H$ from \cite[(2.25)]{GM1} goes with the $\alpha_1$-side. This gives the factors $q^{o(1)}H^{1/2}$; the power of $(1+|\nu_V|)$ is absorbed by the decay. We checked this argument but did not need it.
+
+\section{Proof of the case used in \texorpdfstring{\cite{II}}{[II]}}\label{sec:proof}
+
+We now prove Theorem~\ref{thm:II61}, in a slightly stronger form, along the lines of \cite{GM1} and with the repairs of \S\ref{sec:verification}. Throughout, $\Gamma=\Gamma_0(q)$, $\chi=1$, $\kappa=0$ and $\theta=\theta(\Gamma_0(q))\le\frac7{64}$. The symbols $\ll$ and $O(1)$ involve constants depending only on $\eta$ and on the implied constants in the hypothesis on $f$.
+
+\begin{theorem}\label{thm:main}
+Let $q\ge1$, $\bX,\bY>0$ and $\delta\in(0,1)$ with $\bX/\bY>\delta$. Let $f$ be supported on $[-1,1]\times[1,2]$, with $\partial_x^{a}\partial_y^{b}f\ll_{a,b}\delta^{-a-b}$ for $a+b\le10$, and put $F(g)=f(x(g)/\bX,y(g)/\bY)$. Let $\alpha_1,\alpha_2$ be finitely supported real-valued functionals and $Z_0,Z_1,Z_2\ge1$ with $Z_0Z_1Z_2\ge\bX/\bY+1$. Then for every $\eta>0$ there are continuous functions $k_1,k_2:\G\to[0,1]$ with
+\[
+k_1(g)\le\frac{\one\{u_{\bX}(g)\le Z_1^2\}}{\sqrt{1+u_{\bX}(g)}},\qquad k_2(g)\le\frac{\one\{u(g)\le Z_2^2\}}{\sqrt{1+u(g)}},\qquad\br{\alpha_i|\Delta k_i|\alpha_i}\ge0,
+\]
+such that
+\[
+\br{\alpha_1|\Delta F|\alpha_2}\ll\delta^{-O(1)}\Bigl(\frac{\bX}{\bY}\Bigr)^{\frac12}\Bigl(1+\frac{\bX}{\bY}\Bigr)^{\eta}Z_0^{\theta}\,\br{\alpha_1|\Delta k_1|\alpha_1}^{\frac12}\br{\alpha_2|\Delta k_2|\alpha_2}^{\frac12}.
+\]
+\end{theorem}
+
+This implies Theorem~\ref{thm:II61}, and \cite[Theorem~2.1]{GM2} for $H=1$ and $\Gamma=\Gamma_0(q)$, with no dependence on $q$ beyond $\theta(\Gamma_0(q))$. The functionals in \cite{II} are real-valued, so the bilinear pairing of \cite{II} and the sesquilinear pairing of \cite{GM1} coincide. For complex functionals the proof applies verbatim with the sesquilinear pairing.
+
+\begin{proof}
+\emph{Step 1: unskewing.} Put $R=\bX$ and $F_1(g)=F(\ra[R]g)$. Since $\ra[R]g\cdot i=R\,(g\cdot i)$, we have $F_1(g)=f_1(x(g),y(g))$ with $f_1(x,y)=f(x,y/\eta_0)$ and $\eta_0=\bY/\bX<\delta^{-1}$. Let $\alpha_1'$ be the functional $\br{\phi}_{\alpha_1'}=\br{\phi(\cdot\,\ra[R])}_{\alpha_1}$. Then $\Kc F(\tau_1,\tau_2)=\Kc F_1(\tau_1\ra[R],\tau_2)$, and $\int F=\int F_1$ by invariance of Haar measure, so $\br{\alpha_1|\Delta F|\alpha_2}=\br{\alpha_1'|\Delta F_1|\alpha_2}$. Similarly, for any $k$ put $k_{(R)}(g):=k(\ra[R]^{-1}g\,\ra[R])$. Then $\br{\alpha_1'|\Delta k|\alpha_1'}=\br{\alpha_1|\Delta k_{(R)}|\alpha_1}$ and $u(\ra[R]^{-1}g\ra[R])=u_R(g)$. So it suffices to prove the theorem with $(F_1,\alpha_1')$ in place of $(F,\alpha_1)$ and with $k_1\le\one\{u\le Z_1^2\}/\sqrt{1+u}$.
+
+The function $F_1$ is right $\K$-invariant. On its support $|x|\le1$ and $\eta_0\le y\le2\eta_0$, so
+\[
+u(g)=\frac{x^2+(y-1)^2}{4y}\le\frac1{2y}+\frac y4\le U:=\frac{\bX}{\bY}+\frac1\delta\le\frac2\delta\Bigl(1+\frac{\bX}{\bY}\Bigr).
+\]
+Note that the $x$-support need not be dyadic here. Use the coordinates $x$ and $s=y/\eta_0\in[1,2]$ on the support. In them $F_1=f(x,s)$, with $\partial_x^a\partial_s^bf\ll\delta^{-a-b}$. On right $\K$-invariant functions,
+\[
+\Omega=-\eta_0^2s^2\partial_x^2-s^2\partial_s^2,\qquad\partial_\varphi=\mathcal E:=(1+x^2-\eta_0^2s^2)\partial_x+2xs\,\partial_s,
+\]
+where $\mathcal E$ is the infinitesimal rotation about $i$, and $\partial_\vartheta F_1=0$. All coefficients are polynomials in $(x,s,\eta_0)$ and are $\ll1+\eta_0^2\le2\delta^{-2}$ on the support, together with their derivatives. Hence any product of $J_0$ factors $\Omega$ and $J_1$ factors $\mathcal E$, applied to $f$, is a sum of $O_{J_0,J_1}(1)$ terms, each bounded by $(2\delta^{-2})^{J_0+J_1}\delta^{-2J_0-J_1}$. Thus, with $\delta_1:=\delta^3/C$,
+\begin{equation}\label{eq:51}
+\Omega^{J_0}\partial_\varphi^{J_1}F_1\ll_{J_0,J_1}\delta_1^{-2J_0-J_1}\qquad(2J_0+J_1\le10).
+\end{equation}
+
+\emph{Step 2: spectral expansion.} By \cite[Proposition~3.1]{GM1} (see \S\ref{sec:pretrace}), since $F_1$ has right type $0$,
+\begin{equation}\label{eq:expansion}
+\br{\alpha_1'|\Delta F_1|\alpha_2}=\sum_{\ell\in2\Z}\sum_{V}\br{F_1,\Pc_V^{(\ell,0)}}_\G\,\overline{A_V^{(\ell)}}\,B_V+\frac1{4\pi i}\sum_{\mathfrak c}\sum_{\ell\in2\Z}\int_{(0)}c_{\mathfrak c,\nu}^{(\ell)}\,\overline{A_{\mathfrak c,\nu}^{(\ell)}}\,B_{\mathfrak c,\nu}\,d\nu,
+\end{equation}
+where $A_V^{(\ell)}=\br{\varphi_V^{(\ell)}}_{\alpha_1'}$, $B_V=\br{\varphi_V^{(0)}}_{\alpha_2}$, and similarly for the Eisenstein series. Here $|c_{\mathfrak c,\nu}^{(\ell)}|=|\br{F_1,\Pc_\nu^{(\ell,0)}}_\G|$ by \S\ref{sec:pretrace}. The constant term cancels against the subtracted integral. Only $V$ with a vector of type $0$ occur, namely the principal series ($\nu_V\in i\R$) and the complementary series ($\nu_V\in(0,\frac12)$, in fact $\nu_V\le\theta\le\frac7{64}$). By Steps~3 and~5 below, the sums converge absolutely.
+
+\emph{Step 3: decay.} Let $J=5$ and $\Xi'=1+\delta_1^2((\Omega-\frac14)-\partial_\varphi^2-\partial_\vartheta^2)$. By \eqref{eq:51}, $\Xi'^JF_1\ll1$, and it is supported on $u\le U$. The eigenvalue of $\Xi'$ on $\Pc_\nu^{(\ell,0)}$ is $1+\delta_1^2(\ell^2-\nu^2)$. This equals $1+\delta_1^2(|\nu|^2+\ell^2)$ for $\nu\in i\R$, and it is $\ge\frac34(1+\delta_1^2\ell^2)$ for $\nu\in(0,\frac12)$. By (2.30), (2.33) and Lemma~4.2, $|\Pc_\nu^{(\ell,0)}(\ra_u)|\le C\phi_{0,0}(\ra_u,\operatorname{Re}\nu)\ll\log(2+u)(1+u)^{-1/2+\operatorname{Re}\nu}$; for right type $0$ the ratio in (2.30) is bounded. Integrating by parts $J$ times gives
+\begin{equation}\label{eq:decay}
+\bigl|\br{F_1,\Pc_\nu^{(\ell,0)}}_\G\bigr|\ll U^{\frac12+\tilde\nu}\log(2+U)\,w_\nu(\ell),\qquad w_\nu(\ell)=\begin{cases}(1+\delta_1^2|\nu|^2+\delta_1^2\ell^2)^{-J},&\nu\in i\R,\\(1+\delta_1^2\ell^2)^{-J},&\nu\in(0,\frac12),\end{cases}
+\end{equation}
+where $\tilde\nu=\nu$ for $\nu\in(0,\frac12)$ and $\tilde\nu=0$ otherwise.
+
+\emph{Step 4: splitting the exceptional factor and Cauchy--Schwarz.} For $\nu\in(0,\frac12)$ we have $U^{\nu}\le(2/\delta)(Z_0Z_1Z_2)^{\nu}\le(2/\delta)Z_0^{\theta}Z_1^{\nu}Z_2^{\nu}$. Inserting \eqref{eq:decay} into \eqref{eq:expansion} and applying Cauchy--Schwarz,
+\begin{equation}\label{eq:CS}
+|\br{\alpha_1'|\Delta F_1|\alpha_2}|\ll\delta^{-1}U^{\frac12}\log(2+U)\,Z_0^\theta\,\mathcal S(\alpha_1';Z_1)^{\frac12}\,\mathcal S_0(\alpha_2;Z_2)^{\frac12},
+\end{equation}
+where, for a finitely supported real functional $\beta$ and $Z\ge1$,
+\begin{align*}
+\mathcal S(\beta;Z)&=\sum_{V}\sum_{\ell}w_{\nu_V}(\ell)Z^{2\tilde\nu_V}|\br{\varphi_V^{(\ell)}}_\beta|^2+(\text{Eis.}),\\
+\mathcal S_0(\beta;Z)&=\sum_{V}\Bigl(\sum_\ell w_{\nu_V}(\ell)\Bigr)Z^{2\tilde\nu_V}|\br{\varphi_V^{(0)}}_\beta|^2+(\text{Eis.}).
+\end{align*}
+Here ``(Eis.)'' denotes the analogous integrals over $\nu\in i\R$, and $\sum_\ell w_\nu(\ell)\ll\delta_1^{-1}(1+\delta_1^2|\nu|^2)^{-J+1/2}$.
+
+\emph{Step 5: majorants.} We claim that for every finitely supported real $\beta$ and every $Z\ge1$ there is a continuous function $k_Z:\G\to[0,\infty)$ with $k_Z(g)\ll\delta_1^{-10}Z^{\eta}\one\{u(g)\le\max(1,Z^2)\}/\sqrt{1+u(g)}$ such that $\mathcal S(\beta;Z)\le\br{\beta|\Delta k_Z|\beta}$ and $\mathcal S_0(\beta;Z)\le\br{\beta|\Delta k_Z|\beta}$. Let $C_1=81$ be the support constant of \cite[Lemma~6.4]{GM1} (\S\ref{sec:majorants}), let $c_0=c_0(\eta/2)\ge2$ be the constant of \cite[Proposition~6.2]{GM1}, and put $Z'=Z^2/C_1$. Decompose dyadically, $|\nu|\in(T/2,T]$ and $|\ell|\in(L/2,L]$ with $T,L\in\{2^i:i\ge0\}$, the first block being $|\nu|\le1$, respectively $|\ell|\le1$. On the block $(T,L)$ the weight is at most $c_J(1+\delta_1^2(T^2+L^2))^{-J}$. For the complementary series, which lie in the block $T=1$, this uses $(1+\delta_1^2\ell^2)^{-J}\le c_J(1+\delta_1^2(1+L^2))^{-J}$. We split the spectrum in the block as follows.
+\begin{itemize}
+\item The principal series, the Eisenstein series, and the complementary series with $Z^{2\nu}\le\max\{Z^{\eta},C_1c_0L^6\}$. By \cite[Proposition~6.1]{GM1} with $(T',L)$, $T'=\max\{T,L\}\ge L$, which is the range in which it is proved (\S\ref{sec:majorants}), the contribution is at most
+\[
+(Z^\eta+C_1c_0L^6)\,T'^2L\,\br{\beta|\Delta k^{\rm reg}_{1/T'}|\beta}.
+\]
+\item The complementary series with $Z^{2\nu}>\max\{Z^{\eta},C_1c_0L^6\}$. Then $\nu>\eta/2$, $\nu\le\frac7{64}<\frac14$, and $(Z')^{\nu}\ge Z^{2\nu}/C_1>c_0L^6$. Also $Z'\ge2L$, for otherwise $Z^{2\nu}\le Z^2<2C_1L\le C_1c_0L^6$. So \cite[Proposition~6.2]{GM1} applies with $Z'$ in place of $Z$, and the contribution is at most $C_1L^4\br{\beta|\Delta k^{\rm exc}_{Z'}|\beta}$.
+\end{itemize}
+Each quantity $\br{\beta|\Delta k|\beta}$ occurring here is non-negative, by the positivity of the spectral transforms (\cite[Lemma~6.3]{GM1}, \cite[Lemma~6.4]{GM0}) and Proposition~3.1. So $\mathcal S(\beta;Z)\le\br{\beta|\Delta k_Z|\beta}$ with
+\[
+k_Z=\sum_{T,L}c_J(1+\delta_1^2(T^2+L^2))^{-J}\Bigl((Z^\eta+C_1c_0L^6)T'^2L\,k^{\rm reg}_{1/T'}+C_1L^4k^{\rm exc}_{Z'}\Bigr),
+\]
+where the second term is present only in the blocks in which the second case occurs. The coefficients have total degree at most $9$ in $(T,L)$, while $(1+\delta_1^2(T^2+L^2))^{-J}$ decays to order $2J=10$. So the dyadic sums converge, absolutely and uniformly in $g$, and are $\ll\delta_1^{-9}\log^2(2/\delta_1)Z^\eta\ll\delta_1^{-10}Z^\eta$. The pairing $\br{\beta|\Delta\cdot|\beta}$ involves finitely many points, so it commutes with the sum. We have $0\le k^{\rm reg}_{1/T'}\ll\one\{u\le1\}$, and $0\le k^{\rm exc}_{Z'}\ll\one\{u\le C_1Z'\}/\sqrt{1+u}=\one\{u\le Z^2\}/\sqrt{1+u}$ by \cite[Lemma~6.4]{GM1}; both kernels are convolutions of non-negative functions. Hence $k_Z$ has the stated majorant. The same argument applies to $\mathcal S_0$, where only $\ell=0$ occurs: the decay is of order $2J-1=9$ in $T$ and the coefficients have degree $2$.
+
+\emph{Step 6: conclusion.} We may assume $Z_i\le\bX/\bY+1$ for $i=1,2$. Otherwise replace $Z_i$ by $\bX/\bY+1$; this preserves the hypothesis and only shrinks the support of the majorant. Dividing $k_{Z_i}$ by a constant multiple of $\delta_1^{-10}Z_i^\eta$ gives $k_1,k_2$ with values in $[0,1]$ and the required majorants; note that $\max(1,Z_i^2)=Z_i^2$. The factors $Z_i^{\eta}$ and $\log(2+U)$ are $\ll(1+\bX/\bY)^{2\eta}\delta^{-1}$. Finally $U^{1/2}\le(2/\delta)^{1/2}(1+\bX/\bY)^{1/2}$, and $1+\bX/\bY\le2\delta^{-1}\bX/\bY$ because $\bX/\bY>\delta$. Inserting this into \eqref{eq:CS} and undoing the unskewing of Step~1 proves the theorem after renaming $\eta$.
+\end{proof}
+
+\begin{remark}\label{rem:use}
+In \cite{II} the theorem is applied with $\alpha_1=I$ (evaluation at the identity), $\alpha_2=\alpha_{\mathcal Q}$ (a non-negative combination of point masses at the Heegner points), $Z_1=q$, $Z_2=1$ and $Z_0=\max\{1,(\bX/\bY+1)/q\}$. Only the majorants of $k_1,k_2$ and the bound $|\br{\alpha|\Delta k|\alpha}|\le\br{\alpha|\Kc k|\alpha}+|\br1_\alpha|^2|\Gamma\backslash\G|^{-1}\int k$ are used, and these are exactly what Theorem~\ref{thm:main} provides. The proof also shows that the $q^{o(1)}$ in Theorem~\ref{thm:II61} is not needed when $H=1$, and that ten derivatives of $f$ suffice.
+\end{remark}
+
+\section{Numerical checks}\label{sec:numerics}
+The scripts are in the folder \texttt{numerics/} accompanying this report, and their outputs are in the files \texttt{results\_*.txt} there. The module \texttt{harmonics.py} implements the harmonics. The checks are in the scripts \texttt{check\_harmonics.py}, \texttt{check\_majorants.py}, \texttt{check\_prop61\_lemma64.py}, \texttt{check\_lemma64\_decay.py}, and \texttt{end\_to\_end.py}. They use only \texttt{numpy} and \texttt{scipy}. The harmonics were computed from Lemma~4.1 by the trapezoid rule, which converges exponentially for these periodic analytic integrands. For large $u$ we used the hypergeometric form \eqref{eq:hyp} with the connection formula, and for the discrete series an exact finite sum. Each representation was cross-checked against the others at moderate $u$; the hypergeometric form agrees with Lemma~4.1 to $10^{-6}$ or better. Table~\ref{tab:num} summarises the results.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+object & result\\
+\midrule
+Lemma~2.1, Lemma~4.1 & both formulas $=$ definition (2.20); max.\ rel.\ error $2.7\cdot10^{-12}$ over $140$ cases ($u\in[0.05,25]$, $\nu\in\{0.3i,2.5i,0.1,0.37,1.5\}$, $|\ell_i|\le8$)\\
+Casimir, (2.12) & $\Omega\Pc/\Pc=\frac14-\nu^2$ to $3\cdot10^{-8}$ (relative) in $4$ cases; confirms F1\\
+(2.30), Lemma~\ref{lem:matrixcoeff} & $\sum_\ell|\Pc^{(\ell,0)}_\nu(\ra_u)|^2=1.000000000000$ for $\nu\in\{0.4i,3i,12i,0.03,\frac7{64},\frac14,0.45\}$, $u\in\{0.02,0.5,3,40,400\}$ (worst $1-3\cdot10^{-12}$); discrete series $k=2,4,7$: same\\
+(2.36) & e.g.\ $\nu=0.3$, $(\ell_1,\ell_2)=(40,0)$: ratio $0.205$; $((1+\ell_2)/(1+\ell_1))^\nu=0.328$; GM's $(1+\ell_1)^{2\nu}(1+\ell_2)^{2\nu}=9.28$\\
+Lemma~4.2 & $|\phi_{\ell_1,\ell_2}|\le\phi_{0,0}(\cdot,\operatorname{Re}\nu)$ confirmed; stated bound fails by a factor $10^4$ at $u=10^{-4}$ (F4)\\
+Lemma~4.3 & ratio to \eqref{eq:43main} at $u=10^{10}$: between $0.845$ and $1.000$ for $\nu\in[0.05,0.3]$, $\ell\le10$ (slowest for small $\nu$, as predicted); signs $(-1)^{\ell/2}$ (F5)\\
+Lemma~4.4 & $\int_0^\infty|\Pc^{(\ell_1,\ell_2)}_{(k-1)/2}|^2du=1/(k-1)$ to $12$ digits, $k=2,\dots,8$\\
+\cite[Prop.~6.1]{GM0} & $C=8$, $K=10$: $\int f\phi_{\ell,\ell}/\int f=1.00,0.97,0.60,0.01,-0.10$ for $\ell=0,100,400,800,1000$; the lower bound fails for $\ell\gtrsim60K$ (F2)\\
+Prop.~6.2 & $|\int\psi_Z\phi_{\ell,\ell}|(1+|\ell|)Z^{-\nu/2}\in[2.3,27]$, $\nu\in[0.06,\frac14]$, $\ell\le6$, $\log Z\le160$\\
+Lemma~6.4 & $k_Z(\ra_u)\sqrt{1+u}\in[0.95,1.43]$ for $1\le u\le10Z$, $=0.01$ at $u=40Z$, $=0$ for $u\ge64Z$ ($Z=10^4,10^6,10^8$)\\
+end-to-end & $\alpha_1=I$, $\alpha_2=\delta_{z_0}$, $\bX=1$: $|\br{\alpha_1|\Delta F|\alpha_2}|\bY^{1/2}\le0.017$ for $q\in\{1,7,101\}$, $\bY\in[10^{-5},10^{-2}]$\\
+\bottomrule
+\end{tabularx}
+\caption{Numerical checks.}\label{tab:num}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrrr}
+\toprule
+$\nu$ & $(\ell_1,\ell_2)$ & ratio (2.33) & $((1+\ell_2)/(1+\ell_1))^\nu$ & $(1+\ell_1)^{2\nu}(1+\ell_2)^{2\nu}$\\
+\midrule
+$0.1$ & $(0,40)$ & $1.647$ & $1.450$ & $2.10$\\
+$0.1$ & $(40,0)$ & $0.607$ & $0.690$ & $2.10$\\
+$0.3$ & $(2,200)$ & $3.953$ & $3.530$ & $46.6$\\
+$0.45$ & $(40,0)$ & $0.060$ & $0.188$ & $28.3$\\
+$0.45$ & $(100,100)$ & $1.000$ & $1.000$ & $4053$\\
+\bottomrule
+\end{tabular}
+\caption{The ratio (2.33) for $\nu\in(0,\frac12)$; compare \eqref{eq:236fix} and finding F3. The deviation at $\nu=0.45$, $(40,0)$ reflects the non-uniformity as $\nu\to\frac12$.}\label{tab:236}
+\end{table}
+
+The end-to-end test computes $\sum_{\gamma\in\Gamma_0(q)/\pm1}f(\operatorname{Re}\gamma z_0)g(\operatorname{Im}\gamma z_0/\bY)$ minus its main term, for smooth $f$ supported on $[-0.4,0.4]$ and $g$ supported on $[1,2]$. Here Theorem~\ref{thm:main} predicts $\ll\bY^{-1/2+o(1)}Z_0^\theta$. The observed values are much smaller than this bound, as expected for a single generic point. The more relevant end-to-end evidence is in \cite[\S9]{II}. There the Type~I sums, which are differences of two such pairings with the Heegner functional, were computed for four discriminants and satisfy $|\Xi|\le0.03X^{1/2}H^{1/4}$, in line with \cite[Proposition~6.5]{II}.
+
+\section{An independent route}\label{sec:independent}
+The companion paper \cite{KUZ} re-proves the Type~I estimate \cite[Proposition~6.5]{II} without \cite{GM1}. After Poisson summation, the Weyl sums for the roots of $E\ell^2+H\equiv0\pmod\mu$, $\mu\equiv\kappa d\pmod{4d}$, are written as Poincar\'e series of frequency $h$ on $\Gamma_0(q)$ evaluated at Heegner points of discriminant $-4N$. These are expanded spectrally. The frequency side is bounded by the Deshouillers--Iwaniec large sieve \cite{DI} for the regular spectrum. For the exceptional spectrum one can use either \cite[Theorem~5]{DI} or Pascadi's large sieve for smooth sequences \cite[Theorem~2]{Pas}. The Heegner side is bounded by the pre-trace inequality together with the count \cite[Lemma~6.4]{II}. With Pascadi's inequality one obtains exactly the bound of \cite[Proposition~6.5]{II}, and hence the exponent $(1-2\theta)/(10-12\theta)$. With \cite{DI} alone one obtains $(1-2\theta)/(10-8\theta)$. The inputs \cite{DI,Pas} are published (Pascadi's paper appeared in Forum Math.\ Pi in 2026). So the main theorem of \cite{II} does not depend on the correctness of \cite{GM1}, and the two proofs confirm each other.
+
+\section{Conclusion}
+Theorem~8.1 of \cite{GM1} is correct as stated. The proof as written contains one sign error that invalidates a step (finding F1). It also imports a result whose published proof covers only part of its stated range, though the part used is covered (finding F2). Both are repaired above without changing any statement. The special case on which \cite{II} relies, including the non-dyadic support of the weights, is proved in full in \S\ref{sec:proof}. Our numerical checks agree with every analytic lemma we tested. Independently, \cite{KUZ} recovers the consequence needed in \cite{II} from published results. We consider the main result of \cite{II} to be on solid ground.
+
+\appendix
+\section{Minor and typographical points}\label{app:typos}
+\begin{enumerate}
+\item \cite[\S2.2]{GM1}: $e^+=2ix_1+x_2-ix_3$ (the factor $i$ on $x_1$ is missing; the Iwasawa formula is correct).
+\item \cite[(2.14)]{GM1}: the Cartan expression should carry an extra factor $2\pi$ (finding F9).
+\item \cite[(5.1)]{GM1}: the range of the hypothesis should be $2J_0+J_1+J_2\le2J$.
+\item \cite[\S6.1]{GM1}: $u(g)=\frac14(a^2+b^2+c^2+d^2-2)$, as in (2.5), not $\frac12(\dots)$.
+\item \cite[(6.1)]{GM1}: the bound used later is the stronger $k_Z^{\rm exc}\ll\one\{u\ll Z\}/\sqrt{1+u}$ of Lemma~6.4.
+\item \cite[Prop.~6.2]{GM1}, second-to-last display: $\gg Z^{\nu/2}/(1+|\ell|)\gg Z^{\nu/2}/L$ (printed: $\ll Z^{\nu/2}/L$).
+\item \cite[Lemma~4.3]{GM1}: the main term carries $(-1)^{\ell/2}$ for even $\ell$; the closed form for odd $\ell$ has the wrong overall sign; in the proof, $(\varphi-\pi/2)^2$ should be $(\varphi-\pi)^2$.
+\item \cite[proof of Lemma~6.4]{GM1}: $|\cos\theta|^2\ll\sqrt Z\,v'u'$ (printed with $\sin\theta$); the support constant is $81$ (or $64+o(1)$).
+\item \cite[\S7.3]{GM1}: summing over the second $\K$-type lowers the exponent $J'$ by one and costs $\delta_1^{-2}$. \cite[\S7.4]{GM1}: $k^{\rm exc}_{X_j}$ should be $k^{\rm exc}_{X_j^2}$.
+\item \cite[Prop.~3.2]{GM1}, Eisenstein case: with the unnormalised $E^{(\ell)}_{\mathfrak c}$ the coefficient is $\br{F,\phi_{\ell_1,\ell_2}(\cdot,\nu)}$, which equals $\br{F,\Pc^{(\ell_1,\ell_2)}_\nu}$ up to a unimodular factor.
+\item \cite[Lemma~6.3]{GM0}: the factor $y_0^{-1}$ in an intermediate display should not be there; the next line is correct.
+\item \cite[proof of Prop.~5.1]{GM0}: ``Proposition~6.1'' should be ``Proposition~5.1''. In \cite[Lemma~5.10]{GM0}, ``$f\in L^2(\G)$'' should be ``$f$ smooth''.
+\item \cite[Prop.~6.1]{GM0}: stated for all $K,L\ge1$; the proof gives $L\le c(C)K$ (finding F2).
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\bibitem{DI} J.-M. Deshouillers and H. Iwaniec, \emph{Kloosterman sums and Fourier coefficients of cusp forms}, Invent. Math. \textbf{70} (1982/83), 219--288.
+\bibitem{DFI02} W. Duke, J. B. Friedlander and H. Iwaniec, \emph{The subconvexity problem for Artin $L$-functions}, Invent. Math. \textbf{149} (2002), 489--577.
+\bibitem{GM0} L. Grimmelt and J. Merikoski, \emph{Twisted correlations of the divisor function via discrete averages of $\SL_2(\R)$ Poincar\'e series}, arXiv:2404.08502v2 (2024). (Reference [8] of \cite{GM1}.)
+\bibitem{GM1} L. Grimmelt and J. Merikoski, \emph{Weighted averages of $\SL_2(\R)$ automorphic kernel, Part I: non-oscillatory functions}, arXiv:2505.00489v2 (2025).
+\bibitem{GM2} L. Grimmelt and J. Merikoski, \emph{On the greatest prime factor and uniform equidistribution of quadratic polynomials}, arXiv:2505.00493 (2025).
+\bibitem{II} \emph{Sums of two squares in three-term patterns, II: automorphic kernels and an improved exponent}, manuscript, October 2026.
+\bibitem{Iw} H. Iwaniec, \emph{Spectral Methods of Automorphic Forms}, 2nd ed., Graduate Studies in Mathematics 53, AMS, 2002.
+\bibitem{Kim} H. H. Kim, \emph{Functoriality for the exterior square of $\mathrm{GL}_4$ and the symmetric fourth of $\mathrm{GL}_2$}, with appendices by D. Ramakrishnan and by H. H. Kim and P. Sarnak, J. Amer. Math. Soc. \textbf{16} (2003), 139--183.
+\bibitem{KUZ} \emph{Sums of two squares in three-term patterns via the Kuznetsov formula}, manuscript, October 2026.
+\bibitem{Pas} A. Pascadi, \emph{Large sieve inequalities for exceptional Maass forms and the greatest prime factor of $n^2+1$}, Forum Math. Pi \textbf{14} (2026), e8; arXiv:2404.04239.
+\end{thebibliography}
+
+\end{document}

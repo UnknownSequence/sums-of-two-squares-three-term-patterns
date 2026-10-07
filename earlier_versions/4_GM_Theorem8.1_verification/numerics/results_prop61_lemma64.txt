@@ -1,0 +1,8 @@
+=== [GM0, Prop. 6.1]: J(l,nu) = int f phi_{l,l} du / int f du, f = bump(C K rho), C = 8 ===
+K=10, nu=0.0: l=0:+1.000  l=10:+1.000  l=40:+0.995  l=100:+0.971  l=200:+0.888  l=400:+0.604  l=600:+0.269  l=800:+0.011  l=1000:-0.105  l=1500:+0.004  l=2000:+0.021
+K=10, nu=10j: l=0:+0.999  l=10:+0.999  l=40:+0.994  l=100:+0.970  l=200:+0.887  l=400:+0.603  l=600:+0.269  l=800:+0.011  l=1000:-0.105  l=1500:+0.004  l=2000:+0.021
+For l/K >~ 60 (with C = 8) the integral collapses and then changes sign, so the lower bound
+Phi_{l,l}(k0,nu) >= C^{1/2} for all |l| <= L claimed in the proof of [GM0, Prop. 6.1] needs L <~ C K.
+(Positivity of Phi_{l,l}(k0*k0,nu) = Phi_{l,l}(k0,nu)^2 is never in question; the lower bound is what fails.)
+
+(GM-I Lemma 6.4 is checked in check_lemma64_decay.py.)
