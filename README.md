@@ -1,7 +1,8 @@
 # Sums of two squares in three-term patterns
 
-**Siddharth Iyer and Claude (Anthropic).** Siddharth Iyer gave the direction of attack; Claude developed it
-into the results, the papers and the Lean formalization below (see [Provenance](#provenance)).
+**Siddharth Iyer and Claude (Anthropic).** Siddharth Iyer posed the question and gave the direction of attack;
+Claude developed it into the results, the papers and the Lean formalization below (see
+[Provenance](#provenance)).
 
 For fixed integers `0 < a < b`, let `S_{a,b}(x)` be the number of `n ≤ x` such that `n`, `n + a` and `n + b`
 are all sums of two squares.
@@ -136,15 +137,29 @@ lake env lean Report.lean   # print the axioms used and any sorry dependencies
 
 ## Provenance
 
-Siddharth Iyer posed the problem and gave the direction of attack: work with the integers `N` for which
-`N² − 1` is a sum of two squares. These are exactly the numbers `N = (d + (b² + 1)/d)/2` with `d | b² + 1`, and
-for them `N − 1` and `N + 1` are automatically sums of two squares, so only the middle number has to be
-detected. This is the starting point of the first paper.
+The question and the direction of attack came from Siddharth Iyer. He asked whether `S(x) ≫ x^{1/2 + δ}` for
+some `δ > 0`, where `S(x)` counts the `n ≤ x` such that `n − 1`, `n` and `n + 1` are all sums of two squares,
+and proposed the following approach.
 
-Claude (Anthropic) then developed this idea into the results presented here. It carried out the argument for
-three consecutive integers (Hooley's method, `δ < 1/52`), extended it to all three-term patterns (`δ < 1/24`),
-recast the Type I sums in terms of Heegner points and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`,
-checked the external input of that version line by line, replaced it with a proof that uses only published
-results, wrote the final self-contained paper, and formalized it in Lean 4.
+1. Write `n² − 1 = a² + b²`. Then `(n − a)(n + a) = b² + 1`, so `n = C_d(b) = (d + (b² + 1)/d)/2` for some
+   divisor `d` of `b² + 1`.
+2. Restrict to divisors `1 ≤ d ≪ x^θ` for some `θ > 0`, and study how often the values `C_d(b) ≤ x` are
+   themselves sums of two squares.
+3. Carry this out with an averaging argument, drawing on a paper of Friedlander and Iwaniec.
+
+Since `n² − 1` is a sum of two squares exactly when `n − 1` and `n + 1` both are, the two outer members of each
+triple come for free, and only the middle one has to be detected. This is the strategy of the first paper, where
+`C_d(b)` and the range `d ≤ x^θ` appear exactly as proposed, and every later version builds on it.
+
+Claude (Anthropic) developed this idea into the results presented here. It carried out the argument for three
+consecutive integers, detecting sums of two squares with the weight `r(n)` and estimating the resulting sums by
+Hooley's method (`δ < 1/52`). It then extended the argument to all three-term patterns (`δ < 1/24`), recast the
+Type I sums in terms of Heegner points and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`, checked the
+external input of that version line by line, replaced it with a proof that uses only published results, wrote
+the final self-contained paper, and formalized it in Lean 4.
 
 The papers are research drafts and have not been refereed.
+
+## License
+
+Released under the MIT License; see [`LICENSE`](LICENSE).
