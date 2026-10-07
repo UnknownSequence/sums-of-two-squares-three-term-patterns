@@ -145,7 +145,8 @@ and proposed the following approach.
    divisor `d` of `b² + 1`.
 2. Restrict to divisors `1 ≤ d ≪ x^θ` for some `θ > 0`, and study how often the values `C_d(b) ≤ x` are
    themselves sums of two squares.
-3. Carry this out with an averaging argument, drawing on a paper of Friedlander and Iwaniec.
+3. Carry this out with an averaging argument, drawing on J. Friedlander and H. Iwaniec, *Quadratic polynomials
+   and quadratic forms*, Acta Math. 141 (1978), 1–15.
 
 Since `n² − 1` is a sum of two squares exactly when `n − 1` and `n + 1` both are, the two outer members of each
 triple come for free, and only the middle one has to be detected. This is the strategy of the first paper, where
@@ -153,7 +154,7 @@ triple come for free, and only the middle one has to be detected. This is the st
 
 Claude (Anthropic) developed this idea into the results presented here. It carried out the argument for three
 consecutive integers, detecting sums of two squares with the weight `r(n)` and estimating the resulting sums by
-Hooley's method (`δ < 1/52`). It then extended the argument to all three-term patterns (`δ < 1/24`), recast the
+Hooley's method, which is also the analytic engine of the Friedlander–Iwaniec paper (`δ < 1/52`). It then extended the argument to all three-term patterns (`δ < 1/24`), recast the
 Type I sums in terms of Heegner points and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`, checked the
 external input of that version line by line, replaced it with a proof that uses only published results, wrote
 the final self-contained paper, and formalized it in Lean 4.
