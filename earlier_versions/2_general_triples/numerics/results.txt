@@ -1,0 +1,104 @@
+### python3 seeds.py
+patterns with b<=60 checked: 1650  failures: []
+{0,1,2}: n_*=8 X_*=9 A_*=-60 (J,d0,u0)=(4,5,8)
+{0,1,3}: n_*=1 X_*=5 A_*=-64 (J,d0,u0)=(6,5,4)
+{0,1,4}: n_*=1 X_*=3 A_*=-62 (J,d0,u0)=(5,1,1)
+{0,5,8}: n_*=5 X_*=9 A_*=-64 (J,d0,u0)=(5,9,1)
+{0,2,3}: n_*=2 X_*=7 A_*=-62 (J,d0,u0)=(7,69,58)
+
+### python3 identities_check.py
+violations: {'2.1': 0, '2.2': 0, '2.3': 0, '8.4': 0}   (Lemmas 2.1/2.2 and Remark 8.4 tested on 16015 values of n)
+
+### python3 gauss_check.py
+Lemma 6.1 checks passed: 600 cases, 2684 roots
+
+### python3 weyl_check.py
+Steps 1-2: 24 cases, max |direct - form side| = 2.92e-14
+Step 3 (J=1, d=5, m=26): periodic mod L; max number of admissible classes (d not | S) = 29 <= 2^(3J+3) = 64
+Step 3 (J=2, d=5, m=26): periodic mod L; max number of admissible classes (d not | S) = 60 <= 2^(3J+3) = 512
+Step 3 (J=1, d=13, m=170): periodic mod L; max number of admissible classes (d not | S) = 32 <= 2^(3J+3) = 64
+
+### python3 table.py 1e13
+x = 1e+13, c_F = 0.166837 for the smooth weight
+{0,1,2} (J,d0,u0)=(4,5,8) d=    5 L_d=0.4812 #u= 250000 sharp=   961008 pred=   962371 ratio=0.999 | smooth=  79623.0 pred=  80279.5 ratio=0.992 | n in S_ab: 46656, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,2} (J,d0,u0)=(4,5,8) d=   37 L_d=0.2883 #u=  91902 sharp=   212272 pred=   211987 ratio=1.001 | smooth=  17553.9 pred=  17683.6 ratio=0.993 | n in S_ab: 12207, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,2} (J,d0,u0)=(4,5,8) d=   53 L_d=0.4398 #u=  76787 sharp=   271400 pred=   270141 ratio=1.005 | smooth=  23156.4 pred=  22534.8 ratio=1.028 | n in S_ab: 15724, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,3} (J,d0,u0)=(6,5,4) d=    5 L_d=0.4965 #u=  88389 sharp=   349648 pred=   351079 ratio=0.996 | smooth=  29316.6 pred=  29286.4 ratio=1.001 | n in S_ab: 18848, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,3} (J,d0,u0)=(6,5,4) d=  197 L_d=1.1474 #u=  14082 sharp=   128112 pred=   129252 ratio=0.991 | smooth=  10958.4 pred=  10782.0 ratio=1.016 | n in S_ab: 4639, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,4} (J,d0,u0)=(5,1,1) d=   97 L_d=0.7416 #u=  28380 sharp=   168328 pred=   168366 ratio=1.000 | smooth=  14378.2 pred=  14044.9 ratio=1.024 | n in S_ab: 8535, failures of Lemma 2.2: 0, non-integral T: 0
+{0,1,4} (J,d0,u0)=(5,1,1) d=  257 L_d=1.2042 #u=  17436 sharp=   167440 pred=   167962 ratio=0.997 | smooth=  13722.5 pred=  14011.2 ratio=0.979 | n in S_ab: 6301, failures of Lemma 2.2: 0, non-integral T: 0
+{0,5,8} (J,d0,u0)=(5,9,1) d=   41 L_d=0.7619 #u=  43652 sharp=   266712 pred=   266065 ratio=1.002 | smooth=  23176.7 pred=  22194.8 ratio=1.044 | n in S_ab: 11581, failures of Lemma 2.2: 0, non-integral T: 0
+{0,5,8} (J,d0,u0)=(5,9,1) d=  137 L_d=0.7488 #u=  23880 sharp=   141920 pred=   143054 ratio=0.992 | smooth=  11838.2 pred=  11933.3 ratio=0.992 | n in S_ab: 4745, failures of Lemma 2.2: 0, non-integral T: 0
+{0,2,3} (J,d0,u0)=(7,69,58) d= 1093 L_d=0.6187 #u=   2990 sharp=    15032 pred=    14795 ratio=1.016 | smooth=   1188.8 pred=   1234.1 ratio=0.963 | n in S_ab: 690, failures of Lemma 2.2: 0, non-integral T: 0
+
+### python3 weyl_size.py 4 37 1370 14
+J=4 d=37 m=1370; h in [1, 2, 3]
+gamma=1 M=     10000  R(M)=      48  max_h|W|=    12.49  max|W|/R^(1/2)= 1.80  max|W|/M^(3/4)= 0.01249
+gamma=1 M=     20000  R(M)=      96  max_h|W|=    10.89  max|W|/R^(1/2)= 1.11  max|W|/M^(3/4)= 0.00647
+gamma=1 M=     40000  R(M)=     192  max_h|W|=     9.09  max|W|/R^(1/2)= 0.66  max|W|/M^(3/4)= 0.00321
+gamma=1 M=     80000  R(M)=     416  max_h|W|=    32.14  max|W|/R^(1/2)= 1.58  max|W|/M^(3/4)= 0.00676
+gamma=1 M=    160000  R(M)=     740  max_h|W|=    58.06  max|W|/R^(1/2)= 2.13  max|W|/M^(3/4)= 0.00726
+gamma=1 M=    320000  R(M)=    1668  max_h|W|=    57.34  max|W|/R^(1/2)= 1.40  max|W|/M^(3/4)= 0.00426
+gamma=1 M=    640000  R(M)=    3142  max_h|W|=    55.03  max|W|/R^(1/2)= 0.98  max|W|/M^(3/4)= 0.00243
+gamma=1 M=   1280000  R(M)=    6348  max_h|W|=   157.86  max|W|/R^(1/2)= 1.98  max|W|/M^(3/4)= 0.00415
+gamma=1 M=   2560000  R(M)=   12852  max_h|W|=   145.42  max|W|/R^(1/2)= 1.28  max|W|/M^(3/4)= 0.00227
+gamma=1 M=   5120000  R(M)=   25284  max_h|W|=   242.73  max|W|/R^(1/2)= 1.53  max|W|/M^(3/4)= 0.00226
+gamma=1 M=  10240000  R(M)=   51176  max_h|W|=   183.56  max|W|/R^(1/2)= 0.81  max|W|/M^(3/4)= 0.00101
+gamma=1 M=  20480000  R(M)=  101816  max_h|W|=   373.55  max|W|/R^(1/2)= 1.17  max|W|/M^(3/4)= 0.00123
+gamma=1 M=  40960000  R(M)=  204118  max_h|W|=   230.69  max|W|/R^(1/2)= 0.51  max|W|/M^(3/4)= 0.00045
+gamma=1 M=  81920000  R(M)=  407672  max_h|W|=   917.03  max|W|/R^(1/2)= 1.44  max|W|/M^(3/4)= 0.00106
+gamma=1 M= 163840000  R(M)=  815656  max_h|W|=  1569.37  max|W|/R^(1/2)= 1.74  max|W|/M^(3/4)= 0.00108
+gamma=7 M=     10000  R(M)=      36  max_h|W|=    10.80  max|W|/R^(1/2)= 1.80  max|W|/M^(3/4)= 0.01080
+gamma=7 M=     20000  R(M)=     124  max_h|W|=     7.42  max|W|/R^(1/2)= 0.67  max|W|/M^(3/4)= 0.00441
+gamma=7 M=     40000  R(M)=     156  max_h|W|=    22.72  max|W|/R^(1/2)= 1.82  max|W|/M^(3/4)= 0.00803
+gamma=7 M=     80000  R(M)=     420  max_h|W|=    25.24  max|W|/R^(1/2)= 1.23  max|W|/M^(3/4)= 0.00531
+gamma=7 M=    160000  R(M)=     840  max_h|W|=    17.01  max|W|/R^(1/2)= 0.59  max|W|/M^(3/4)= 0.00213
+gamma=7 M=    320000  R(M)=    1476  max_h|W|=    26.97  max|W|/R^(1/2)= 0.70  max|W|/M^(3/4)= 0.00200
+gamma=7 M=    640000  R(M)=    3304  max_h|W|=    43.76  max|W|/R^(1/2)= 0.76  max|W|/M^(3/4)= 0.00193
+gamma=7 M=   1280000  R(M)=    6232  max_h|W|=    72.64  max|W|/R^(1/2)= 0.92  max|W|/M^(3/4)= 0.00191
+gamma=7 M=   2560000  R(M)=   13016  max_h|W|=    62.91  max|W|/R^(1/2)= 0.55  max|W|/M^(3/4)= 0.00098
+gamma=7 M=   5120000  R(M)=   25360  max_h|W|=   222.40  max|W|/R^(1/2)= 1.40  max|W|/M^(3/4)= 0.00207
+gamma=7 M=  10240000  R(M)=   50752  max_h|W|=   384.39  max|W|/R^(1/2)= 1.71  max|W|/M^(3/4)= 0.00212
+gamma=7 M=  20480000  R(M)=  102204  max_h|W|=   462.64  max|W|/R^(1/2)= 1.45  max|W|/M^(3/4)= 0.00152
+gamma=7 M=  40960000  R(M)=  203724  max_h|W|=   642.98  max|W|/R^(1/2)= 1.42  max|W|/M^(3/4)= 0.00126
+gamma=7 M=  81920000  R(M)=  408360  max_h|W|=  1810.75  max|W|/R^(1/2)= 2.83  max|W|/M^(3/4)= 0.00210
+gamma=7 M= 163840000  R(M)=  815148  max_h|W|=  1173.43  max|W|/R^(1/2)= 1.30  max|W|/M^(3/4)= 0.00081
+max of |W|/R^(1/2) over M >= 10^5: 2.83
+
+### python3 weyl_size.py 6 197 38424 14
+J=6 d=197 m=38424; h in [1, 2, 3]
+
+gamma=1 M=     40000  R(M)=0 (empty sum)
+gamma=1 M=     80000  R(M)=       8  max_h|W|=     4.69  max|W|/R^(1/2)= 1.66  max|W|/M^(3/4)= 0.00098
+gamma=1 M=    160000  R(M)=      38  max_h|W|=     2.47  max|W|/R^(1/2)= 0.40  max|W|/M^(3/4)= 0.00031
+gamma=1 M=    320000  R(M)=      44  max_h|W|=     7.38  max|W|/R^(1/2)= 1.11  max|W|/M^(3/4)= 0.00055
+gamma=1 M=    640000  R(M)=     100  max_h|W|=     8.00  max|W|/R^(1/2)= 0.80  max|W|/M^(3/4)= 0.00035
+gamma=1 M=   1280000  R(M)=     172  max_h|W|=    20.21  max|W|/R^(1/2)= 1.54  max|W|/M^(3/4)= 0.00053
+gamma=1 M=   2560000  R(M)=     348  max_h|W|=    25.73  max|W|/R^(1/2)= 1.38  max|W|/M^(3/4)= 0.00040
+gamma=1 M=   5120000  R(M)=     692  max_h|W|=    28.48  max|W|/R^(1/2)= 1.08  max|W|/M^(3/4)= 0.00026
+gamma=1 M=  10240000  R(M)=    1440  max_h|W|=    76.22  max|W|/R^(1/2)= 2.01  max|W|/M^(3/4)= 0.00042
+gamma=1 M=  20480000  R(M)=    2752  max_h|W|=   105.34  max|W|/R^(1/2)= 2.01  max|W|/M^(3/4)= 0.00035
+gamma=1 M=  40960000  R(M)=    5808  max_h|W|=   152.18  max|W|/R^(1/2)= 2.00  max|W|/M^(3/4)= 0.00030
+gamma=1 M=  81920000  R(M)=   11604  max_h|W|=   188.37  max|W|/R^(1/2)= 1.75  max|W|/M^(3/4)= 0.00022
+gamma=1 M= 163840000  R(M)=   22880  max_h|W|=   143.70  max|W|/R^(1/2)= 0.95  max|W|/M^(3/4)= 0.00010
+gamma=7 M=     40000  R(M)=       8  max_h|W|=     1.67  max|W|/R^(1/2)= 0.59  max|W|/M^(3/4)= 0.00059
+gamma=7 M=     80000  R(M)=       8  max_h|W|=     7.64  max|W|/R^(1/2)= 2.70  max|W|/M^(3/4)= 0.00161
+gamma=7 M=    160000  R(M)=      32  max_h|W|=     3.99  max|W|/R^(1/2)= 0.71  max|W|/M^(3/4)= 0.00050
+gamma=7 M=    320000  R(M)=      48  max_h|W|=     9.91  max|W|/R^(1/2)= 1.43  max|W|/M^(3/4)= 0.00074
+gamma=7 M=    640000  R(M)=     124  max_h|W|=    12.90  max|W|/R^(1/2)= 1.16  max|W|/M^(3/4)= 0.00057
+gamma=7 M=   1280000  R(M)=     224  max_h|W|=    12.97  max|W|/R^(1/2)= 0.87  max|W|/M^(3/4)= 0.00034
+gamma=7 M=   2560000  R(M)=     388  max_h|W|=    18.37  max|W|/R^(1/2)= 0.93  max|W|/M^(3/4)= 0.00029
+gamma=7 M=   5120000  R(M)=     652  max_h|W|=    34.51  max|W|/R^(1/2)= 1.35  max|W|/M^(3/4)= 0.00032
+gamma=7 M=  10240000  R(M)=    1468  max_h|W|=    53.61  max|W|/R^(1/2)= 1.40  max|W|/M^(3/4)= 0.00030
+gamma=7 M=  20480000  R(M)=    2696  max_h|W|=    47.32  max|W|/R^(1/2)= 0.91  max|W|/M^(3/4)= 0.00016
+gamma=7 M=  40960000  R(M)=    5788  max_h|W|=    64.50  max|W|/R^(1/2)= 0.85  max|W|/M^(3/4)= 0.00013
+gamma=7 M=  81920000  R(M)=   11104  max_h|W|=   218.13  max|W|/R^(1/2)= 2.07  max|W|/M^(3/4)= 0.00025
+gamma=7 M= 163840000  R(M)=   22972  max_h|W|=   105.96  max|W|/R^(1/2)= 0.70  max|W|/M^(3/4)= 0.00007
+max of |W|/R^(1/2) over M >= 10^5: 2.07
+
+### ./count_triples a b 1e8
+S_{1,2}(100000000) = 183098,   S*(log x)^{3/2}/x = 0.1448
+S_{1,3}(100000000) = 272988,   S*(log x)^{3/2}/x = 0.2158
+S_{2,3}(100000000) = 272904,   S*(log x)^{3/2}/x = 0.2158
+S_{1,4}(100000000) = 817778,   S*(log x)^{3/2}/x = 0.6465
+S_{5,8}(100000000) = 677411,   S*(log x)^{3/2}/x = 0.5356

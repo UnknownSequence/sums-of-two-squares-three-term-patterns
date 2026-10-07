@@ -1,0 +1,725 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zt}{\mathbb{Z}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Lf}{\mathfrak{L}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+
+\title[Sums of two squares in three-term patterns]{Sums of two squares in three-term patterns:\\ beyond the square-root bound}
+\date{October 2026}
+
+\begin{document}
+
+\begin{abstract}
+For fixed integers $0<a<b$ let $S_{a,b}(x)$ be the number of $n\le x$ such that $n$, $n+a$ and $n+b$ are all sums of two squares. Littlewood asked whether $S_{a,b}(x)\to\infty$, and Hooley proved this in 1973. A Hardy--Littlewood type conjecture predicts $S_{a,b}(x)\sim\mathfrak S_{a,b}\,C^3x(\log x)^{-3/2}$. We prove that $S_{a,b}(x)\gg_{a,b,\delta}x^{1/2+\delta}$ for every $\delta<1/24$. In particular, three consecutive integers are all sums of two squares for $\gg x^{1/2+\delta}$ values of $n\le x$.
+
+The method makes $n$ and $n+b$ sums of two squares automatically, through an identity $\kappa^2n(n+b)=(X-d)^2+u^2$ with $2dX=u^2+d^2+g^2$, where $\kappa\in\{1,2\}$ and $g=\kappa b/2$. For each prime $d$, the remaining element $n+a$ is then a value of the quadratic polynomial $(u^2+m_d)/(2\kappa d)$, with $m_d=d^2+O(d)$. We evaluate the $r$-weighted count of these values by Hooley's method: Gauss's correspondence between roots of quadratic congruences and binary quadratic forms, together with Weil's bound for Kloosterman sums. All dependence on $d$ is kept polynomial, which allows primes $d\le x^{1/12-\eps}$. A short $2$-adic analysis supplies admissible congruence classes for every pattern $(0,a,b)$. Summing over $d$ and removing multiplicities at a cost of $x^{\eps}$ gives the theorem. No sieve is needed.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $\Sc=\{x^2+y^2:\ x,y\in\Z\}$, so that $0\in\Sc$. For fixed integers $0<a<b$ put
+\[
+S_{a,b}(x)=\#\{1\le n\le x:\ n,\ n+a,\ n+b\in\Sc\}.
+\]
+Littlewood asked whether $S_{a,b}(x)\to\infty$ for all such $a,b$. Hooley \cite{Ho73} answered this affirmatively using the theory of ternary quadratic forms; see also \cite[\S2.1]{FKR}. Four-term patterns are different. Some, such as $\{0,1,2,3\}$, are locally obstructed, and for patterns with four or more elements even the qualitative conjecture that every pattern without local obstructions occurs infinitely often \cite[Conjecture~2.1]{FKR} is open.
+
+The expected order of magnitude comes from an analogue, for sums of two squares, of the Hardy--Littlewood prime $k$-tuple conjecture. It was formulated by Freiberg, Kurlberg and Rosenzweig \cite[Conjecture~1.1]{FKR}, following Connors--Keating \cite{CK} and Smilansky \cite{Sm} for pairs. For a finite set $\mathbf h\subset\Z$ with non-vanishing singular series $\mathfrak S_{\mathbf h}$ it predicts
+\[
+\#\{n\le x:\ n+\mathbf h\subseteq\Sc\}\sim\mathfrak S_{\mathbf h}\,x\Bigl(\frac{C}{\sqrt{\log x}}\Bigr)^{\#\mathbf h},
+\]
+where $C=0.7642\ldots$ is the Landau--Ramanujan constant. Freiberg, Kurlberg and Rosenzweig show that this conjecture implies Poisson statistics for the gaps between sums of two squares, and hence for the level spacings of arithmetic toral point scatterers. Every three-element set has $\mathfrak S_{\mathbf h}>0$ \cite[\S2.1]{FKR}, so the conjecture predicts
+\[
+S_{a,b}(x)\sim\mathfrak S_{\{0,a,b\}}\,C^3\,\frac{x}{(\log x)^{3/2}}.
+\]
+Smilansky \cite{Sm} computed the singular series for the consecutive triple $\{0,1,2\}$.
+
+Upper bounds of this order follow from Selberg's sieve. This was done by Cochrane and Dressler \cite{CD} for $\{0,1,2\}$ and by Nowak \cite{No} in general. Lower bounds are much weaker. For pairs, the bound $\#\{n\le x:\ n,n+j\in\Sc\}\gg x/\log x$ of the conjectured order is due to Hooley \cite{Ho74} and Indlekofer \cite{In}. As noted in \cite{FKR}, no such bounds are known for any triple. One-parameter constructions give at most about $x^{1/2}$ elements up to $x$. For example, for $\{0,1,2\}$, taking $n=m^2$ requires only $m^2+2\in\Sc$, and \cite[Theorem~2]{FI78} gives $\gg X(\log X)^{-1/2}$ such $m\le X$. As far as we are aware, no lower bound $S_{a,b}(x)\gg x^{1/2+\delta}$ with $\delta>0$ has previously been established for any pattern.
+
+\begin{theorem}\label{thm:main}
+Let $0<a<b$ be fixed integers. For every $\delta<1/24$,
+\[
+S_{a,b}(x)\gg_{a,b,\delta}x^{1/2+\delta}\qquad(x\ge x_0(a,b,\delta)).
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:consecutive}
+For every $\delta<1/24$, the number of $n\le x$ such that $n-1$, $n$ and $n+1$ are all sums of two squares is $\gg_\delta x^{1/2+\delta}$.
+\end{corollary}
+
+The implied constants are ineffective because Siegel's theorem is used (Lemma~\ref{lem:L}). Remark~\ref{rem:effective} explains how to remove this.
+
+\subsection{Strategy}\label{sec:strategy}
+Choose $\kappa\in\{1,2\}$ minimal with $\kappa b$ even, and put $g=\kappa b/2$ and $X=\kappa n+g$, so that $X\pm g=\kappa n$ and $\kappa(n+b)$. If
+\begin{equation}\label{eq:basic}
+2dX=u^2+d^2+g^2
+\end{equation}
+for integers $d,u$, then $\kappa^2n(n+b)=X^2-g^2=(X-d)^2+u^2$ is a sum of two squares. If moreover $d$ is a prime $\equiv1\pmod 4$, a short argument shows that $n$ and $n+b$ are then both sums of two squares (Lemma~\ref{lem:split}). Conversely, every $n$ with $n(n+b)\in\Sc$ arises this way. This is the observation behind \cite{Sk}; for $a=1$, $b=2$ it reads $N^2-1=(N-d)^2+u^2$ with $N=n+1$.
+
+For fixed $d$, the third element $T=n+a$ satisfies
+\[
+2\kappa d\,T=u^2+m_d,\qquad m_d=(d+c)^2+\kappa^2a(b-a),\qquad c=\kappa a-g.
+\]
+So as $u$ runs over a residue class modulo $2^Jd$, $T$ runs over the values of a quadratic polynomial, about $\sqrt{x/d}$ of which are $\le x$. Summing over primes $d\le x^{\theta}$ gives about $x^{1/2+\theta/2}$ candidates. Each value of $n$ is produced at most $x^{\eps}$ times (Lemma~\ref{lem:mult}). It therefore suffices to show that a reasonable proportion of the candidates $T$ lie in $\Sc$.
+
+We detect $T\in\Sc$ with the weight $r(T)=4\sum_{k\mid T}\chi(k)$, using divisors $k$ up to $\sqrt x$. This exceeds the length $\sqrt{x/d}$ of the polynomial sequence by a factor $\sqrt d$. It is the situation of Hooley's theorem \cite{Ho63} on $\sum_{n\le X}\tau(An^2+Bn+C)$ for a quadratic with large leading coefficient. Hooley's method is also the analytic engine of Friedlander and Iwaniec's work on quadratic polynomials and quadratic forms \cite{FI78}. We need it with polynomial dependence on $d$ (Proposition~\ref{prop:weyl}), and this is what restricts $d$ to $d\le x^{1/12-\eps}$.
+
+Finally, $T$ must be $2$-adically compatible with lying in $\Sc$. A short $2$-adic argument (\S\ref{sec:2adic}) produces suitable congruence classes for every pattern, after one reduction in the case $4\mid b$, $a\equiv2\pmod 4$.
+
+\subsection{Relation to triple convolution sums}
+It is instructive to compare Theorem~\ref{thm:main} with what is known for the triple convolution sum
+\[
+\sum_{n\le x}\tau(n-j)\,\tau(n)\,\tau(n+j)\qquad(j\ge1)
+\]
+of the divisor function, studied recently by Misra, Murty and Saha \cite{MMS}. Browning conjectured that this sum is $\sim c_j\,x(\log x)^3$. Its order of magnitude $x(\log x)^3$ follows from sieve-theoretic results of Wolke and of Nair, and a lower bound of the correct order can even be obtained by elementary arguments; the difficulty lies in the constant \cite{MMS}. Misra, Murty and Saha prove the explicit lower bound $c_j\,x(\log x)^3/27+O_j(x(\log x)^2)$ by means of multiple Dirichlet series and Tauberian theorems, and they give a framework that predicts Browning's constant $c_j$.
+
+For sums of two squares the situation is reversed. The analogous correlation $\sum_{n\le x}r(n)r(n+a)r(n+b)$ is supported on the set counted by $S_{a,b}(x)$, which has density zero, and it is conjecturally $\asymp x$. Since $r(n)\ll n^{\eps}$, lower bounds for it are equivalent, up to factors $x^{\eps}$, to lower bounds for $S_{a,b}(x)$, so here already the order of magnitude is the difficulty. The weighted count evaluated in this paper is, up to a constant factor, a sub-sum of this correlation (Remark~\ref{rem:correlation}), and Theorem~\ref{thm:main} gives $\sum_{n\le x}r(n)r(n+a)r(n+b)\gg x^{1/2+\delta}$ for every $\delta<1/24$.
+
+\subsection{Notation}
+We write $e(t)=e^{2\pi it}$. The letter $\chi$ denotes the non-principal character modulo $4$, and
+\[
+r(n)=\#\{(x,y)\in\Z^2:\ x^2+y^2=n\}=4\sum_{k\mid n}\chi(k)\qquad(n\ge1).
+\]
+For a prime $\ell$, $v_\ell$ is the $\ell$-adic valuation. The functions $\tau(n)$ and $\omega(n)$ count the divisors and the distinct prime factors of $n$. We write $\bar t$ for a multiplicative inverse, with the modulus clear from context. For a function $\beta$ on an interval $I$, $\|\beta\|_\infty$ is its supremum and $\Var_I(\beta)$ its total variation. Throughout, $a$ and $b$ are fixed, and $\eps>0$ is small. Implied constants may depend on $a$, $b$, $\eps$ and the fixed smooth functions $F$ and $W$ introduced below, but on nothing else unless indicated.
+
+\section{The parametrisation}\label{sec:param}
+
+Fix integers $0<a<b$. Let $\kappa\in\{1,2\}$ be minimal with $\kappa b$ even, and put
+\begin{equation}\label{eq:params}
+g=\frac{\kappa b}{2},\qquad c=\kappa a-g,\qquad D_0=\kappa^2a(b-a)=g^2-c^2>0,\qquad m_d=(d+c)^2+D_0 .
+\end{equation}
+For example, $(a,b)=(1,2)$ gives $\kappa=1$, $g=1$, $c=0$ and $m_d=d^2+1$.
+
+\begin{lemma}\label{lem:identity}
+Let $d,u,T\in\Z$ satisfy $2\kappa d\,T=u^2+m_d$, and put $n=T-a$ and $X=\kappa n+g$. Then $2dX=u^2+d^2+g^2$ and
+\[
+\kappa^2\,n(n+b)=X^2-g^2=(X-d)^2+u^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+We have $X=\kappa T-c$, so $2dX=2\kappa dT-2cd=u^2+(d+c)^2+g^2-c^2-2cd=u^2+d^2+g^2$. Next, $X\pm g$ equal $\kappa n$ and $\kappa n+2g=\kappa(n+b)$. Finally $(X-d)^2+u^2=X^2-2dX+d^2+u^2=X^2-g^2$.
+\end{proof}
+
+\begin{lemma}\label{lem:split}
+In Lemma~\ref{lem:identity}, suppose that $d$ is a prime with $d\equiv1\pmod4$ and that $n\ge1$. Then $n\in\Sc$ and $n+b\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+Recall that $z\ge1$ lies in $\Sc$ if and only if $v_\ell(z)$ is even for every prime $\ell\equiv3\pmod 4$. By Lemma~\ref{lem:identity}, $\kappa^2n(n+b)\in\Sc$, so $n(n+b)\in\Sc$. Let $\ell\equiv3\pmod 4$ be prime. If $\ell$ divides at most one of $n$ and $n+b$, then the $\ell$-adic valuations of $n$ and of $n+b$ are $0$ or $v_\ell(n(n+b))$, hence even.
+
+Suppose $\ell$ divides both. Then $\ell\mid b$, so $\ell\mid g$, since $\ell$ is odd and $g\in\{b/2,b\}$. Also $\ell\mid X=\kappa n+g$. Now $2dX=u^2+d^2+g^2$ gives $\ell\mid u^2+d^2$. Since $-1$ is not a square modulo $\ell$, this forces $\ell\mid d$, which is impossible because $d$ is a prime $\equiv1\pmod 4$.
+\end{proof}
+
+\begin{lemma}\label{lem:mult}
+For every integer $n\ge1$,
+\[
+\#\bigl\{(d,u)\in\Z^2:\ d\ge1,\ u\ge1,\ 2\kappa d\,(n+a)=u^2+m_d\bigr\}\ \le\ r\bigl(n(n+b)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+For $n$ fixed, $X=\kappa n+g$ is fixed. By Lemma~\ref{lem:identity}, $(d,u)\mapsto(X-d,u)$ maps the set on the left injectively into the representations of $X^2-g^2=\kappa^2n(n+b)$ as a sum of two squares. Finally, $r(4z)=r(z)$.
+\end{proof}
+
+\section{Local analysis at the prime 2}\label{sec:2adic}
+
+Let $\Nc\subset\Zt$ denote the set of non-zero $2$-adic integers whose odd part is $\equiv1\pmod 4$, that is, the non-zero norms from $\mathbb Q_2(i)$ that lie in $\Zt$. Then $\Nc$ is closed under multiplication, $2z\in\Nc$ if and only if $z\in\Nc$, and $\Sc\smallsetminus\{0\}\subset\Nc$, because an odd element of $\Sc$ is $\equiv1\pmod 4$. We write $z=2^{v_2(z)}z'$ with $z'$ odd.
+
+\begin{lemma}\label{lem:S}
+Let $\delta$ be an odd integer and $\epsilon\in\{0,1\}$. There is $y\in\Z$ with $y\equiv\epsilon\pmod 2$ and $y,\ y+\delta\in\Nc$.
+\end{lemma}
+
+\begin{proof}
+Let $\epsilon=1$. Take $y\equiv2-\delta\pmod 8$ if $\delta\equiv1\pmod4$, and $y\equiv4-\delta\pmod{16}$ if $\delta\equiv3\pmod 4$. In both cases $y\equiv1\pmod4$, while $y+\delta\equiv2\pmod 8$, respectively $y+\delta\equiv4\pmod{16}$. So $y$ and $y+\delta$ lie in $\Nc$.
+
+Let $\epsilon=0$. Apply the case $\epsilon=1$ to $-\delta$, obtaining an odd $y'$ with $y',\,y'-\delta\in\Nc$, and put $y=y'-\delta$.
+\end{proof}
+
+\begin{lemma}\label{lem:nstar}
+Assume that it is not the case that $4\mid b$ and $a\equiv2\pmod 4$. Then there is $n_*\in\Z$ with $n_*,\ n_*+a,\ n_*+b\in\Nc$ such that $X_*:=\kappa n_*+g$ is odd.
+\end{lemma}
+
+\begin{proof}
+We consider several cases.
+
+(i) Suppose $4\mid b$, so $\kappa=1$ and $X_*=n_*+b/2$, and we need $n_*$ odd. By hypothesis $a\not\equiv 2\pmod 4$. If $4\mid a$, take $n_*\equiv1\pmod 4$. If $a$ is odd, take $n_*=y$ from Lemma~\ref{lem:S} with $\delta=a$ and $\epsilon=1$. Then $n_*\equiv1\pmod 4$, since $n_*$ is odd and lies in $\Nc$, and $n_*+b\equiv1\pmod 4$.
+
+(ii) Suppose $b\equiv2\pmod 4$, so $\kappa=1$, $g=b/2$ is odd, and we need $n_*$ even. If $a$ is odd, apply Lemma~\ref{lem:S} with $\delta=b/2$ and $\epsilon\equiv(1-a)/2\pmod 2$, and put $n_*=2y$. Then $n_*,\,n_*+b=2(y+b/2)\in\Nc$, and $n_*+a\equiv2\epsilon+a\equiv1\pmod 4$. If $a$ is even, let $n'$ be given by case (iii) below for the pattern $(a/2,b/2)$, which has $b/2$ odd, and put $n_*=2n'$.
+
+(iii) Suppose $b$ is odd, so $\kappa=2$ and $X_*=2n_*+b$ is odd automatically.
+\begin{itemize}
+\item If $4\mid a$, take $n_*=y$ from Lemma~\ref{lem:S} with $\delta=b$ and $\epsilon=1$; then $n_*+a\equiv1\pmod 4$.
+\item If $a\equiv2\pmod 4$, take $n_*=2y$ with $y$ from Lemma~\ref{lem:S} for $\delta=a/2$ and $\epsilon\equiv(1-b)/2\pmod 2$; then $n_*+b\equiv1\pmod4$.
+\item If $a$ is odd and $a\equiv b\pmod 4$, take $n_*=y$ from Lemma~\ref{lem:S} with $\delta=a$ and $\epsilon=0$; then $n_*+b\equiv n_*+a\equiv1\pmod4$.
+\item If $a$ is odd and $a\not\equiv b\pmod4$, then $(b-a)/2$ is odd. Take $y$ from Lemma~\ref{lem:S} with $\delta=(b-a)/2$ and $\epsilon\equiv(1+a)/2\pmod 2$, and put $n_*=2y-a$. Then $n_*+a=2y$ and $n_*+b=2(y+\delta)$ lie in $\Nc$, and $n_*\equiv1\pmod 4$.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{lemma}\label{lem:rep}
+Let $n_*$ be as in Lemma~\ref{lem:nstar}. There are $A_*,u_*\in\Zt$ with $X_*^2-g^2=A_*^2+u_*^2$ and $X_*-A_*\equiv1\pmod 4$.
+\end{lemma}
+
+\begin{proof}
+Put $Z=X_*^2-g^2=\kappa^2n_*(n_*+b)$. This lies in $\Nc$ because $n_*$ and $n_*+b$ do. Recall that $X_*$ is odd. Odd elements of $\Zt$ that are $\equiv1\pmod 8$ are squares, and every element of $\Nc$ is a sum of two squares in $\Zt$.
+
+\emph{Case $g$ even.} Then $4\mid b$, $\kappa=1$, and $n_*$ is odd, hence $n_*\equiv1\pmod 4$. The number $Z\equiv1-g^2\pmod 8$ is odd. Take $A=0$ if $4\mid g$ and $A=2$ if $g\equiv2\pmod4$; then $Z-A^2\equiv1\pmod 8$ is a square $u_*^2$. Moreover $X_*-A=n_*+g-A\equiv1\pmod 4$ in both cases.
+
+\emph{Case $g$ odd.} Then $Z\equiv0\pmod 8$. A representation $Z=A^2+u^2$ with $A=2A_1$, $u=2u_1$ amounts to $Z_1:=Z/4=A_1^2+u_1^2$, and we need $A_1\equiv(X_*-1)/2\pmod 2$. Put $E=n_*$ and $E'=n_*+b$ if $b$ is odd, and $E=n_*/2$ and $E'=(n_*+b)/2$ if $b\equiv 2\pmod 4$. In both cases $Z_1=EE'$ and $X_*=E+E'$, where $E,E'\in\Nc$ have opposite parities; for $b\equiv2\pmod4$ this holds because $n_*$ is even and $g$ is odd. Let $O\equiv1\pmod 4$ be the odd one and $V$ the even one, so $X_*\equiv O+V\pmod 4$.
+\begin{itemize}
+\item If $v_2(V)=1$, then $Z_1\equiv2\pmod 4$, and every representation has $A_1,u_1$ both odd; one exists, for example $A_1=1$, since $Z_1-1\equiv1\pmod 8$. On the other hand $X_*\equiv1+2=3\pmod4$, so $(X_*-1)/2$ is odd, as required.
+\item If $v_2(V)\ge2$, then $4\mid Z_1$, and every representation has $A_1,u_1$ even; one exists, since $Z_1/4\in\Nc$. On the other hand $X_*\equiv1\pmod 4$, so $(X_*-1)/2$ is even, as required.
+\end{itemize}
+In either case we set $A_*=2A_1$ and $u_*=2u_1$.
+\end{proof}
+
+\begin{proposition}\label{prop:seed}
+Assume that it is not the case that $4\mid b$ and $a\equiv2\pmod 4$. There exist integers $J\ge4$, $e\ge0$, $d_0\equiv1\pmod 4$ and $u_0$ with the following property. For all integers $d\equiv d_0$ and $u\equiv u_0\pmod{2^J}$, we have $v_2(u^2+m_d)=v_2(2\kappa)+e=:v$ and $(u^2+m_d)2^{-v}\equiv d\pmod 4$. Consequently, if in addition $d\mid u^2+g^2$, then
+\[
+T=\frac{u^2+m_d}{2\kappa d}
+\]
+is an integer of the form $2^eT'$ with $T'\equiv1\pmod 4$.
+\end{proposition}
+
+\begin{proof}
+Let $n_*$, $A_*$ and $u_*$ be as in Lemmas~\ref{lem:nstar} and~\ref{lem:rep}, and put $d_*=X_*-A_*\in1+4\Zt$. By the $2$-adic version of Lemma~\ref{lem:identity}, read backwards, $2d_*X_*=u_*^2+d_*^2+g^2$, and hence
+\[
+Q_*:=u_*^2+m_{d_*}=2\kappa d_*T_*,\qquad T_*=n_*+a\in\Nc .
+\]
+Let $e=v_2(T_*)$ and $v=v_2(2\kappa)+e$. Then $Q_*2^{-v}=d_*T_*'\equiv d_*\pmod 4$. Choose $J\ge v+3$ and integers $d_0\equiv d_*$, $u_0\equiv u_*\pmod{2^J}$. Since $(d,u)\mapsto u^2+m_d$ is a polynomial with integer coefficients, $d\equiv d_0$ and $u\equiv u_0\pmod{2^J}$ imply $u^2+m_d\equiv Q_*\pmod{2^J}$. Hence $v_2(u^2+m_d)=v$ and $(u^2+m_d)2^{-v}\equiv d_*\equiv d\pmod4$.
+
+If moreover $d\mid u^2+g^2$, then $d\mid u^2+m_d$, because $m_d\equiv c^2+D_0=g^2\pmod d$. Also $2\kappa\mid u^2+m_d$ since $v\ge v_2(2\kappa)$. So $T$ is an integer, $v_2(T)=e$, and $dT'=(u^2+m_d)2^{-v}\equiv d\pmod4$, which gives $T'\equiv1\pmod 4$.
+\end{proof}
+
+\begin{lemma}\label{lem:bad}
+If $4\mid b$ and $a\equiv2\pmod 4$, then $S_{a,b}(x)=S_{a/2,b/2}(x/2)$, and the pattern $(a/2,b/2)$ does not satisfy these conditions.
+\end{lemma}
+
+\begin{proof}
+If $n$ were odd with $n,n+a\in\Sc$, then $n\equiv1\pmod4$ and $n+a\equiv3\pmod 4$, which is impossible. So every $n$ counted by $S_{a,b}(x)$ is even. Since $2z\in\Sc$ if and only if $z\in\Sc$, the map $n\mapsto n/2$ is a bijection onto the set counted by $S_{a/2,b/2}(x/2)$. Finally, $a/2$ is odd.
+\end{proof}
+
+\section{The main analytic theorem and the deduction of Theorem 1.1}
+
+By Lemma~\ref{lem:bad} we may assume that it is not the case that $4\mid b$ and $a\equiv2\pmod 4$. We fix $J,e,d_0,u_0$ as in Proposition~\ref{prop:seed}.
+
+Fix a smooth $F:\R\to[0,1]$ supported in $[1/2,1]$ and not identically zero, and put $c_F=\int_0^1F(t)t^{-1/2}\,dt>0$. For a prime $d\equiv d_0\pmod{2^J}$ and $x\ge1$ define
+\begin{equation}\label{eq:Sigma}
+\Sigma_d(x)=\sum_{\substack{u\ge1,\ u\equiv u_0\ (2^J)\\ d\mid u^2+g^2}}r\bigl(T_d(u)\bigr)\,F\Bigl(\frac{T_d(u)}{x}\Bigr),\qquad T_d(u)=\frac{u^2+m_d}{2\kappa d}.
+\end{equation}
+Fix $d_1=d_1(a,b)\ge b$ such that $\frac12d^2\le m_d\le2d^2$ for all $d>d_1$. Call a prime $d$ \emph{good} if $d\equiv d_0\pmod{2^J}$, $d>d_1$, and neither $m_d$ nor $m_d/3$ is a perfect square. Then $d\equiv1\pmod4$, $d\nmid g$, and $d\nmid m_d$, because $m_d\equiv g^2\pmod d$.
+
+\begin{proposition}\label{prop:reduction}
+Let $\mathcal D$ be a finite set of good primes and $x\ge x_0$. Then
+\[
+\sum_{d\in\mathcal D}\Sigma_d(x)\ \le\ S_{a,b}(x)\cdot\max_{n\le x}r(n+a)\,r\bigl(n(n+b)\bigr)\ \ll_\eps\ S_{a,b}(x)\,x^{\eps}.
+\]
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:seed}, each $T=T_d(u)$ occurring in \eqref{eq:Sigma} is an integer, and a term is non-zero only if $x/2\le T\le x$ and $r(T)>0$, that is, $T\in\Sc$. Put $n=T-a$; then $1\le n\le x$ for $x\ge x_0$. Lemma~\ref{lem:split} shows that $n,n+b\in\Sc$, so $n$ is counted by $S_{a,b}(x)$. By Lemma~\ref{lem:mult}, each such $n$ arises from at most $r(n(n+b))$ pairs $(d,u)$. The last bound follows from $r(z)\le 4\tau(z)\ll z^{\eps}$.
+\end{proof}
+
+\begin{theorem}\label{thm:Sigma}
+Let $0<\theta<1/12$. There is $\eps_0=\eps_0(\theta)>0$ such that for $0<\eps\le\eps_0$ and $x\ge x_0(a,b,\theta,\eps)$,
+\[
+\Sigma_d(x)\gg_{\eps}x^{1/2}d^{-1/2-\eps}
+\]
+for every good prime $d\le x^{\theta}$. The implied constant is ineffective.
+\end{theorem}
+
+\begin{proof}[Deduction of Theorem~\ref{thm:main}]
+Let $\delta<1/24$, choose $\theta$ with $2\delta<\theta<1/12$, and then choose $\eps\le\eps_0(\theta)$ with $\theta(\frac12-\eps)-2\eps>\delta$. The primes $d\le x^{\theta}$ with $d\equiv d_0\pmod{2^J}$ that are not good are of two kinds. There are $O(1)$ with $d\le d_1$ or $m_d=\square$, and there are those with $m_d=3y^2$. The equation $(d+c)^2-3y^2=-D_0$ has $O_{a,b}(\log x)$ solutions with $0<d\le x$, since its solutions form finitely many orbits under the units of $\Z[\sqrt3]$.
+
+So, with $\mathcal D$ the set of good primes $d\le x^\theta$, the prime number theorem in arithmetic progressions gives $\sum_{d\in\mathcal D}d^{-1/2-\eps}\gg x^{\theta(1/2-\eps)}(\log x)^{-1}$. By Theorem~\ref{thm:Sigma} and Proposition~\ref{prop:reduction},
+\[
+S_{a,b}(x)\gg x^{-\eps}\sum_{d\in\mathcal D}\Sigma_d(x)\gg x^{1/2+\theta(1/2-\eps)-\eps}(\log x)^{-1}\gg x^{1/2+\delta}.
+\]
+In the case excluded above, Lemma~\ref{lem:bad} reduces to the pattern $(a/2,b/2)$.
+\end{proof}
+
+\section{Arithmetic preliminaries}
+
+\subsection{A smoothed hyperbola identity}
+Fix a smooth non-increasing $\lambda_0:\R\to[0,1]$ with $\lambda_0(t)=1$ for $t\le-\log2$ and $\lambda_0(t)=0$ for $t\ge\log 2$. Put $\lambda(t)=\frac12(\lambda_0(t)+1-\lambda_0(-t))$ and $W(t)=\lambda(\log t)$ for $t>0$. Then $W$ is smooth with values in $[0,1]$, and
+\begin{equation}\label{eq:omega}
+W(t)=1\ (t\le\tfrac12),\qquad W(t)=0\ (t\ge2),\qquad W(t)+W(1/t)=1 .
+\end{equation}
+
+\begin{lemma}\label{lem:hyperbola}
+Let $T=2^eT'$ with $T'\equiv1\pmod 4$. Then $r(T)=8\sum_{k\mid T}\chi(k)\,W\bigl(2^{e/2}k/\sqrt T\bigr)$.
+\end{lemma}
+
+\begin{proof}
+First, $r(T)=r(T')=4\sum_{k\mid T'}\chi(k)$. By \eqref{eq:omega},
+\[
+\sum_{k\mid T'}\chi(k)=\sum_{k\mid T'}\chi(k)\,W(k/\sqrt{T'})+\sum_{k\mid T'}\chi(k)\,W(\sqrt{T'}/k).
+\]
+In the second sum substitute $k=T'/j$ and use $\chi(T'/j)=\chi(j)$, which holds because $T'\equiv1\pmod 4$. So the two sums are equal. Finally, the odd divisors of $T$ are those of $T'$, $\chi$ vanishes on even numbers, and $\sqrt{T'}=2^{-e/2}\sqrt T$.
+\end{proof}
+
+\subsection{\texorpdfstring{Roots of $\nu^2\equiv-m$}{Square roots of -m}}
+Throughout this subsection and the next, $d$ is a good prime and $m=m_d$. For $n\ge1$ let
+\[
+\varrho(n)=\#\{\nu\bmod n:\ \nu^2+m\equiv0\pmod n\},
+\]
+a multiplicative function.
+
+\begin{lemma}\label{lem:rho}
+\begin{enumerate}
+\item[(a)] For odd $n$ and any $J\ge0$, $\varrho(n)=\#\{w\bmod n:\ 2^{2J}w^2+m\equiv0\pmod n\}$.
+\item[(b)] Let $\ell$ be an odd prime and $j\ge1$. If $\ell\nmid m$ then $\varrho(\ell^j)=1+\leg{-m}{\ell}$. In general $\varrho(\ell^j)\le2\,\ell^{\min(j,v_\ell(m))/2}$. Consequently $\varrho(n)\le 2^{\omega(n)}\gcd(n,m)^{1/2}\ll_\eps n^{\eps}d$ for odd $n$.
+\item[(c)] $\varrho(d^j)=2$ for all $j\ge1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For odd $n$, $w\mapsto2^Jw$ permutes $\Z/n\Z$.
+
+(b) For $\ell\nmid m$ use Hensel's lemma. Let $\alpha=v_\ell(m)\ge1$. For $j\le\alpha$ the congruence is $\nu^2\equiv0\pmod{\ell^j}$, with $\ell^{\lfloor j/2\rfloor}$ solutions. For $j>\alpha$ a solution has $v_\ell(\nu)=\alpha/2$, so there are none unless $\alpha$ is even. In that case $\nu=\ell^{\alpha/2}\nu_1$, where $\nu_1$ is taken modulo $\ell^{j-\alpha/2}$ and satisfies $\nu_1^2\equiv-m\ell^{-\alpha}\pmod{\ell^{j-\alpha}}$. There are at most $2$ such $\nu_1$ modulo $\ell^{j-\alpha}$, each with $\ell^{\alpha/2}$ lifts. The consequence follows by multiplicativity and $m\le2d^2$.
+
+(c) Since $m\equiv g^2\pmod d$ with $d\nmid g$ and $d\equiv1\pmod 4$, we get $\varrho(d^j)=1+\leg{-g^2}{d}=2$.
+\end{proof}
+
+For odd $k$ put $f(k)=\varrho(dk)/2$. Then $f$ is multiplicative on odd integers, with
+\begin{equation}\label{eq:f}
+f(d^j)=1,\qquad f(\ell^j)=\varrho(\ell^j)\quad(\ell\ne d).
+\end{equation}
+
+\subsection{The singular series}
+Let $\psi(n)=\leg mn$ (Jacobi symbol) for odd $n\ge1$, and $\psi(n)=0$ for even $n$.
+
+\begin{lemma}\label{lem:L}
+\begin{enumerate}
+\item[(a)] $\psi$ is a non-principal real Dirichlet character modulo $8m$.
+\item[(b)] For $t\ge1$, $A(t):=\sum_{k\le t}\chi(k)f(k)\ll_\eps t^{1/2+\eps}d^{1+\eps}$.
+\item[(c)] The series $\Lf_d:=\sum_{k\ge1}\chi(k)f(k)/k$ converges, $|\Lf_d|\ll d^{1+\eps}$, and
+\[
+\Lf_d=L(1,\chi)\,L(1,\psi)\,H_d\qquad\text{with}\qquad H_d\ge\frac{6}{\pi^2}\cdot\frac{\phi(dm)}{dm}.
+\]
+\item[(d)] $\Lf_d\gg_\eps d^{-\eps}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Write $m=2^tm'$ with $m'$ odd. For odd $n>0$, quadratic reciprocity for Jacobi symbols gives
+\[
+\leg mn=\leg2n^t\,(-1)^{\frac{m'-1}2\frac{n-1}2}\leg n{m'},
+\]
+which is a character modulo $8m'\mid 8m$.
+
+It is non-principal because $m$ is not a square. If $m'$ is not a square, then $\leg{\cdot}{m'}$ is non-principal, and the Chinese remainder theorem gives $n\equiv1\pmod 8$ with $\psi(n)=\leg n{m'}=-1$. If $m'=s^2$, then $t$ is odd. Choose $n\equiv3\pmod 8$ with $n\equiv1\pmod s$; then $\psi(n)=(-1)^t\cdot(-1)^{\frac{m'-1}2\frac{n-1}2}\leg ns^2=-1$, because $t$ is odd and $m'=s^2\equiv1\pmod 8$.
+
+(b) We compare the Euler factors of $\chi f$ and $\chi*\psi$, writing $X=\ell^{-s}$.
+\begin{itemize}
+\item At $\ell=2$, both $\chi f$ and $\chi*\psi$ have factor $1$.
+\item For odd $\ell\nmid dm$, \eqref{eq:f} and Lemma~\ref{lem:rho}(b) give, with $\psi(\ell)=\chi(\ell)\leg{-m}\ell$,
+\[
+\sum_{j\ge0}\chi(\ell^j)f(\ell^j)X^j=1+\Bigl(1+\leg{-m}\ell\Bigr)\frac{\chi(\ell)X}{1-\chi(\ell)X}=\frac{1-X^2}{(1-\chi(\ell)X)(1-\psi(\ell)X)}.
+\]
+\item At $\ell=d$, $\chi(d)=1$ because $d\equiv1\pmod 4$, and $\psi(d)=\leg{g^2}d=1$. The factor of $\chi f$ is $(1-X)^{-1}=(1-X)\cdot(1-X)^{-2}$.
+\item For odd $\ell\mid m$, $\psi(\ell)=0$. The factor of $\chi f$ is $P_\ell(X):=\sum_j\chi(\ell)^j\varrho(\ell^j)X^j=(1-\chi(\ell)X)P_\ell(X)\cdot(1-\chi(\ell)X)^{-1}$.
+\end{itemize}
+Hence $\chi f=(\chi*\psi)*\eta$, where $\eta$ is multiplicative, supported on odd integers, and given by: $\eta(\ell^2)=-1$ and $\eta(\ell^j)=0$ for $j\ne0,2$ when $\ell\nmid 2dm$; $\eta(d)=-1$ and $\eta(d^j)=0$ for $j\ge2$; and $\eta(\ell^j)=\chi(\ell)^j(\varrho(\ell^j)-\varrho(\ell^{j-1}))$ for odd $\ell\mid m$. By Lemma~\ref{lem:rho}(b), $|\eta(\ell^j)|\le 2\ell^{\min(j,\alpha)/2}$ for odd $\ell\mid m$ with $\alpha=v_\ell(m)$, so
+\[
+\sum_{j\ge0}|\eta(\ell^j)|\ell^{-j(1/2+\eps)}\le1+2\alpha+2\sum_{i\ge1}\ell^{-i/2}\le2\alpha+5 .
+\]
+Therefore $\sum_n|\eta(n)|n^{-1/2-\eps}\le\zeta(1+2\eps)(1+d^{-1/2})\prod_{\ell\mid m}(2v_\ell(m)+5)\ll_\eps d^{\eps}$.
+
+The P\'olya--Vinogradov inequality \cite[Ch.~23]{Da}, applied to the primitive character inducing $\psi$ together with M\"obius inversion over the remaining primes dividing $8m$, gives $\Psi^*\ll_\eps m^{1/2+\eps}$, where $\Psi^*:=\sup_y\bigl|\sum_{n\le y}\psi(n)\bigr|$. The hyperbola method with parameter $\sqrt y$ gives $|\sum_{n\le y}(\chi*\psi)(n)|\le3\sqrt y(\Psi^*+1)$ for $y\ge1$. Finally $A(t)=\sum_{e\le t}\eta(e)\sum_{n\le t/e}(\chi*\psi)(n)$, so
+\[
+|A(t)|\ll m^{1/2+\eps}\sum_{e\le t}|\eta(e)|(t/e)^{1/2}\le m^{1/2+\eps}t^{1/2+\eps}\sum_e|\eta(e)|e^{-1/2-\eps}\ll t^{1/2+\eps}d^{1+3\eps}.
+\]
+Renaming $\eps$ gives (b).
+
+(c) Partial summation and (b) give convergence and $|\Lf_d|\le\int_1^\infty|A(u)|u^{-2}du\ll d^{1+\eps}$. For $\Re s>1$, $\sum_k\chi(k)f(k)k^{-s}=L(s,\chi)L(s,\psi)H_d(s)$ with $H_d(s)=\sum_n\eta(n)n^{-s}$. Both sides are analytic for $\Re s>1/2$: the left-hand side because it converges there by (b), the right-hand side because $\chi,\psi$ are non-principal and $H_d(s)$ converges absolutely. So the identity extends to $s=1$, with $H_d:=H_d(1)=\prod_\ell\eta_\ell(\ell^{-1})$, where $\eta_\ell(X)=\sum_j\eta(\ell^j)X^j$.
+
+The Euler factors are as follows: $1-\ell^{-2}$ for $\ell\nmid2dm$; $1-d^{-1}$ at $\ell=d$; and $(1-\chi(\ell)\ell^{-1})P_\ell(\ell^{-1})$ for odd $\ell\mid m$. In the last case, if $\chi(\ell)=1$ then $P_\ell(\ell^{-1})\ge1$. If $\chi(\ell)=-1$, then for $u$ distributed according to Haar measure on $\Z_\ell$, since $\varrho(\ell^j)\ell^{-j}=\mathrm{Prob}(\ell^j\mid u^2+m)$,
+\[
+P_\ell(\ell^{-1})=\sum_{j\ge0}(-1)^j\,\mathrm{Prob}\bigl(\ell^j\mid u^2+m\bigr)=\mathrm{Prob}\bigl(v_\ell(u^2+m)\ \text{even}\bigr)\ \ge\ \mathrm{Prob}(\ell\nmid u^2+m)=1-\frac1\ell,
+\]
+as $\varrho(\ell)=1$. In all cases the factor is $\ge1-\ell^{-1}$, which gives the lower bound for $H_d$.
+
+(d) $L(1,\chi)=\pi/4$. If $\psi^*$, of conductor $q^*\mid8m$, induces $\psi$, then $L(1,\psi)\ge L(1,\psi^*)\phi(8m)/(8m)$. Siegel's theorem \cite[Ch.~21]{Da} gives $L(1,\psi^*)\gg_\eps(q^*)^{-\eps}$. Combine these with (c) and $\phi(n)/n\gg(\log\log 3n)^{-1}$.
+\end{proof}
+
+\section{\texorpdfstring{Weyl sums for roots of quadratic congruences, uniformly in $d$}{Weyl sums for roots of quadratic congruences, uniformly in d}}\label{sec:weyl}
+
+\subsection{Gauss's correspondence}
+We use binary forms $\varphi=[A,2B,C]$, meaning $\varphi(X,Y)=AX^2+2BXY+CY^2$ with $A,B,C\in\Z$, $A>0$ and determinant $AC-B^2=\Delta>0$. The group $SL_2(\Z)$ acts by $\varphi\circ\sigma(X,Y)=\varphi(RX+t_1Y,SX+t_2Y)$ for $\sigma=\left(\begin{smallmatrix}R&t_1\\ S&t_2\end{smallmatrix}\right)$. The following lemma is classical; compare \cite[Lemma~5 and its Corollary]{FI78}.
+
+\begin{lemma}\label{lem:gauss}
+Let $\Delta\ge1$ be an integer such that neither $\Delta$ nor $\Delta/3$ is a perfect square. Let $\mathcal R_\Delta$ be a set of representatives of the $SL_2(\Z)$-classes of positive definite forms $[A,2B,C]$ of determinant $\Delta$. Every class contains a reduced form, that is, one with $|2B|\le A\le C$, and we choose the representatives reduced. Let $\mathcal M\ge1$. For $\varphi=[A,2B,C]\in\mathcal R_\Delta$ and primitive $(R,S)\in\Z^2$ with $\varphi(R,S)=\mathcal M$, complete $(R,S)$ to $\sigma=\left(\begin{smallmatrix}R&t_1\\ S&t_2\end{smallmatrix}\right)\in SL_2(\Z)$ and put $z=t_1(AR+BS)+t_2(BR+CS)$. This defines a bijection
+\[
+\{(\varphi,\pm(R,S))\}\longrightarrow\{z\bmod\mathcal M:\ z^2+\Delta\equiv0\pmod{\mathcal M}\}.
+\]
+Moreover, if $S\ne0$ then
+\begin{equation}\label{eq:recip}
+\frac{z}{\mathcal M}\equiv\frac{\bar R}{S}-\frac{AR+BS}{S\,\mathcal M}\pmod1,\qquad\bar RR\equiv1\pmod{|S|}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We have $\varphi\circ\sigma=[\mathcal M,2z,C']$ with $\mathcal MC'-z^2=\Delta$. Other completions are $\sigma\left(\begin{smallmatrix}1&j\\0&1\end{smallmatrix}\right)$, which change $z$ by $j\mathcal M$, and replacing $\sigma$ by $-\sigma$ does not change $z$. So the map is well defined.
+
+Surjectivity: given $z$, the form $[\mathcal M,2z,(z^2+\Delta)/\mathcal M]$ is positive definite of determinant $\Delta$, hence equals $\varphi\circ\sigma$ for some $\varphi\in\mathcal R_\Delta$ and $\sigma\in SL_2(\Z)$.
+
+Injectivity: two preimages yield $\varphi\circ\sigma=\varphi'\circ\sigma'$, hence $\varphi=\varphi'$, and $\sigma'\sigma^{-1}$ is a proper automorph of $\varphi$. A positive definite form with a proper automorph other than $\pm I$ is equivalent to a multiple of $X^2+Y^2$ or of $X^2+XY+Y^2$. The only such forms with even middle coefficient are $[t,0,t]$ and $[2t,2t,2t]$, of determinants $t^2$ and $3t^2$, which are excluded by hypothesis.
+
+Finally, with $P=AR+BS$ and $Q=BR+CS$ we have $RP+SQ=\mathcal M$ and $t_1P+t_2Q=z$. Since $Rt_2-St_1=1$, this gives $P=t_2\mathcal M-Sz$, and $Rt_2\equiv1\pmod{|S|}$. This is \eqref{eq:recip}.
+\end{proof}
+
+\subsection{Incomplete Kloosterman sums in progressions}
+
+\begin{lemma}\label{lem:kloost}
+Let $L\ge2$ be even, $S\ge1$, $R_0,a_0\in\Z$, and let $I\subset\R$ be an interval of length at most $\ell$. Write $S=S_1S_2$, where every prime factor of $S_1$ divides $L$ and $(S_2,L)=1$. Then
+\[
+\Bigl|\sum_{\substack{R\in I,\ R\equiv R_0\ (L)\\ (R,S)=1}}e\Bigl(\frac{a_0\bar R}{S}\Bigr)\Bigr|\le\tau(S_2)\,(a_0,S_2)^{1/2}\Bigl(\frac{\ell}{L\,S_2^{1/2}}+3S_1S_2^{1/2}\log(2LS)\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $q=\lcm(L,S)=q_1S_2$ with $q_1=\lcm(L,S_1)$. The summand is periodic modulo $q$. Completing the sum gives the bound $\max_{\eta}|\mathcal K_\eta|\cdot(\ell+3q\log2q)/q$, where $\mathcal K_\eta$ is the complete sum twisted by $e(-\eta\xi/q)$. By the Chinese remainder theorem, $\mathcal K_\eta$ is the product of a sum over $\xi_1\bmod q_1$ with $\xi_1\equiv R_0\pmod L$, which we bound trivially by $q_1/L\le S_1$, and a Kloosterman sum $S(a_0\overline{S_1},\eta';S_2)$. For the latter, Weil's bound $|S(u,v;c)|\le\tau(c)(u,v,c)^{1/2}c^{1/2}$ \cite[Cor.~11.12]{IK} gives at most $\tau(S_2)(a_0,S_2)^{1/2}S_2^{1/2}$.
+\end{proof}
+
+\subsection{The main estimate}
+
+\begin{proposition}\label{prop:weyl}
+Let $J\ge1$ and let $d\ge3$ be prime. Let $m\ge2$ be an integer with $d\nmid m$ and $m\le2d^2$, such that neither $m$ nor $m/3$ is a perfect square. Let $\gamma$ be odd, $M\ge m$ and $H\ge1$, and for $1\le|h|\le H$ let $\beta_h:(M,2M]\to\mathbb C$ satisfy $\|\beta_h\|_\infty+\Var(\beta_h)\le B_0$. For odd $\mu$ put
+\[
+S_\mu(h)=\sum_{\substack{w\bmod\mu\\ 2^{2J}w^2+m\equiv0\ (\mu)}}e\Bigl(\frac{hw}{\mu}\Bigr).
+\]
+Then
+\[
+\sum_{1\le|h|\le H}\Bigl|\sum_{\substack{M<\mu\le2M\\ d\mid\mu,\ \mu/d\equiv\gamma\ (2^J)}}\beta_h(\mu)S_\mu(h)\Bigr|\ \ll_{J,\eps}\ B_0\,H\bigl(1+Hm^{1/4}M^{-1/2}\bigr)\,m^{1/8}M^{3/4}(dMH)^{\eps}.
+\]
+\end{proposition}
+
+\begin{proof}
+All $\mu$ in the sum are odd. Put $\Delta=2^{2J+2}m$, so that neither $\Delta$ nor $\Delta/3$ is a square. Fix $h$ with $1\le|h|\le H$ and write $\Xi_h$ for the inner sum.
+
+\emph{Step 1: a reformulation.} Let $z$ run over the residues modulo $\mathcal M=2^{2J+2}\mu$ with $z^2+\Delta\equiv0\pmod{\mathcal M}$ and $2^{2J+1}\mid z$. Writing $z=2^{2J+1}w'$ with $w'$ modulo $2\mu$, the congruence becomes $2^{2J}w'^2+m\equiv0\pmod\mu$, and $e(2hz/\mathcal M)=e(hw'/\mu)$. Reduction from $w'\bmod2\mu$ to $w'\bmod\mu$ is $2$-to-$1$, so
+\[
+S_\mu(h)=\frac12\sum_{z}e\Bigl(\frac{2hz}{\mathcal M}\Bigr).
+\]
+
+\emph{Step 2: passage to forms.} Apply Lemma~\ref{lem:gauss}. A reduced form satisfies $A\le\sqrt{4\Delta/3}=2^{J+2}\sqrt{m/3}<\mathcal M$, so $S\ne0$, and we take $S\ge1$. By \eqref{eq:recip},
+\[
+\Xi_h=\frac12\sum_{\varphi\in\mathcal R_\Delta}\sum_{S\ge1}\ \sideset{}{^\dagger}\sum_{R\in\mathcal I_{\varphi,S}}\beta_h\Bigl(\frac{\varphi(R,S)}{2^{2J+2}}\Bigr)e\Bigl(-\frac{2h(AR+BS)}{S\,\varphi(R,S)}\Bigr)e\Bigl(\frac{2h\bar R}{S}\Bigr),
+\]
+where $\mathcal I_{\varphi,S}=\{R:\ 2^{2J+2}M<\varphi(R,S)\le2^{2J+3}M\}$. The dagger restricts to $(R,S)=1$ and to the conditions
+\begin{equation}\label{eq:conds}
+\text{(i) } 2^{2J+2}d\mid\varphi(R,S),\qquad\text{(ii) }\frac{\varphi(R,S)}{2^{2J+2}d}\equiv\gamma\pmod{2^J},\qquad\text{(iii) } 2^{2J+1}\mid z(\varphi;R,S).
+\end{equation}
+
+\emph{Step 3: the admissible residue classes.} Put $L=2^{3J+2}d$. Conditions (i) and (ii) depend only on $(R,S)\bmod L$.
+
+For (iii), let $(R',S')\equiv(R,S)\pmod{2^{2J+1}}$ with completions $(t_1',t_2')$ and $(t_1,t_2)$. Then $R(t_2'-t_2)-S(t_1'-t_1)\equiv0\pmod{2^{2J+1}}$, and since $R$ or $S$ is odd, $(t_1'-t_1,t_2'-t_2)\equiv\alpha(R,S)\pmod{2^{2J+1}}$ for some $\alpha$. Hence $z'\equiv z+\alpha\varphi(R,S)\equiv z\pmod{2^{2J+1}}$ when (i) holds. Consequently, for fixed $S$, admissibility of $R$ depends only on $R\bmod L$.
+
+If $d\nmid S$, condition (i) forces $R\equiv\rho_0S\pmod d$ with $\varphi(\rho_0,1)\equiv0\pmod d$. The polynomial $\varphi(\rho,1)$ does not vanish identically modulo $d$, since $d\nmid\Delta$, so there are at most two such $\rho_0\bmod d$. Hence at most $2^{3J+3}$ residue classes $R_0\bmod L$ are admissible.
+
+If $d\mid S$, then (i) forces $d\mid AR^2$. Since $d\nmid R$, this is impossible unless $d\mid A$, in which case at most $L$ classes are admissible.
+
+\emph{Step 4: fixed $\varphi$ and $S$.} From $A\varphi(R,S)=(AR+BS)^2+\Delta S^2$, the set $\mathcal I_{\varphi,S}$ is empty unless $S\le S_\varphi:=\sqrt{2AM/m}$. It consists of the integers in at most two intervals, each of length at most $\ell_\varphi:=2\sqrt{2^{2J+3}M/A}$, on each of which $\varphi(\cdot,S)$ is monotone. On such an interval $I$ let $G_1(R)=\beta_h(\varphi(R,S)/2^{2J+2})\,e(-2h(AR+BS)/(S\varphi(R,S)))$. Using $(AR+BS)^2\le A\varphi$, the derivative of the phase is at most $6|h|A/(S\varphi)\le6|h|A/(2^{2J+2}M)$. So the phase varies by $\ll_J|h|\sqrt{A/M}\ll_J|h|m^{1/4}M^{-1/2}$ on $I$, because $A\ll_J\sqrt m$. Thus
+\[
+\|G_1\|_\infty+\Var_I(G_1)\ll_J B_0\bigl(1+|h|m^{1/4}M^{-1/2}\bigr).
+\]
+Partial summation and Lemma~\ref{lem:kloost}, with $a_0=2h$, bound the contribution of one admissible class $R_0\bmod L$ by
+\[
+\ll B_0\bigl(1+|h|m^{1/4}M^{-1/2}\bigr)\tau(S)(h,S_2)^{1/2}\Bigl(\frac{\ell_\varphi}{L\,S_2^{1/2}}+S_1S_2^{1/2}\log(2LS)\Bigr),
+\]
+where $S_1$ is the part of $S$ composed of the primes $2$ and $d$. By Step~3 and $L=2^{3J+2}d$, the sum over all admissible classes is
+\[
+\ll_J\frac{\ell_\varphi}{d\,S_2^{1/2}}+S_1S_2^{1/2}\log(2LS)\quad(d\nmid S),\qquad\ll\frac{\ell_\varphi}{S_2^{1/2}}+L\,S_1S_2^{1/2}\log(2LS)\quad(d\mid S),
+\]
+times $B_0(1+|h|m^{1/4}M^{-1/2})\tau(S)(h,S_2)^{1/2}$. The case $d\mid S$ occurs only if $d\mid A$.
+
+\emph{Step 5: summation over $h$, $S$ and $\varphi$.} We sum over $h$ first, using
+\[
+\sum_{1\le|h|\le H}(h,S_2)^{1/2}\le2H\sum_{e\mid S}e^{-1/2}\ll HS^{\eps}.
+\]
+Let $s_1$ run over the integers composed of the primes $2$ and $d$. Since $\sum_{s_1}s_1^{-1/2}\ll1$ and $\sum_{d\mid s_1}s_1^{-1/2}\ll d^{-1/2}$, we have
+\[
+\sum_{S\le X}S_2^{-1/2}\ll X^{1/2},\quad\sum_{S\le X}S_1S_2^{1/2}\ll X^{3/2},\quad\sum_{\substack{S\le X\\ d\mid S}}S_2^{-1/2}\ll\frac{X^{1/2}}{d^{1/2}},\quad\sum_{\substack{S\le X\\ d\mid S}}S_1S_2^{1/2}\ll\frac{X^{3/2}}{d^{1/2}}.
+\]
+Also $S_\varphi\ll_J M^{1/2}$, so $\tau(S)$ and $\log(2LS)$ are $\ll(dM)^{\eps}$. Write
+\[
+\Theta=B_0H\bigl(1+Hm^{1/4}M^{-1/2}\bigr)(dMH)^{2\eps}.
+\]
+The contribution of $\varphi$ to $\sum_h|\Xi_h|$ is then
+\[
+\ll_J\Theta\Bigl(\frac{\ell_\varphi S_\varphi^{1/2}}{d}+S_\varphi^{3/2}+\mathbf 1_{d\mid A}\Bigl(\frac{\ell_\varphi S_\varphi^{1/2}}{d^{1/2}}+L\,\frac{S_\varphi^{3/2}}{d^{1/2}}\Bigr)\Bigr).
+\]
+Here $\ell_\varphi S_\varphi^{1/2}\asymp_JM^{3/4}A^{-1/4}m^{-1/4}$ and $S_\varphi^{3/2}\asymp M^{3/4}A^{3/4}m^{-3/4}$.
+
+A form in $\mathcal R_\Delta$ with first coefficient $A$ is determined by $B$, which satisfies $|2B|\le A$ and $B^2+\Delta\equiv0\pmod A$. So there are at most $2\varrho_\Delta(A)$ such forms, where
+\[
+\varrho_\Delta(A)=\#\{B\bmod A:\ B^2+\Delta\equiv0\ (A)\}\le4\cdot2^{\omega(A)}\gcd(A,\Delta)^{1/2}\ll_J2^{\omega(A)}\gcd(A,m)^{1/2},
+\]
+by the argument of Lemma~\ref{lem:rho}(b), together with the bound $4\cdot2^{\min(j,v_2(\Delta))/2}$ at powers of $2$. Hence $\sum_{A\le Y}\varrho_\Delta(A)\ll_J Y\log(2Y)\,m^{\eps}$. Partial summation over $A\le Y_0:=2^{J+2}\sqrt{m/3}$ gives
+\[
+\sum_{\varphi}\Bigl(\frac{\ell_\varphi S_\varphi^{1/2}}d+S_\varphi^{3/2}\Bigr)\ll_JM^{3/4}m^{\eps}\Bigl(\frac{m^{3/8-1/4}}{d}+m^{7/8-3/4}\Bigr)\ll M^{3/4}m^{1/8+\eps}.
+\]
+
+Forms with $d\mid A$ exist only if $d\le Y_0$, that is, $m\gg_Jd^2$. In that case they have $A=jd$ with $j\ll_J1$, so there are $O_J(1)$ of them, each with $A\ge d$. Their contribution is
+\[
+\ll_J M^{3/4}\bigl(d^{-3/4}m^{-1/4}+d^{1/2}Y_0^{3/4}m^{-3/4}\bigr)\ll_J M^{3/4}m^{1/8}.
+\]
+Altogether, $\sum_h|\Xi_h|\ll_{J,\eps}\Theta\,M^{3/4}m^{1/8+\eps}$. Since $m\le2d^2$, renaming $\eps$ proves the proposition.
+\end{proof}
+
+\begin{remark}
+The trivial bound for the left-hand side is about $B_0HM^{1+\eps}/d$. The proposition saves a power of $M$ at a cost polynomial in $d$ and $H$, which is what the argument requires. The numerical experiments in \S\ref{sec:numerics} are consistent with square-root cancellation in $M$. Compared with a direct application of Hooley's method, three savings enter, each crucial for the exponent $1/24$:
+\begin{itemize}
+\item only $O(1)$ residue classes are admissible in Step~3 when $d\nmid S$;
+\item the variation of the phase is only $|h|m^{1/4}M^{-1/2}$;
+\item the gcd $(h,S_2)^{1/2}$ from Weil's bound is averaged over $h$.
+\end{itemize}
+\end{remark}
+
+\section{\texorpdfstring{The asymptotic formula for $\Sigma_d(x)$}{The asymptotic formula for Sigma\_d(x)}}\label{sec:asymp}
+
+Throughout this section $d$ is a good prime, $m=m_d$, $0<\eps<1/100$, and
+\begin{equation}\label{eq:range}
+d\le x^{1/4},\qquad x\ge x_0(a,b,\eps).
+\end{equation}
+
+\begin{proposition}\label{prop:asymp}
+Under \eqref{eq:range},
+\[
+\Sigma_d(x)=\frac{8\sqrt{2\kappa}\,c_F\,\Lf_d}{2^J}\sqrt{\frac xd}+O\bigl(x^{1/4+\eps}d^{1/2+\eps}+x^{3/8+\eps}d\bigr).
+\]
+\end{proposition}
+
+\subsection{Set-up}
+Let $T(u)=(u^2+m)/(2\kappa d)$ for real $u$, and let $0<u_-<u_+$ be given by $T(u_-)=x/2$ and $T(u_+)=x$. Since $m\le2d^2\le2x^{1/2}$, we have $\frac12\sqrt{\kappa dx}\le u_-<u_+\le\sqrt{2\kappa dx}$. For real $y>0$ define
+\[
+\Phi_y(u)=F\bigl(T(u)/x\bigr)\,W\bigl(2^{e/2}y/\sqrt{T(u)}\bigr)\quad(u>0),\qquad\Phi_y(u)=0\quad(u\le0).
+\]
+This function is smooth, takes values in $[0,1]$, is supported in $[u_-,u_+]$, and vanishes identically if $y\ge2^{1-e/2}\sqrt x$.
+
+\begin{lemma}\label{lem:Phi}
+Uniformly in $y>0$ we have $\Phi_y^{(j)}(u)\ll_j(dx)^{-j/2}$. Consequently $|\hat\Phi_y(\xi)|\le\sqrt{2\kappa dx}$, and $\hat\Phi_y(\xi)\ll_j\sqrt{dx}\,(|\xi|\sqrt{dx})^{-j}$ for $\xi\ne0$.
+\end{lemma}
+
+\begin{proof}
+On $[u_-,u_+]$ we have $T\asymp x$, $T'(u)=u/(\kappa d)\asymp\sqrt{x/d}$, $T''=1/(\kappa d)$ and $T'''=0$. Hence $\frac{d^i}{du^i}(T/x)\ll(dx)^{-i/2}$ and $\frac{d^i}{du^i}T^{-1/2}\ll x^{-1/2}(dx)^{-i/2}$. The derivatives $W^{(l)}(2^{e/2}yT^{-1/2})$ with $l\ge1$ vanish unless $y\asymp\sqrt x$. The bounds follow from the Fa\`a di Bruno formula and $j$-fold integration by parts.
+\end{proof}
+
+Let $u\ge1$ with $u\equiv u_0\pmod{2^J}$ and $d\mid u^2+g^2$. By Proposition~\ref{prop:seed}, $T=T(u)=2^eT'$ with $T'\equiv1\pmod 4$, so Lemma~\ref{lem:hyperbola} applies. For odd $k$ we have $k\mid T$ if and only if $dk\mid u^2+m$, because $2\kappa dT=u^2+m$ with $2\kappa\mid u^2+m$. Also $d\mid u^2+m$ if and only if $d\mid u^2+g^2$. Hence
+\begin{equation}\label{eq:Sigma2}
+\Sigma_d(x)=8\sum_{k\ \mathrm{odd}}\chi(k)\sum_{\substack{u\in\Z,\ u\equiv u_0\ (2^J)\\ dk\mid u^2+m}}\Phi_k(u).
+\end{equation}
+For odd $\mu$, the residues $u\bmod2^J\mu$ with $u\equiv u_0\pmod{2^J}$ and $\mu\mid u^2+m$ number $\varrho(\mu)$. For such $u$ with $u\equiv\nu\pmod\mu$, the Chinese remainder theorem gives $\frac{u}{2^J\mu}\equiv\frac{u_0\bar\mu}{2^J}+\frac{\overline{2^J}\nu}{\mu}\pmod1$, where $\bar\mu$ is the inverse of $\mu$ modulo $2^J$ and $\overline{2^J}$ the inverse of $2^J$ modulo $\mu$. As $\nu$ runs over the roots of $\nu^2+m\equiv0\pmod\mu$, $w=\overline{2^J}\nu$ runs over the roots of $2^{2J}w^2+m\equiv0\pmod\mu$. Poisson summation therefore gives
+\[
+\sum_{\substack{u\equiv u_0\ (2^J)\\ \mu\mid u^2+m}}\Phi_k(u)=\frac{\varrho(\mu)}{2^J\mu}\hat\Phi_k(0)+\frac1{2^J\mu}\sum_{h\ne0}\hat\Phi_k\Bigl(\frac h{2^J\mu}\Bigr)e\Bigl(\frac{hu_0\bar\mu}{2^J}\Bigr)S_\mu(h),
+\]
+with $S_\mu(h)$ as in Proposition~\ref{prop:weyl}. Accordingly $\Sigma_d(x)=\mathcal M_d+\mathcal E_d$, where $\mathcal M_d$ collects the terms $h=0$.
+
+\subsection{The main term}
+
+\begin{lemma}\label{lem:main}
+$\mathcal M_d=\dfrac{8\sqrt{2\kappa}\,c_F\,\Lf_d}{2^J}\sqrt{\dfrac xd}+O(x^{1/4+\eps}d^{1/2+\eps})$.
+\end{lemma}
+
+\begin{proof}
+Since $\varrho(dk)=2f(k)$ and the $k$-sum is finite,
+\[
+\mathcal M_d=\frac{16}{2^Jd}\int_0^\infty F\bigl(T(u)/x\bigr)\,G\bigl(2^{-e/2}\sqrt{T(u)}\bigr)\,du,\qquad G(y):=\sum_{k\ge1}\frac{\chi(k)f(k)}k\,W(k/y).
+\]
+By \eqref{eq:omega}, partial summation and Lemma~\ref{lem:L}(b),
+\[
+\Lf_d-G(y)=-\int_{y/2}^\infty A(t)\,\frac{d}{dt}\Bigl(\frac{1-W(t/y)}t\Bigr)dt\ll y^{-1/2+\eps}d^{1+\eps}.
+\]
+Substituting $T=T(u)$, so that $du=\kappa d\,dT/\sqrt{2\kappa dT-m}$, we get
+\[
+\mathcal M_d=\frac{16\kappa}{2^J}\int_{x/2}^x\frac{F(T/x)\,G(\sqrt{T/2^e})}{\sqrt{2\kappa dT-m}}\,dT=\frac{16\kappa\,\Lf_d}{2^J}\int\frac{F(T/x)}{\sqrt{2\kappa dT}}\,dT+O\bigl(x^{1/4+\eps}d^{1/2+\eps}\bigr).
+\]
+Here we used $|\Lf_d|\ll d^{1+\eps}$ and $m/(dx)\ll x^{-1/2}$. Finally, $\int F(T/x)(2\kappa dT)^{-1/2}dT=c_F\sqrt{x/(2\kappa d)}$.
+\end{proof}
+
+\subsection{The error term}
+
+\begin{lemma}\label{lem:error}
+$\mathcal E_d\ll x^{3/8+\eps}d$.
+\end{lemma}
+
+\begin{proof}
+Let $k_0=\sqrt{x/d}\,x^{-\eps}$.
+
+\emph{Small $k$.} For $k\le k_0$ and $h\ne0$ we have $|h|\sqrt{dx}/(2^Jdk)\ge2^{-J}x^{\eps}|h|$. Lemma~\ref{lem:Phi} with $j$ large, together with $|S_{dk}(h)|\le\varrho(dk)\ll x$, shows that these terms contribute $O(x^{-1})$.
+
+\emph{Large $k$.} Split $k_0<k<2\sqrt x$ into $O(\log x)$ ranges $k\in I_K\subseteq(K,2K]$ and put $H_K=2^{J+1}K\sqrt{d/x}\,x^{\eps}$. For $k\in I_K$ and $|h|>H_K$ we have $|h|\sqrt{dx}/(2^Jdk)\ge x^{\eps}|h|/H_K$, so these terms also contribute $O(x^{-1})$. In the remaining terms, write $\mu=dk$ and split $k$ into classes $k\equiv\gamma\pmod{2^J}$. On each class, $\chi(k)=\chi(\gamma)$ and $e(hu_0\bar\mu/2^J)=e(hu_0\overline{d\gamma}/2^J)$ are constant. Thus
+\[
+|\mathcal E_d|\le8\sum_K\sum_{\gamma}\ \sum_{1\le|h|\le H_K}\Bigl|\sum_{\substack{dK<\mu\le2dK\\ d\mid\mu,\ \mu/d\equiv\gamma\ (2^J)}}\beta_{h,K}(\mu)S_\mu(h)\Bigr|+O(x^{-1}),
+\]
+where $\beta_{h,K}(\mu)=(2^J\mu)^{-1}\hat\Phi_{\mu/d}\bigl(h/(2^J\mu)\bigr)\mathbf1_{I_K}(\mu/d)$.
+
+\emph{Bounds for the weights.} By Lemma~\ref{lem:Phi}, $\|\beta_{h,K}\|_\infty\ll\sqrt{dx}/(dK)$. Differentiating under the integral sign, $\partial_\mu\beta_{h,K}$ consists of three terms, from $\mu^{-1}$, from $W(2^{e/2}\mu/(d\sqrt T))$ and from $e(-hu/(2^J\mu))$. Integrated over $(dK,2dK]$, and using $K\ll\sqrt x$ and $|h|\le H_K$, they contribute respectively
+\[
+\ll\frac{\sqrt{dx}}{dK},\qquad\ll\frac{\sqrt{dx}}{\sqrt x\,d}\ll\frac{\sqrt{dx}}{dK},\qquad\ll\frac{|h|\,dx}{(dK)^2}\ll x^{\eps}\frac{\sqrt{dx}}{dK}.
+\]
+With the jumps of the indicator, $\|\beta_{h,K}\|_\infty+\Var(\beta_{h,K})\ll x^{\eps}\sqrt{dx}/(dK)$.
+
+\emph{Application of Proposition~\ref{prop:weyl}.} Take $M=dK$ and $H=H_K$. This is admissible because $dK\ge\frac12\sqrt{dx}\,x^{-\eps}\ge2d^2\ge m$ by \eqref{eq:range}. Moreover
+\[
+H_Km^{1/4}M^{-1/2}\ll\sqrt d\,x^{\eps}\cdot d^{1/2}\cdot(\sqrt{dx}\,x^{-\eps})^{-1/2}\ll d^{3/4}x^{-1/4+2\eps}\ll1 .
+\]
+So the contribution of the range $K$ is
+\[
+\ll x^{3\eps}\,\frac{\sqrt{dx}}{dK}\cdot H_K\cdot m^{1/8}(dK)^{3/4}\ll x^{4\eps}\,\sqrt{dx}\cdot\frac{K\sqrt d}{\sqrt x}\cdot\frac{d^{1/4}(dK)^{3/4}}{dK}=x^{4\eps}\,d\,K^{3/4}.
+\]
+Summing over $K\ll\sqrt x$ gives $\ll x^{3/8+4\eps}d$. Renaming $\eps$ proves the lemma.
+\end{proof}
+
+Proposition~\ref{prop:asymp} follows from Lemmas~\ref{lem:main} and~\ref{lem:error}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:Sigma}]
+Let $\theta<1/12$ and let $d\le x^{\theta}$ be a good prime. By Lemma~\ref{lem:L}(d), the main term in Proposition~\ref{prop:asymp} is $\ge c(\eps)\,x^{1/2}d^{-1/2-\eps}$. The error terms are smaller by a factor
+\[
+\ll x^{-1/4+\eps}d^{1+2\eps}+x^{-1/8+\eps}d^{3/2+\eps}\le x^{-1/4+\eps+\theta(1+2\eps)}+x^{-1/8+\eps+\theta(3/2+\eps)}.
+\]
+Since $3\theta/2<1/8$, both exponents are negative once $\eps$ is small enough in terms of $\theta$.
+\end{proof}
+
+This completes the proof of Theorem~\ref{thm:main}.
+
+\section{Remarks}
+
+\begin{remark}[The exponent and its limits]\label{rem:exponent}
+The exponent $1/24=\frac12\cdot\frac1{12}$ comes from comparing the error $x^{3/8+\eps}d$ in Proposition~\ref{prop:asymp} with the main term $x^{1/2}d^{-1/2}$. There are several natural levels of improvement.
+\begin{itemize}
+\item Proposition~\ref{prop:weyl} uses only Weil's bound and saves $M^{1/4}$. Suppose that the factor $m^{1/8}M^{3/4}$ on its right-hand side could be replaced by $m^{1/8}M^{1/2}$, that is, by square-root cancellation in $M$ with the same dependence on $m$. Then the proof of Lemma~\ref{lem:error} would give $\mathcal E_d\ll x^{1/4+\eps}d^{3/4}$, and hence $\theta<1/5$ and $\delta<1/10$. With $(M/d)^{1/2}$ in place of $m^{1/8}M^{3/4}$, the error in Lemma~\ref{lem:error} would be $O(x^{1/4+\eps})$, and it would no longer be the bottleneck. The limit would then come from the error $x^{1/4+\eps}d^{1/2+\eps}$ in Lemma~\ref{lem:main}, which as it stands gives $\theta<1/4$ and $\delta<1/8$.
+\item Bounds of this strength are suggested by the numerics in \S\ref{sec:numerics}, and spectral methods are the natural tool. Duke, Friedlander and Iwaniec \cite{DFI} used the spectral theory of automorphic forms to estimate Weyl sums for roots of quadratic congruences, and Grimmelt and Merikoski \cite{GM} obtained Type~I estimates for quadratic polynomials that are uniform in the polynomial. Neither result applies directly. In our setting the moduli are divisible by $d$, so uniformity in the level is needed, and the possible contribution of exceptional eigenvalues would have to be controlled. In addition, the character twist $\chi(k)$ and the congruence conditions modulo $2^J$ would have to be accommodated.
+\item Any argument that treats each $d$ separately is limited to $\theta<1/3$, i.e.\ $\delta<1/6$. For $d>x^{1/3}$ each polynomial $T_d$ has fewer than $d\asymp|\mathrm{disc}|^{1/2}$ values up to $x$, the usual barrier for equidistribution results uniform in the discriminant.
+\item Going beyond requires genuine averaging over $d$. For $g=1$, for example for the pattern $\{0,1,2\}$, all the $d$ together form the orbit $SL_2(\Z)\,i$, and the condition $d\le x^{\theta}$ cuts out a region near the cusp. Taking $\theta\to1$ would give $S_{a,b}(x)\gg x^{1-\eps}$. That would require level of distribution $\sqrt x$ for norms of hyperbolic lattice points, whereas Friedlander and Iwaniec \cite{FI09} obtain $x^{1/12}$ for the full orbit.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Effectivity]\label{rem:effective}
+Siegel's theorem enters only through Lemma~\ref{lem:L}(d), and can be avoided. Let $s$ be the squarefree part of $m_d$. By the Landau--Page theorem, at most one primitive real character $\psi_1$ of conductor $\ll x^{2\theta}$ has $L(1,\psi_1)<c/\log x$. The primitive character attached to $d$ depends only on $s$. For fixed $s$, the equation $(d+c)^2-sy^2=-D_0$ has $O(\log x)$ solutions with $d\le x$, by the theory of Pell equations. Discarding these $O(\log x)$ primes $d$ leaves $\Lf_d\gg(\log x)^{-1}(\log\log x)^{-2}$ effectively.
+\end{remark}
+
+\begin{remark}[Relation to the Friedlander--Iwaniec method]
+\S\ref{sec:weyl} is a non-bilinear analogue of the Proposition in \cite[\S4]{FI78}. Lemma~5 of \cite{FI78} and its Corollary are our Lemma~\ref{lem:gauss}, and their Lemma~4, Hooley's bound for incomplete Kloosterman sums, is replaced by completion and Weil's bound. Friedlander and Iwaniec need a bilinear version, averaged over primes dividing the sequence, to push the half-dimensional sieve past its trivial level. This yields $\gg X(\log X)^{-1/2}$ integers $n\le X$ at which their quadratic polynomial takes a value represented by a given binary form, without weights. For a power of $x$ the weight $r(T)$ suffices, and the loss of $x^{\eps}$ in Proposition~\ref{prop:reduction} is harmless.
+\end{remark}
+
+\begin{remark}[Correlations of $r$]\label{rem:correlation}
+Let $n=T-a$ arise from some $(d,u)$ in \eqref{eq:Sigma}. By the proof of Lemma~\ref{lem:split}, no prime $\ell\equiv3\pmod4$ divides both $n$ and $n+b$. Since $r/4$ is multiplicative, this gives $r(n(n+b))\le\frac14r(n)r(n+b)$. Combined with Lemma~\ref{lem:mult},
+\[
+\sum_{d\ \mathrm{good}}\Sigma_d(x)\le\frac14\sum_{n\le x}r(n)\,r(n+a)\,r(n+b).
+\]
+So Theorem~\ref{thm:Sigma} gives $\sum_{n\le x}r(n)r(n+a)r(n+b)\gg x^{1/2+\delta}$ for $\delta<1/24$; conjecturally this correlation is $\asymp x$. For the divisor function, by contrast, the triple convolution sum $\sum_{n\le x}\tau(n-j)\tau(n)\tau(n+j)$ is known to have the conjectured order of magnitude $x(\log x)^3$; see \cite{MMS}.
+\end{remark}
+
+\begin{remark}[Hyperbolic interpretation and four-term patterns]
+The relation $2dX=u^2+d^2+g^2$ says that $[d,2u,2X-d]$ is a positive definite binary form of determinant $g^2$. For $g=1$ its matrix is $\sigma^{\top}\sigma$ with $\sigma\in SL_2(\Z)$, and $2X=\|\sigma\|^2$. The same equivalence, in the form ``$n\pm2\in\Sc$ if and only if $ny=x^2+y^2+1$ is solvable'', appears in recent work of Ska{\l}ba \cite{Sk}.
+
+For patterns with four or more terms, the present approach can make only two of the elements automatic. One would then need simultaneous detection along a quadratic sequence, as in $\sum_u r(Q_1(u))r(Q_2(u))$, which is beyond current technology. In any case, \cite[Conjecture~2.1]{FKR} is open for every $k\ge4$.
+\end{remark}
+
+\section{Numerical checks}\label{sec:numerics}
+
+The computations reported here were carried out with the scripts that accompany this manuscript.
+
+\emph{Algebraic steps.} The identities of Lemma~\ref{lem:identity}, the conclusion of Lemma~\ref{lem:split} and the inequality $r(n(n+b))\le\frac14r(n)r(n+b)$ of Remark~\ref{rem:correlation} were checked for nine patterns, on about $16\,000$ values of $n$ arising from primes $d\equiv1\pmod4$. The bound of Lemma~\ref{lem:mult} was checked for the same patterns and all $n<2000$. Lemma~\ref{lem:gauss} was checked for $600$ pairs $(\Delta,\mathcal M)$, among them $\Delta=2^{2J+2}m_d$ for several patterns. In the proof of Proposition~\ref{prop:weyl}, the expression for $\Xi_h$ obtained in Steps~1 and~2 (with $\beta_h=1$) was confirmed numerically in $24$ cases with $J\le3$. For Step~3 we confirmed, in several cases, that admissibility depends only on $R\bmod L$ and that there are at most $2^{3J+3}$ admissible classes when $d\nmid S$.
+
+\emph{The $2$-adic seeds.} For each of the $1650$ patterns $\{0,a,b\}$ with $b\le60$ that are not excluded by Lemma~\ref{lem:bad}, we computed $n_*$ by the case analysis of Lemma~\ref{lem:nstar}, found $A_*$ and $u_*$ by a search (their existence is Lemma~\ref{lem:rep}), and formed the classes $(d_0,u_0)\bmod2^J$ with $J=v+3$ as in the proof of Proposition~\ref{prop:seed}. In every case the conclusion of Proposition~\ref{prop:seed} held on random elements of these classes.
+
+\emph{The main term.} Table~\ref{tab:main} compares $\Sigma_d(x)$ at $x=10^{13}$ with the main term of Proposition~\ref{prop:asymp}. We used the classes $(J,d_0,u_0)$ found in this way and $F(t)=\exp\bigl(-1/(20(t-\frac12)(1-t))\bigr)$ for $\frac12<t<1$, for which $c_F=0.16684$. The constant $\Lf_d$ was evaluated as $L(1,\chi)L(1,\psi)H_d$ (Lemma~\ref{lem:L}(c)), with $L(1,\psi)$ computed from the rapidly convergent series supplied by the functional equation; this agrees to within $0.1\%$ with a direct smoothed evaluation of the series defining $\Lf_d$. The last column gives the ratio for the sharp cutoff, that is, $\sum r(T_d(u))$ over all $u$ with $T_d(u)\le x$, compared with the same formula for $F=\mathbf 1_{[0,1]}$ and $c_F=2$. This case is not covered by Proposition~\ref{prop:asymp}, so that comparison is only heuristic. The deviations from $1$ are of the size expected from the number of terms involved. In all these computations every $T_d(u)$ was an integer, as Proposition~\ref{prop:seed} predicts, and every $n=T_d(u)-a$ satisfied $n,n+b\in\Sc$, as Lemma~\ref{lem:split} predicts.
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{ccrrrrcc}
+\toprule
+pattern & $(J,d_0,u_0)$ & $d$ & $\#\{u\}$ & $\Sigma_d(x)$ & main term & ratio & sharp ratio\\
+\midrule
+$\{0,1,2\}$ & $(4,5,8)$ & 5 & 250\,000 & 79\,623 & 80\,280 & 0.992 & 0.999\\
+ & & 37 & 91\,902 & 17\,554 & 17\,684 & 0.993 & 1.001\\
+ & & 53 & 76\,787 & 23\,156 & 22\,535 & 1.028 & 1.005\\
+$\{0,1,3\}$ & $(6,5,4)$ & 5 & 88\,389 & 29\,317 & 29\,286 & 1.001 & 0.996\\
+ & & 197 & 14\,082 & 10\,958 & 10\,782 & 1.016 & 0.991\\
+$\{0,1,4\}$ & $(5,1,1)$ & 97 & 28\,380 & 14\,378 & 14\,045 & 1.024 & 1.000\\
+ & & 257 & 17\,436 & 13\,723 & 14\,011 & 0.979 & 0.997\\
+$\{0,5,8\}$ & $(5,9,1)$ & 41 & 43\,652 & 23\,177 & 22\,195 & 1.044 & 1.002\\
+ & & 137 & 23\,880 & 11\,838 & 11\,933 & 0.992 & 0.992\\
+$\{0,2,3\}$ & $(7,69,58)$ & 1093 & 2\,990 & 1\,189 & 1\,234 & 0.963 & 1.016\\
+\bottomrule
+\end{tabular}
+\caption{The smoothed sums $\Sigma_d(x)$ for $x=10^{13}$, compared with the main term of Proposition~\ref{prop:asymp}. Here $\#\{u\}$ is the number of $u$ in \eqref{eq:Sigma} with $T_d(u)\le x$.}
+\label{tab:main}
+\end{table}
+
+\emph{Weyl sums.} We also computed the sums
+\[
+W(M)=\sum_{\substack{M<\mu\le2M\\ d\mid\mu,\ \mu/d\equiv\gamma\ (2^J)}}S_\mu(h)
+\]
+of Proposition~\ref{prop:weyl}, that is, with $\beta_h=1$, for $(J,d,m)=(4,37,1370)$ and $(6,197,38424)$. These arise from the patterns $\{0,1,2\}$ and $\{0,1,3\}$ with $d=37$ and $d=197$. We took $h\in\{1,2,3\}$, $\gamma\in\{1,7\}$ and $M=10^4\cdot2^i$ with $0\le i\le14$. Let $R(M)=\sum_\mu\varrho(\mu)$ be the number of terms, which is the trivial bound. For $M\ge10^5$ we always found $|W(M)|\le2.9\,R(M)^{1/2}$, while $R(M)$ grew roughly linearly in $M$, up to $8.2\cdot10^5$ and $2.3\cdot10^4$ respectively. This is consistent with square-root cancellation in $M$, that is, with the exponent $3/4$ in Proposition~\ref{prop:weyl} replaced by $1/2$.
+
+\emph{Counts.} Finally, $S_{1,2}(10^8)=183\,098$, so that $S_{1,2}(x)(\log x)^{3/2}/x\approx0.145$ at $x=10^8$. For the patterns $\{0,1,3\}$, $\{0,1,4\}$ and $\{0,5,8\}$ the same quantity is about $0.216$, $0.647$ and $0.536$.
+
+\begin{thebibliography}{99}
+
+\bibitem{CD} T.~Cochrane and R.~E.~Dressler, \emph{Consecutive triples of sums of two squares}, Arch. Math. (Basel) \textbf{49} (1987), 301--304.
+
+\bibitem{CK} R.~D.~Connors and J.~P.~Keating, \emph{Two-point spectral correlations for the square billiard}, J. Phys. A \textbf{30} (1997), 1817--1830.
+
+\bibitem{Da} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Graduate Texts in Mathematics 74, Springer, 2000.
+
+\bibitem{DFI} W.~Duke, J.~B.~Friedlander and H.~Iwaniec, \emph{Weyl sums for quadratic roots}, Int. Math. Res. Not. IMRN \textbf{2012}, no.~11, 2493--2549.
+
+\bibitem{FKR} T.~Freiberg, P.~Kurlberg and L.~Rosenzweig, \emph{Poisson distribution for gaps between sums of two squares and level spacings for toral point scatterers}, Commun. Number Theory Phys. \textbf{11} (2017), 837--877; arXiv:1701.01157.
+
+\bibitem{FI78} J.~Friedlander and H.~Iwaniec, \emph{Quadratic polynomials and quadratic forms}, Acta Math. \textbf{141} (1978), 1--15.
+
+\bibitem{FI09} J.~Friedlander and H.~Iwaniec, \emph{Hyperbolic prime number theorem}, Acta Math. \textbf{202} (2009), 1--19.
+
+\bibitem{GM} L.~Grimmelt and J.~Merikoski, \emph{On the greatest prime factor and uniform equidistribution of quadratic polynomials}, arXiv:2505.00493 (2025).
+
+\bibitem{Ho63} C.~Hooley, \emph{On the number of divisors of quadratic polynomials}, Acta Math. \textbf{110} (1963), 97--114.
+
+\bibitem{Ho73} C.~Hooley, \emph{On the intervals between numbers that are sums of two squares. II}, J. Number Theory \textbf{5} (1973), 215--217.
+
+\bibitem{Ho74} C.~Hooley, \emph{On the intervals between numbers that are sums of two squares. III}, J. Reine Angew. Math. \textbf{267} (1974), 207--218.
+
+\bibitem{In} K.-H.~Indlekofer, \emph{Scharfe untere Absch\"atzung f\"ur die Anzahlfunktion der B-Zwillinge}, Acta Arith. \textbf{26} (1974/75), 207--212.
+
+\bibitem{IK} H.~Iwaniec and E.~Kowalski, \emph{Analytic Number Theory}, AMS Colloquium Publications 53, 2004.
+
+\bibitem{MMS} B.~Misra, M.~Ram Murty and B.~Saha, \emph{A triple convolution sum of the divisor function}, arXiv:2508.13082 (2025).
+
+\bibitem{No} W.~G.~Nowak, \emph{On the distribution of $M$-tuples of $B$-numbers}, Publ. Inst. Math. (Beograd) (N.S.) \textbf{77(91)} (2005), 71--78.
+
+\bibitem{Sk} M.~Ska{\l}ba, \emph{A note on consecutive sums of two squares}, Bull. Pol. Acad. Sci. Math. \textbf{73} (2025), no.~2, 111--116.
+
+\bibitem{Sm} Y.~Smilansky, \emph{Sums of two squares---pair correlation and distribution in short intervals}, Int. J. Number Theory \textbf{9} (2013), 1687--1711.
+
+\end{thebibliography}
+
+\end{document}
