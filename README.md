@@ -2,7 +2,8 @@
 
 **Siddharth Iyer and Claude (Anthropic).** Siddharth Iyer posed the question and gave the direction of attack;
 Claude developed it into the results, the papers and the Lean formalization below (see
-[Provenance](#provenance)).
+[Provenance](#provenance)). The follow-up note in [`rescaled_families/`](rescaled_families/) is by Claude, building
+on Siddharth Iyer's family construction.
 
 For fixed integers `0 < a < b`, let `S_{a,b}(x)` be the number of `n ≤ x` such that `n`, `n + a` and `n + b`
 are all sums of two squares.
@@ -19,9 +20,16 @@ More precisely, if `θ` is an exponent towards Selberg's eigenvalue conjecture f
 conjecture (`θ = 0`) would give `1/10`. With only the large sieve inequalities of Deshouillers and Iwaniec
 (1982), the same argument gives every `δ < (1 − 2θ)/(10 − 8θ)`, which is `25/292` for `θ = 7/64`.
 
+> **Follow-up.** The note in [`rescaled_families/`](rescaled_families/) improves this to every
+> `δ < (1 − 2θ)/(8 − 8θ)`: `25/228 = 0.1096…` for `θ = 7/64`, and `1/8` under Selberg's conjecture. The same bound
+> holds for the number of `n ≤ x` such that `n³ + a³` is a sum of two squares. See
+> [Follow-up: rescaled families](#follow-up-rescaled-families).
+
 **Status.** Research draft, not refereed. Besides independent AI referee passes, the final paper has been
 formalized in Lean 4: its main theorems are proved there, with no `sorry`, from the published results listed
-under [Assumptions](#assumptions), which enter as explicit hypotheses.
+under [Assumptions](#assumptions), which enter as explicit hypotheses. The follow-up note in
+[`rescaled_families/`](rescaled_families/) has had an independent AI referee pass but **has no Lean
+formalization**.
 
 ## The paper
 
@@ -106,9 +114,41 @@ A hypothesis stated wrongly cannot make the library inconsistent, but it could m
 vacuous. The statements were transcribed from the cited sources by Claude and have not yet been compared with
 them by a human. That comparison is the main check a reader should make before relying on the formalization.
 
+## Follow-up: rescaled families
+
+**[`rescaled_families/rescaled_families.pdf`](rescaled_families/rescaled_families.pdf)** (14 pages),
+*Rescaled families and sums of two squares in three-term patterns and along `n³ + a³`*, by Claude (Anthropic),
+is a follow-up note to the final paper. It is **not formalized in Lean**; the Lean project covers the final
+paper only.
+
+The Type I estimate of the final paper loses a factor that depends on the discriminant of the quadratic
+polynomial but not on its level. Inserting a square factor `r²`, with `r ≡ 1 (mod 4)` prime, into the identity
+of the final paper,
+
+```
+2rdQ = u² + d² + r²B²   ⟹   4r²P(P + B) = (rQ − d)² + u²,
+```
+
+gives families of level `rd` whose discriminant is only `≍ (r + d)²`, and for `r ≍ d` these do better. The same
+construction works for `n³ + a³ = m(m² − 3am + 3a²)` with `m = n + a`: if
+`rDm = ℓ² + ((D + 3ar)/2)² − 3a²r²`, then `(2ℓ)² + (2rm − 3ar − D)² = 4r²(m² − 3am + 3a²)`. The analytic input
+is the Type I estimate of the final paper, extended to levels with at most two prime factors.
+
+| `θ` | final paper | follow-up note | final paper, DI only | follow-up note, DI only |
+|---|---|---|---|---|
+| `1/4` (Selberg) | `1/14` | `1/12` | `1/16` | `1/14` |
+| `7/64` (Kim–Sarnak) | `25/278 = 0.0899` | `25/228 = 0.1096` | `25/292 = 0.0856` | `25/242 = 0.1033` |
+| `0` (Selberg's conjecture) | `1/10` | `1/8` | `1/10` | `1/8` |
+
+The table lists the exponents `δ` such that `S_{a,b}(x) ≫ x^{1/2 + δ}` for every smaller `δ`. The columns of the
+follow-up note also hold for `C_a(x) = #{n ≤ x : n³ + a³ is a sum of two squares}`. "DI only" means using only the
+large sieve inequalities of Deshouillers and Iwaniec. See
+[`rescaled_families/README.md`](rescaled_families/README.md) for more.
+
 ## Contents
 
-The papers are listed in the order in which they were written; the last one is the final version.
+The papers are listed in the order in which they were written. Paper 6 is the final version of the project,
+and 7 is a later follow-up note.
 
 | | Folder | Document |
 |---|---|---|
@@ -119,6 +159,7 @@ The papers are listed in the order in which they were written; the last one is t
 | 5 | [`earlier_versions/5_triples_kuznetsov/`](earlier_versions/5_triples_kuznetsov/) | *Sums of two squares in three-term patterns via the Kuznetsov formula*: the Type I estimate from published inputs only, `25/278`, and `25/292` with the Deshouillers–Iwaniec inequalities alone |
 | **6** | **[`triples_final/`](triples_final/)** | ***Sums of two squares in three-term patterns*: the final, self-contained paper** |
 | | [`triples_lean/`](triples_lean/) | the Lean 4 formalization of paper 6 |
+| 7 | [`rescaled_families/`](rescaled_families/) | *Rescaled families and sums of two squares in three-term patterns and along `n³ + a³`*: a follow-up note by Claude, `δ < 25/228` for all patterns and for `n³ + a³`; no Lean formalization |
 
 Each folder holds the `.tex` source, the compiled `.pdf` and a `numerics/` folder with the scripts behind the
 numerical checks. [`triples_final/README.md`](triples_final/README.md) explains what each earlier stage
@@ -159,6 +200,12 @@ extended the argument to all three-term patterns (`δ < 1/24`), recast the Type 
 and the spectral theory of `Γ₀(4Ed)` to reach `δ < 25/278`, checked the external input of that version line by
 line, replaced it with a proof that uses only published results, wrote the final self-contained paper, and
 formalized it in Lean 4.
+
+The follow-up note in [`rescaled_families/`](rescaled_families/) was written by Claude. Its starting point is the
+family construction above (steps 1 and 2), in the form it takes in the final paper: two of the three numbers are
+made sums of two squares by an identity, and the third is counted along a quadratic polynomial. That construction
+is Siddharth Iyer's only contribution to the note. The rescaled families, their analogue for `n³ + a³`, the
+extension of the Type I estimate, the proofs and the computations were developed by Claude.
 
 The papers are research drafts and have not been refereed.
 

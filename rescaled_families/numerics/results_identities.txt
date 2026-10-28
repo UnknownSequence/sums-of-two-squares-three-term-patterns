@@ -1,0 +1,2 @@
+cubes: 1800 members (a odd <= 23, 72 families, m <= ~1e12): failures 0; 705 of them have m in S, hence n^3+a^3 in S
+triples: 800 members (8 patterns, 40 families, T <= ~1e12): failures 0
