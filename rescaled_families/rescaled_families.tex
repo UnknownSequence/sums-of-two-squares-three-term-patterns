@@ -1,0 +1,564 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Lf}{\mathfrak{L}}
+\newcommand{\Pf}{\mathcal{P}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Mt}{\mathcal{M}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\Zi}{\Z[i]}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\gb}{\mathfrak{b}}
+\newcommand{\gc}{\mathfrak{c}}
+
+\title[Rescaled families]{Rescaled families and sums of two squares\\ in three-term patterns and along $n^3+a^3$}
+\author{Claude (Anthropic)}
+\date{27 October 2026. Research draft, not refereed.}
+
+\begin{document}
+\emergencystretch=3em
+
+\begin{abstract}
+For a fixed integer $a\ge1$ let $C_a(x)$ be the number of $n\le x$ such that $n^3+a^3$ is a sum of two squares, and for fixed integers $0<a<b$ let $S_{a,b}(x)$ be the number of $n\le x$ such that $n$, $n+a$ and $n+b$ are all sums of two squares. We prove that $C_a(x)\gg x^{1/2+\delta}$ and $S_{a,b}(x)\gg x^{1/2+\delta}$ for every
+\[
+\delta<\frac{1-2\theta}{8-8\theta},
+\]
+where $\theta$ is any exponent towards Selberg's eigenvalue conjecture for the groups $\Gamma_0(q)$. The Kim--Sarnak bound $\theta=7/64$ gives every $\delta<25/228=0.1096\ldots$, and Selberg's conjecture would give every $\delta<1/8$. For three-term patterns this improves the exponent $(1-2\theta)/(10-12\theta)$ of the earlier work \cite{IC}, which is $25/278=0.0899\ldots$ for $\theta=7/64$, and it exceeds the value $1/10$ that \cite{IC} obtains under Selberg's conjecture.
+
+The method of \cite{IC} makes two of the three numbers sums of two squares by an identity attached to a parameter $d$, and counts the values of a quadratic polynomial whose roots are governed by Heegner points of discriminant $\asymp d^2$ on $\Gamma_0(4Ed)$. Its Type~I estimate loses a factor that depends on the discriminant but not on the level. We introduce a second parameter $r$, a prime $\equiv1\pmod 4$. The rescaled families have level $rd$ and discriminant $\asymp(r+d)^2$, so for $r\asymp d$ the discriminant is of the size of the level instead of its square. For $n^3+a^3=m\,(m^2-3am+3a^2)$ with $m=n+a$, the analogous families come from the identity $(2\ell)^2+(2rm-3ar-D)^2=4r^2(m^2-3am+3a^2)$, which holds whenever $rDm=\ell^2+\bigl(\tfrac{D+3ar}2\bigr)^2-3a^2r^2$. The analytic input is the Type~I estimate of \cite{IC}, which we extend to levels that are products of two primes.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $\Sc=\{u^2+v^2:\ u,v\in\Z\}$ and $r(n)=\#\{(u,v)\in\Z^2:\ u^2+v^2=n\}$. For fixed integers $a\ge1$, and $0<a<b$ respectively, put
+\[
+C_a(x)=\#\{1\le n\le x:\ n^3+a^3\in\Sc\},\qquad S_{a,b}(x)=\#\{1\le n\le x:\ n,\ n+a,\ n+b\in\Sc\}.
+\]
+Writing $m=n+a$ and $G_a(m)=m^2-3am+3a^2$, we have $G_a(n+a)=n^2-an+a^2$ and
+\begin{equation}\label{eq:cubefactor}
+n^3+a^3=m\,G_a(m).
+\end{equation}
+Both factors impose a condition of sieve dimension $\frac12$, so one expects $C_a(x)\asymp x/\log x$, and Selberg's sieve gives an upper bound of this order. For three-term patterns the conjecture of Freiberg, Kurlberg and Rosenzweig \cite[Conjecture~1.1]{FKR} predicts $S_{a,b}(x)\sim\mathfrak S\,C^3x(\log x)^{-3/2}$, and upper bounds of this order are known \cite{CD,No}. Lower bounds are much weaker. One-parameter constructions give about $x^{1/2}$ elements up to $x$. In \cite{IC} it is shown that $S_{a,b}(x)\gg x^{1/2+\delta}$ for every $\delta<(1-2\theta)/(10-12\theta)$.
+
+As in \cite{IC}, for a congruence subgroup $\Gamma\subseteq\mathrm{SL}_2(\Z)$ let $\theta(\Gamma)=\max\{0,\operatorname{Re}\sqrt{1/4-\lambda_1(\Gamma)}\}$, where $\lambda_1(\Gamma)$ is the smallest positive eigenvalue of the Laplacian on $\Gamma\backslash\mathbb H$. We call $\theta\in[0,\frac12)$ \emph{admissible} if $\theta(\Gamma_0(q))\le\theta$ for every $q\ge1$. By Selberg \cite{Sel} $\theta=1/4$ is admissible, by Kim and Sarnak \cite[Appendix~2]{Kim} $\theta=7/64$ is admissible, and Selberg's eigenvalue conjecture is that $\theta=0$ is admissible. Put
+\[
+\delta^*_\theta=\frac{1-2\theta}{8-8\theta},\qquad\delta^{**}_\theta=\frac{1-2\theta}{8-4\theta}.
+\]
+
+\begin{theorem}\label{thm:cubes}
+Let $a\ge1$ be a fixed integer and let $\theta$ be admissible. For every $\delta<\delta^*_\theta$ we have $C_a(x)\gg_{a,\delta}x^{1/2+\delta}$ for $x\ge x_0(a,\delta)$.
+\end{theorem}
+
+\begin{theorem}\label{thm:triples}
+Let $0<a<b$ be fixed integers and let $\theta$ be admissible. For every $\delta<\delta^*_\theta$ we have $S_{a,b}(x)\gg_{a,b,\delta}x^{1/2+\delta}$ for $x\ge x_0(a,b,\delta)$.
+\end{theorem}
+
+The implied constants in Theorems~\ref{thm:cubes} and~\ref{thm:triples} are ineffective, because Siegel's theorem is used (Remark~\ref{rem:corr}).
+
+\begin{corollary}\label{cor:main}
+For every $\delta<25/228=0.1096\ldots$ and all large $x$, there are $\gg_\delta x^{1/2+\delta}$ integers $n\le x$ such that $n^3+1$ is a sum of two squares, and $\gg_\delta x^{1/2+\delta}$ integers $n\le x$ such that $n-1$, $n$ and $n+1$ are all sums of two squares; the same holds for $C_a(x)$ and $S_{a,b}(x)$ with any fixed $a$, $b$. If Selberg's eigenvalue conjecture holds, every $\delta<1/8$ is admissible.
+\end{corollary}
+
+The proofs use the large sieve inequality of Pascadi for exceptional Maass forms \cite[Theorem~2]{Pas}, through \cite[Theorem~6.1(a)]{IC}. With only the inequalities of Deshouillers and Iwaniec \cite{DI} we obtain the following.
+
+\begin{theorem}\label{thm:DI}
+Theorems~\ref{thm:cubes} and~\ref{thm:triples} hold with $\delta^{**}_\theta$ in place of $\delta^*_\theta$, without using \cite[Theorem~2]{Pas}.
+\end{theorem}
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{4pt}\small
+\begin{tabular}{lcccc}
+\toprule
+$\theta$ & \cite[Thm.~1.1]{IC} & Theorems~\ref{thm:cubes}, \ref{thm:triples} & \cite[Thm.~1.3]{IC} & Theorem~\ref{thm:DI}\\
+\midrule
+$1/4$ (Selberg) & $1/14=0.0714$ & $1/12=0.0833$ & $1/16=0.0625$ & $1/14=0.0714$\\
+$7/64$ (Kim--Sarnak) & $25/278=0.0899$ & $25/228=0.1096$ & $25/292=0.0856$ & $25/242=0.1033$\\
+$0$ (Selberg's conjecture) & $1/10$ & $1/8$ & $1/10$ & $1/8$\\
+\bottomrule
+\end{tabular}
+\caption{Exponents $\delta$ in lower bounds $\gg x^{1/2+\delta}$. The first and third columns are for three-term patterns only. Theorems~\ref{thm:cubes}--\ref{thm:DI} hold for every $\delta$ below the value shown.}
+\label{tab:exponents}
+\end{table}
+
+\subsection{The idea}\label{sec:idea}
+We recall the families of \cite{IC}. Write the pattern as $\{P,\,P+B,\,T\}$ with $B$ odd, $T=P+A$ and $Q=2P+B$ \cite[Lemma~2.3]{IC}. If $2dQ=u^2+d^2+B^2$, then $4P(P+B)=(Q-d)^2+u^2$, so for a prime $d\equiv1\pmod4$ the numbers $P$ and $P+B$ are sums of two squares, and the third number satisfies $4dT=u^2+m_d$ with $m_d=(d+c)^2+4A(B-A)$, $c=2A-B$. For fixed $d$, $T$ runs through the values of a quadratic polynomial, and about $\sqrt{x/d}$ of them are at most $x$. After the hyperbola method, the $r$-weighted count of these values leads to Type~I sums for the roots of a quadratic congruence modulo $dk$. The Type~I estimate \cite[Theorem~6.1]{IC} bounds them by
+\begin{equation}\label{eq:typeIshape}
+X^{1/2}H^{1/4}\Bigl(1+\frac X{dH^{1/2}}\Bigr)^{\theta},
+\end{equation}
+up to factors $x^{\eps}$, where $X\asymp\sqrt{dx}$ is the length of the polynomial sequence and $-4EH$ (with $E\in\{4,8\}$, $H\asymp m_d$) is the discriminant. The level $q=4Ed$ enters only through the exceptional factor. The main term is $\asymp X/d$, and since $H\asymp d^2$ the comparison of \eqref{eq:typeIshape} with $X/d$ restricts $d$ to $d\le x^{(1-2\theta)/(5-6\theta)}$.
+
+The loss $H^{1/4}$ comes from bounding the number of pairs of Heegner points at bounded distance without using the level structure \cite[Remark~13.1]{IC}. It depends on the discriminant alone. So one should look for families whose discriminant is small compared with their level. They are obtained by inserting a square factor $r^2$. If
+\[
+2rdQ=u^2+d^2+r^2B^2,
+\]
+then $(rQ-d)^2+u^2=r^2(Q^2-B^2)=4r^2P(P+B)$, and since $r^2$ is a square, $P(P+B)$ is still a sum of two squares. The third number now satisfies $4rdT=u^2+M_{r,d}$ with $M_{r,d}=(d+cr)^2+4A(B-A)r^2$ (Lemma~\ref{lem:triples}). The level is $rd$ and the discriminant is $\asymp(d+r)^2$. For primes $r\asymp d\asymp t$ the level is $\asymp t^2$, the discriminant is $\asymp t^2$, each family contributes $\asymp\sqrt x/t$ values, and \eqref{eq:typeIshape} is smaller than the main term as long as $t\le x^{\delta^*_\theta-\eps}$. There are $\asymp t^2/(\log t)^2$ such families, so they produce $\asymp\sqrt x\,t$ values, with multiplicity $x^{o(1)}$ (Lemma~\ref{lem:mult}). This gives the exponent $\delta^*_\theta$.
+
+For $n^3+a^3$ the same mechanism applies to the factorisation \eqref{eq:cubefactor}. The quadratic factor is made a sum of two squares by Lemma~\ref{lem:cubes}, and $m$ is detected. Here the case $r=1$ gives the analogue of \cite{IC}, with exponent $(1-2\theta)/(10-12\theta)$ (Remark~\ref{rem:r1}).
+
+In terms of Gaussian integers, $(rQ-d)+iu=\varpi^2w$, where $\varpi\mid r$ is a Gaussian prime and $w$ is a representation of $4P(P+B)$. The families of \cite{IC} collect the representations of $4P(P+B)$ close to the positive real axis; the rescaled families collect those close to the directions $\arg\varpi^{-2}$, which are the rational points of the unit circle with denominator $r$.
+
+\subsection{What is used}
+From \cite{IC} we use the hyperbola identity \cite[Lemma~5.1]{IC}, the $2$-adic set-up for three-term patterns \cite[Lemma~2.3, Proposition~3.2]{IC}, and the Type~I estimate \cite[Theorem~6.1]{IC}. Theorem~\ref{thm:typeI} below extends the latter to levels $q=4Ed$ in which $d$ is a product of at most two primes and to $E=1$; the case $E=1$ is used for $n^3+a^3$, where the variable $\ell$ runs over the odd integers. For $a\equiv3\pmod 4$ this is forced by the $2$-adic conditions (Remark~\ref{rem:whyodd}); for $a\equiv1\pmod4$ we use odd $\ell$ as well, so that both cases are treated in the same way. The proof consists of checking the few places where \cite{IC} uses that $d$ is prime or that $E\in\{4,8\}$. Section~\ref{sec:counts} redoes the asymptotic evaluation of \cite[\S\S5,7]{IC} for general families, Sections~\ref{sec:cubes} and~\ref{sec:triples} prove the theorems, and Section~\ref{sec:numerics} reports numerical checks.
+
+\subsection*{Provenance}
+This note was written by Claude (Anthropic). The family construction of \cite{IC}, that is, making two of the three numbers sums of two squares through the identity $2dQ=u^2+d^2+B^2$ and counting the third along the resulting quadratic polynomial, is due to Siddharth Iyer; that is his only contribution to the present note. The rescaled families, their analogue for $n^3+a^3$, the extension of the Type~I estimate, the arguments and the computations below were developed by Claude. The note has not been refereed.
+
+\subsection*{Notation}
+$\chi$ is the non-principal character modulo $4$, so $r(n)=4\sum_{k\mid n}\chi(k)$ for $n\ge1$. We write $v_2$ for the $2$-adic valuation, $\omega(n)$ for the number of distinct prime factors, and $\leg{\cdot}{\cdot}$ for the Legendre or Jacobi symbol. The smooth functions $F$ (supported in $[\frac12,1]$, values in $[0,1]$, not identically zero), $W$ (with $W(t)+W(1/t)=1$, $W=1$ on $(0,\frac12]$, $W=0$ on $[2,\infty)$) and $\psi_0$ are those of \cite[\S\S4,5,7]{IC}, and $c_F=\int_0^1F(t)t^{-1/2}\,dt$. The letter $r$ denotes a prime as well as the function $r(n)$, which is always written with its argument. The letter $L$ denotes the level of a family; it has nothing to do with the quantity $L$ in \cite[\S\S9--12]{IC}. Throughout, $\theta$ is a fixed admissible exponent, $\eps,\eta>0$ are small, and implied constants may depend on $a$, $b$, $\eps$, $\eta$ and the fixed smooth functions.
+
+\section{Rescaled families}\label{sec:families}
+
+\begin{lemma}[Cubes]\label{lem:cubes}
+Let $a,r,D,\ell,m$ be integers such that $w=D+3ar$ is even, and put $H=(w/2)^2-3a^2r^2$. If
+\[
+rD\,m=\ell^2+H,
+\]
+then
+\begin{equation}\label{eq:cubeid}
+(2\ell)^2+(2rm-3ar-D)^2=4r^2G_a(m).
+\end{equation}
+In particular, if $r\ne0$, then $G_a(m)\in\Sc$; and if moreover $m\ge1$ and $m\in\Sc$, then $n=m-a$ satisfies $n^3+a^3\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+We have $(2rm-3ar-D)^2=(2rm-w)^2=4r^2m^2-4rmw+w^2$ and $4\ell^2=4rDm-4H=4rDm-w^2+12a^2r^2$. Adding, and using $w-D=3ar$, gives $4r^2m^2-12ar^2m+12a^2r^2=4r^2G_a(m)$. Since $\Sc$ is closed under multiplication and $p^{2k}\in\Sc$ for every prime $p$, an integer $z\ge1$ lies in $\Sc$ if and only if $4r^2z$ does; and $G_a(m)>0$ because its discriminant $-3a^2$ is negative. The last assertion follows from \eqref{eq:cubefactor}.
+\end{proof}
+
+\begin{lemma}[Three-term patterns]\label{lem:triples}
+Let $A,B$ be integers with $B$ odd, put $c=2A-B$, and let $r,d,u,T$ be integers such that
+\[
+4rd\,T=u^2+M_{r,d},\qquad M_{r,d}=(d+cr)^2+4A(B-A)r^2 .
+\]
+Put $P=T-A$ and $Q=2T-c=2P+B$. Then
+\[
+2rdQ=u^2+d^2+r^2B^2\qquad\text{and}\qquad4r^2P(P+B)=(rQ-d)^2+u^2 .
+\]
+If $r\ne0$, $d$ is a prime with $d\equiv1\pmod 4$, and $P\ge1$, $P+B\ge1$, then $P\in\Sc$ and $P+B\in\Sc$.
+\end{lemma}
+
+\begin{proof}
+Since $c^2+4A(B-A)=(2A-B)^2+4AB-4A^2=B^2$, we get $2rdQ=4rdT-2rcd=u^2+(d+cr)^2-2rcd+4A(B-A)r^2=u^2+d^2+r^2B^2$. Then $(rQ-d)^2+u^2=r^2Q^2-2rdQ+d^2+u^2=r^2(Q^2-B^2)$, and $Q^2-B^2=4P(P+B)$. So $4r^2P(P+B)\in\Sc$, hence $P(P+B)\in\Sc$. Let $\ell'\equiv3\pmod4$ be a prime. If $\ell'$ divides at most one of $P$ and $P+B$, then $v_{\ell'}(P)$ and $v_{\ell'}(P+B)$ are even. If $\ell'$ divides both, then $\ell'\mid B$ and $\ell'\mid Q$, so $\ell'\mid u^2+d^2$ by the first identity, hence $\ell'\mid d$, which is impossible since $d\equiv1\pmod4$ is prime.
+\end{proof}
+
+For $r=1$ this is \cite[Lemmas~2.4 and~2.5]{IC}. The next lemma controls how often one integer arises from different families.
+
+\begin{lemma}[Multiplicity]\label{lem:mult}
+Let $N_0\ge1$ and $R\ge2$ be integers and $0<\varphi_0\le1/(16R^2)$. Let $\Zc$ be the set of pairs $(r,z)$ such that $r\le R$ is a prime with $r\equiv1\pmod4$, $z\in\Zi$, $|z|^2=r^2N_0$, $z\notin r\Zi$, and $|\arg z|\le\varphi_0$. Then $\#\Zc\le r(N_0)$.
+\end{lemma}
+
+\begin{proof}
+Let $(r,z)\in\Zc$ and write $r=\pi\bar\pi$ with a Gaussian prime $\pi$; then $\pi$ and $\bar\pi$ are not associate. Since $v_\pi(z)+v_{\bar\pi}(z)=v_\pi(z)+v_\pi(\bar z)=v_\pi(r^2N_0)\ge2$ and $z\notin r\Zi$, one of $v_\pi(z)$, $v_{\bar\pi}(z)$ is $0$ and the other is at least $2$. Hence $z=\varpi^2w$ with $\varpi\in\{\pi,\bar\pi\}$ and $|w|^2=N_0$. Choose such a factorisation for every element of $\Zc$. We claim that two elements $(r_1,z_1)$, $(r_2,z_2)$ with the same $w$ coincide; this proves the lemma, since there are $r(N_0)$ possible $w$.
+
+So let $z_i=\varpi_i^2w$ with $|\varpi_i|^2=r_i$. Then $\alpha=\varpi_1^2\bar\varpi_2^2\in\Zi$ has $|\alpha|=r_1r_2\le R^2$ and $\arg\alpha\equiv\arg z_1-\arg z_2\pmod{2\pi}$. Hence $|\operatorname{Im}\alpha|\le R^2\cdot2\varphi_0<1$, so $\alpha$ is real, and $\alpha>0$ since $|\arg z_1-\arg z_2|<\pi/2$. Therefore $\varpi_1^2\bar\varpi_2^2=r_1r_2=\varpi_1\bar\varpi_1\varpi_2\bar\varpi_2$, that is, $\varpi_1\bar\varpi_2=\bar\varpi_1\varpi_2$. If $r_1\ne r_2$, then $\varpi_1$ divides $\bar\varpi_1\varpi_2$ but neither factor, a contradiction. So $r_1=r_2$ and $\varpi_2$ is associate to $\varpi_1$ or to $\bar\varpi_1$. In the second case $\varpi_2=\epsilon\bar\varpi_1$ with a unit $\epsilon$, and the relation gives $\varpi_1^2=(\epsilon/\bar\epsilon)\bar\varpi_1^2$, which is impossible. In the first case $\varpi_2=\epsilon\varpi_1$ and the relation gives $\epsilon=\bar\epsilon$, so $\epsilon=\pm1$, $\varpi_2^2=\varpi_1^2$ and $z_2=z_1$.
+\end{proof}
+
+\section{The Type I estimate at composite level}\label{sec:typeI}
+
+Consider the following hypothesis, which differs from \cite[(H)]{IC} only in the first and third items.
+
+\medskip
+\noindent\textbf{(H$^*$)} $E\in\{1,4,8\}$; $H\ge1$ is odd; $d\ge3$ is odd and squarefree with $\omega(d)\le2$ and $(d,H)=1$; $N=EH$ is neither a square nor three times a square; $q=4Ed$; $\kappa\in\{1,3\}$; $\Delta\ge1$, $X\ge N^{1/2}$ and $1\le K\le qX$; $\psi_1,\psi_2:\R\to\C$ are smooth, $\psi_1$ is supported in $[1,2]$ and $\psi_2$ in $[-1,1]$, and $\|\psi_i^{(\nu)}\|_\infty\le C_\nu\Delta^\nu$ for all $\nu\ge0$.
+\medskip
+
+Under (H$^*$) let $\varrho_{E,H}(\mu)=\#\{\nu\bmod\mu:\ E\nu^2+H\equiv0\pmod\mu\}$ and
+\begin{equation}\label{eq:Xi}
+\Xi=\sum_{\mu\equiv\kappa d\ (4d)}\psi_1\Bigl(\frac\mu K\Bigr)\Bigl(\sum_{\substack{\ell\in\Z\\ \mu\mid E\ell^2+H}}\psi_2\Bigl(\frac\ell X\Bigr)-\frac{\varrho_{E,H}(\mu)}{\mu}\,X\int_\R\psi_2(t)\,dt\Bigr),
+\end{equation}
+as in \cite[(6.1)]{IC}.
+
+\begin{theorem}\label{thm:typeI}
+Assume \textup{(H$^*$)}. For every $\eta>0$ there is $C(\eta)$ such that
+\begin{align*}
+\Xi&\ll\Delta^{C(\eta)}(qXH)^{\eta}\,X^{1/2}H^{1/4}\Bigl(1+\frac{X}{dH^{1/2}}\Bigr)^{\theta},\\
+\Xi&\ll\Delta^{C(\eta)}(qXH)^{\eta}\,X^{1/2}H^{1/4}\Bigl(1+\frac{K}{dH^{1/2}}\Bigr)^{\theta},
+\end{align*}
+where the implied constants depend only on $\eta$ and the $C_\nu$. The second bound is proved without \cite[Theorem~2]{Pas}.
+\end{theorem}
+
+\begin{proof}
+For $E\in\{4,8\}$ and $d$ prime this is \cite[Theorem~6.1]{IC}. Its proof, in \cite[\S\S8--12]{IC}, uses the primality of $d$ and the condition $E\in\{4,8\}$ only at the following places; everywhere else it uses only that $q=4Ed$, that $d$ is odd with $(d,H)=1$, and that $N$ is neither a square nor three times a square. In particular, the large sieve inequalities \cite[Lemmas~10.2--10.5]{IC}, the spectral expansion and the pre-trace formula hold for $\Gamma_0(q)$ with any $q$, and in \cite[\S\S9,11]{IC} the integer $d$ enters only through the level $q$ and the congruence $\mu\equiv\kappa d\pmod{4d}$, not through its primality.
+
+(i) \emph{The sets $\Qc^\kappa$} \cite[Lemma~8.2]{IC}. The set $\Qc^\kappa=\{\fg\in\Qc_N:\ \gb\equiv0\ (E),\ \gc\equiv\kappa Ed\ (4Ed)\}$ is defined in the same way; for $E=1$ the first condition is empty. The bijection of part~(a) is unchanged. The proof of the invariance in part~(b) uses only that $q\mid\gamma_3$, that $\gamma_4$ is odd, and that $E$ divides $\gamma_3$, $\gb$ and $\gc$ and $Ed$ divides $\gc$; this holds verbatim.
+
+(ii) \emph{Cosets} \cite[Lemma~8.3]{IC}. By the Chinese remainder theorem $\mathbb P^1(\Z/q\Z)=\mathbb P^1(\Z/4E\Z)\times\prod_{p\mid d}\mathbb P^1(\mathbb F_p)$. For each prime $p\mid d$ the form $\varphi_\fg$ does not vanish identically modulo $p$, since otherwise $p^2\mid N$, which is impossible because $p$ is odd and $p\nmid H$; so it has at most two zeros in $\mathbb P^1(\mathbb F_p)$. Since $\#\mathbb P^1(\Z/4E\Z)=6E$, the bound \cite[(8.2)]{IC} becomes $\#\{\tau:\ \tau\diamond\fg\in\Qc\}\le2^{\omega(d)}\cdot6E\le24E\le192$.
+
+(iii) \emph{Pairs} \cite[Lemma~8.4]{IC}. With (ii), the constants $96$ and $192$ there become $192$ and $384$. The bounds $I\ll N^{1/2+\eta}$ and $\Pc\ll N^{1+\eta}$ are unchanged.
+
+(iv) \emph{Sizes} \cite[(12.1)]{IC}. There the inequalities $\frac1{16qX}\le MY\le\frac{(qX)^\eta}2$ are derived from $4\le E\le8$. For $1\le E\le8$ the lower bound is unchanged, since $Y=N^{1/2}/(EK)\ge1/(8qX)$, while the upper bound becomes $MY\le2(qX)^\eta/E\le2(qX)^\eta$. We therefore define $V=4(qX)^\eta/(MY)$ instead of $(qX)^\eta/(MY)$, so that again $V\ge1$ (indeed $V\ge2$). Lemma~11.1 of \cite{IC} is then applied with this $V$; the error term $(2/y_0)e^{-y_0V/2}$ with $y_0=\pi MY$ only becomes smaller. The factors $\mathfrak E_{\mathrm P}$ and $\mathfrak E_{\mathrm{DI}}$ change by at most $4^\theta\le2$, and the bound $(MY)^{3/2}\le(qX)^{3\eta/2}$ used in \cite[\S12.4]{IC} becomes $(MY)^{3/2}\le3(qX)^{3\eta/2}$.
+
+(v) \emph{Lemma~12.1 of \cite{IC} and the completion of the proof.} With the new $V$ the quantities $\alpha_1$ and $\beta_1$ in the proof of \cite[Lemma~12.1]{IC} are multiplied by $4$, which changes the constants only. The inequality $EX/(q\sqrt N)=X/(4d\sqrt N)\le X/(dH^{1/2})$ used there holds because $N=EH\ge H$; and the final step uses $N\le8H$, which holds for $E\le8$.
+\end{proof}
+
+\section{Weighted counts along a family}\label{sec:counts}
+
+We now evaluate the $r$-weighted count along a general family, following \cite[\S\S5,7]{IC}.
+
+\medskip
+\noindent\textbf{Setting (F).}
+\begin{enumerate}
+\item[(F1)] $E\in\{1,4,8\}$, $H\ge1$ is odd, and $N=EH$ is neither a square nor three times a square.
+\item[(F2)] $L$ is an odd prime or a product of two distinct odd primes, $(L,H)=1$, and $-EH$ is a quadratic residue modulo every prime factor of $L$.
+\item[(F3)] Either $\Lambda=\Z$, and then $c_\Lambda=1$; or $E=1$ and $\Lambda=2\Z+1$, and then $c_\Lambda=\frac12$.
+\item[(F4)] $s\ge s_0\ge0$ are integers such that for every $\ell\in\Lambda$ with $L\mid E\ell^2+H$ the number $2^{-s_0}(E\ell^2+H)$ is an odd integer and $(E\ell^2+H)/(2^{s_0}L)\equiv1\pmod 4$.
+\end{enumerate}
+Put $\kappa_0=2^{s-s_0}$ and $T(y)=\kappa_0(Ey^2+H)/L$ for $y\in\R$. By (F4), for $\ell\in\Lambda$ with $L\mid E\ell^2+H$ the number $T(\ell)$ is an integer of the form $2^sT'$ with $T'=(E\ell^2+H)/(2^{s_0}L)\equiv1\pmod4$. We put
+\[
+\Sigma(x)=\sum_{\substack{\ell\in\Lambda\\ L\mid E\ell^2+H}}r\bigl(T(\ell)\bigr)\,F\Bigl(\frac{T(\ell)}x\Bigr).
+\]
+
+\begin{lemma}[Roots]\label{lem:roots}
+Assume \textup{(F1)}--\textup{(F2)} and write $\varrho=\varrho_{E,H}$.
+\begin{enumerate}
+\item[(a)] For $p\mid L$ and $i\ge1$, $\varrho(p^i)=2$.
+\item[(b)] For an odd prime $p\nmid L$ and $i\ge1$, $\varrho(p^i)=1+\leg{-EH}p$ if $p\nmid H$, and in general $\varrho(p^i)\le2p^{\min(i,v_p(H))/2}$.
+\item[(c)] For odd $k\ge1$, $\varrho(Lk)=2^{\omega(L)}f(k)$, where $f$ is the multiplicative function with $f(p^i)=1$ for $p\mid L$, $f(p^i)=\varrho(p^i)$ for odd $p\nmid L$, and $f(2^i)=0$ for $i\ge1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For odd $p$ the integer $E$ is invertible modulo $p^i$, and $E\nu^2+H\equiv0$ is equivalent to $(E\nu)^2\equiv-EH$. Part~(a) follows from Hensel's lemma, since $p\nmid2EH$ and $-EH$ is a non-zero square modulo $p$. Part~(b) is \cite[Lemma~5.2(b)]{IC} with $m$ replaced by $EH$. Part~(c) follows from (a) and the Chinese remainder theorem.
+\end{proof}
+
+For odd $n\ge1$ let $\psi(n)=\leg{EH}n$ (Jacobi symbol), and $\psi(n)=0$ for even $n$. Put $A_f(y)=\sum_{k\le y}\chi(k)f(k)$ and $\Lf=\sum_{k\ge1}\chi(k)f(k)/k$.
+
+\begin{lemma}[Singular series]\label{lem:L}
+Assume \textup{(F1)}--\textup{(F2)}.
+\begin{enumerate}
+\item[(a)] $\psi$ is a non-principal real Dirichlet character modulo $4EH$.
+\item[(b)] $A_f(y)\ll_\eps y^{1/2+\eps}(EH)^{1/2+\eps}L^{\eps}$ for $y\ge1$.
+\item[(c)] The series $\Lf$ converges, $|\Lf|\ll_\eps(EH)^{1/2+\eps}L^\eps$, and $\Lf=L(1,\chi)L(1,\psi)\Pf$ with
+\[
+\Pf=\prod_{p\nmid2LH}\Bigl(1-\frac1{p^2}\Bigr)\prod_{p\mid L}\Bigl(1-\frac{\chi(p)}p\Bigr)\prod_{p\mid H}\Bigl(1-\frac{\chi(p)}p\Bigr)\sum_{i\ge0}\frac{\chi(p)^i\varrho(p^i)}{p^i}\ \ge\ \frac6{\pi^2}\,\frac{\phi(LH)}{LH}.
+\]
+\item[(d)] $\Lf\gg_\eps(LH)^{-\eps}$. The implied constant is ineffective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is \cite[Lemma~5.3]{IC} with $m$ replaced by $EH$ and $d$ replaced by $L$; we indicate the differences. Part~(a) is proved as \cite[Lemma~5.3(a)]{IC}: $EH=2^{e}H$ with $e\in\{0,2,3\}$, and $EH$ is not a square by (F1). For (b) and (c) we compare the Euler factors of $\chi f$ and $\chi*\psi$, as power series in a variable $Y$. At $p=2$ both are $1$. For odd $p\nmid LH$ they are as in \cite{IC}, because $\psi(p)=\leg{EH}p=\chi(p)\leg{-EH}p$. For $p\mid L$ we have $\psi(p)=\chi(p)\leg{-EH}p=\chi(p)$ by (F2), so the factor of $\chi*\psi$ is $(1-\chi(p)Y)^{-2}$, while that of $\chi f$ is $(1-\chi(p)Y)^{-1}$ by Lemma~\ref{lem:roots}(c); the quotient is $1-\chi(p)Y$. (In \cite{IC}, $d\equiv1\pmod4$ and the quotient is $1-Y$.) For odd $p\mid H$ the factors are as in \cite{IC}. Hence $\chi f=(\chi*\psi)*\beta$ with $\beta$ supported on odd integers, $\beta(p^2)=-1$ for $p\nmid2LH$, $\beta(p)=-\chi(p)$ for $p\mid L$, and $\beta(p^i)=\chi(p)^i(\varrho(p^i)-\varrho(p^{i-1}))$ for $p\mid H$, all other values on prime powers being $0$. As in \cite{IC}, $\sum_n|\beta(n)|n^{-1/2-\eps}\ll_\eps(LH)^\eps$, and the P\'olya--Vinogradov inequality gives $\sum_{n\le y}(\chi*\psi)(n)\ll y^{1/2}(EH)^{1/2+\eps}$; this gives (b), and (c) follows as in \cite{IC}, including the lower bound for the factors at $p\mid H$. Part~(d) follows from (c), $L(1,\chi)=\pi/4$, $\phi(n)/n\gg(\log\log3n)^{-1}$ and Siegel's theorem, as in \cite[Lemma~5.3(d)]{IC}.
+\end{proof}
+
+\begin{proposition}\label{prop:count}
+Assume \textup{(F)}, let $0<\eps<1/100$, and suppose that $LH\le x$, $H\le x^{3/4}L$ and $x\ge x_0(\eps,s)$. Then
+\begin{multline*}
+\Sigma(x)=2^{\omega(L)+3}\,c_\Lambda\,c_F\,\Lf\sqrt{\frac{x}{\kappa_0EL}}\\
++O\Bigl(x^{1/4+\eps}\Bigl(\frac HL\Bigr)^{1/2}\Bigr)+O\bigl(x^{1/4+\theta/2+\eps}(LH)^{1/4-\theta/2}\bigr).
+\end{multline*}
+If the second bound of Theorem~\ref{thm:typeI} is used in place of the first, the same holds with $x^{1/4+\theta/2+\eps}L^{1/4}H^{1/4-\theta/2}$ in place of the last error term. The implied constants depend on $\eps$, $s$ and the fixed smooth functions.
+\end{proposition}
+
+\subsection{Set-up}
+Let $X>0$ be defined by $T(X)=x$. Since $\kappa_0H\le\kappa_0x^{3/4}L\le Lx/4$ for large $x$,
+\begin{equation}\label{eq:Xsize}
+\frac{Lx}{2\kappa_0E}\le X^2\le\frac{Lx}{\kappa_0E}.
+\end{equation}
+In particular $X^2\ge16EH$, and hence $X\ge N^{1/2}$ and $X/2\ge(4H)^{1/2}$, for large $x$, because $H\le x^{3/4}L$. For $y>0$ and $t\in\R$ put $\Phi_y(t)=F(T(t)/x)\,W\bigl(2^{s/2}y/\sqrt{T(t)}\bigr)$.
+
+Let $\ell\in\Lambda$ with $L\mid E\ell^2+H$. Then $T(\ell)=2^sT'$ with $T'\equiv1\pmod4$, so \cite[Lemma~5.1]{IC} gives $r(T(\ell))=8\sum_{k\mid T(\ell)}\chi(k)W(2^{s/2}k/\sqrt{T(\ell)})$. For odd $k$ we have $k\mid T(\ell)$ if and only if $k\mid T'$, that is, if and only if $Lk\mid E\ell^2+H$, since $E\ell^2+H=2^{s_0}LT'$. Hence
+\begin{equation}\label{eq:Sigma2}
+\Sigma(x)=8\sum_{k\ \mathrm{odd}}\chi(k)\sum_{\substack{\ell\in\Lambda\\ Lk\mid E\ell^2+H}}\Phi_k(\ell),
+\end{equation}
+and only $k<k_+:=2^{1-s/2}\sqrt x$ contribute. For odd $\mu$, the number of $\ell\in\Lambda$ in a residue class modulo $\mu$ has density $c_\Lambda/\mu$. Accordingly we put
+\[
+\Mt=8\sum_{k\ \mathrm{odd}}\chi(k)\,c_\Lambda\frac{\varrho(Lk)}{Lk}\int_\R\Phi_k(t)\,dt,\qquad\Ec=\Sigma(x)-\Mt.
+\]
+
+\subsection{The main term}
+
+\begin{lemma}\label{lem:main}
+$\Mt=2^{\omega(L)+3}\,c_\Lambda\,c_F\,\Lf\sqrt{x/(\kappa_0EL)}+O\bigl(x^{1/4+\eps}(H/L)^{1/2}\bigr)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:roots}(c), and since $f$ vanishes on even integers,
+\[
+\Mt=\frac{2^{\omega(L)+3}c_\Lambda}L\int_\R F\Bigl(\frac{T(t)}x\Bigr)G\bigl(2^{-s/2}\sqrt{T(t)}\bigr)\,dt,\qquad G(y)=\sum_{k\ge1}\frac{\chi(k)f(k)}kW\Bigl(\frac ky\Bigr).
+\]
+As in \cite[Lemma~7.2]{IC}, partial summation and Lemma~\ref{lem:L}(b) give $\Lf-G(y)\ll y^{-1/2+\eps}(EH)^{1/2+\eps}L^\eps$ for $y\ge1$. For $t>0$ we substitute $T=T(t)$. Then $dT/dt=2\kappa_0Et/L$ and $\kappa_0Et=\sqrt{\kappa_0E}\sqrt{LT-\kappa_0H}$, so, the integrand being even,
+\[
+\Mt=\frac{2^{\omega(L)+3}c_\Lambda}{\sqrt{\kappa_0E}}\int_{x/2}^x\frac{F(T/x)\,G(2^{-s/2}\sqrt T)}{\sqrt{LT-\kappa_0H}}\,dT .
+\]
+On this range $LT-\kappa_0H\ge LT/2$, since $\kappa_0H\le Lx/4$. Replacing $G$ by $\Lf$ costs
+\[
+\ll\int_{x/2}^xx^{-1/4+\eps}(EH)^{1/2+\eps}L^\eps(LT)^{-1/2}\,dT\ll x^{1/4+2\eps}(H/L)^{1/2},
+\]
+using $EH\le8LH\le8x$. Replacing $(LT-\kappa_0H)^{-1/2}$ by $(LT)^{-1/2}$ costs $\ll|\Lf|\,xH(Lx)^{-3/2}$, which is $\ll H^{3/2+\eps}L^{-3/2+\eps}x^{-1/2}\le x^{1/4+2\eps}(H/L)^{1/2}$, because $H/L\le x^{3/4}$. Finally $\int F(T/x)(LT)^{-1/2}\,dT=c_F\sqrt{x/L}$. Renaming $\eps$ gives the lemma.
+\end{proof}
+
+\subsection{The error term}
+
+\begin{lemma}\label{lem:error}
+We have $\Ec\ll x^{1/4+\theta/2+\eps}(LH)^{1/4-\theta/2}$. With the second bound of Theorem~\ref{thm:typeI} in place of the first, $\Ec\ll x^{1/4+\theta/2+\eps}L^{1/4}H^{1/4-\theta/2}$.
+\end{lemma}
+
+\begin{proof}
+We follow \cite[Lemma~7.3]{IC}. With $\mathcal K$ and $\psi_0$ as there,
+\[
+\Ec=8\sum_{K\in\mathcal K}\sum_{\kappa\in\{1,3\}}\chi(\kappa)\,\Ec(K,\kappa),
+\]
+\[
+\Ec(K,\kappa)=\sum_{k\equiv\kappa\ (4)}\psi_0\Bigl(\frac kK\Bigr)\Bigl(\sum_{\substack{\ell\in\Lambda\\ Lk\mid E\ell^2+H}}\Phi_k(\ell)-c_\Lambda\frac{\varrho(Lk)}{Lk}\int_\R\Phi_k(t)\,dt\Bigr),
+\]
+and only $O(\log x)$ values of $K$ contribute. Write $\mu=Lk$, so that $k\equiv\kappa\pmod4$ if and only if $\mu\equiv\kappa L\pmod{4L}$. Let $\psi_2(\sigma)=F(T(X\sigma)/x)$; since $T(X\sigma)/x=\alpha\sigma^2+1-\alpha$ with $\alpha=EX^2/(EX^2+H)\in[\frac12,1]$, the function $\psi_2$ is supported in $[-1,1]$ with bounded derivatives. Exactly as in \cite[Lemma~7.3]{IC}, with $k_-=2^{-3-s/2}\sqrt x$, one has $\Ec(K,\kappa)=\Xi_\Lambda$ for $K\le k_-$ and $\Ec(K,\kappa)=\frac1{2\pi i}\int_{(1)}\widetilde W(w)\,\Xi_{\Lambda,w}\,dw$ for $k_-<K<k_+$, where $\Xi_\Lambda$ (respectively $\Xi_{\Lambda,w}$) is the analogue of \eqref{eq:Xi} with the sum over $\ell\in\Lambda$, the factor $c_\Lambda$ in the main term, $d$ replaced by $L$, $K$ replaced by $LK$, and the weights $\psi_1,\psi_2$ (respectively $\psi_{1,w},\psi_{2,w}$) of \cite[Lemma~7.3]{IC}, with $\Delta=1$ (respectively $\Delta=1+|w|$).
+
+If $\Lambda=\Z$, then $\Xi_\Lambda$ is the sum \eqref{eq:Xi}. If $\Lambda=2\Z+1$, then $E=1$, and since $\mu$ is odd,
+\[
+\sum_{\substack{\ell\ \mathrm{odd}\\ \mu\mid\ell^2+H}}\psi_2\Bigl(\frac\ell X\Bigr)=\sum_{\substack{\ell\in\Z\\ \mu\mid\ell^2+H}}\psi_2\Bigl(\frac\ell X\Bigr)-\sum_{\substack{\ell'\in\Z\\ \mu\mid4\ell'^2+H}}\psi_2\Bigl(\frac{\ell'}{X/2}\Bigr),
+\]
+while $\varrho_{4,H}(\mu)=\varrho_{1,H}(\mu)$ and $\frac12X=X-\frac X2$. Hence $\Xi_\Lambda$ is the difference of the sum \eqref{eq:Xi} for $(E,H,X)=(1,H,X)$ and for $(4,H,X/2)$.
+
+We apply Theorem~\ref{thm:typeI} with $d=L$. The hypotheses \textup{(H$^*$)} hold: (F1) and (F2) give the conditions on $E$, $H$, $d$ and $N$ (note that $4H$ is neither a square nor three times a square when $H$ is not); $X\ge N^{1/2}$ and $X/2\ge(4H)^{1/2}$ hold for large $x$, as noted after \eqref{eq:Xsize}; and $LK\le Lk_+=2^{1-s/2}L\sqrt x\le qX$ by \eqref{eq:Xsize}, since $E,L\ge1$, and similarly with $X/2$ and $q=16L$. By \eqref{eq:Xsize} we have $X^{1/2}\ll(Lx)^{1/4}$ and $X/(LH^{1/2})\le(x/(LH))^{1/2}$, and $(x/(LH))^{1/2}\ge1$ since $LH\le x$; so $1+X/(LH^{1/2})\le2(x/(LH))^{1/2}$. The first bound of Theorem~\ref{thm:typeI} therefore gives
+\[
+\Xi_\Lambda,\ \Xi_{\Lambda,w}\ll(1+|w|)^Cx^{\eps}(Lx)^{1/4}H^{1/4}\Bigl(\frac x{LH}\Bigr)^{\theta/2}=(1+|w|)^Cx^{1/4+\theta/2+\eps}(LH)^{\frac14-\frac\theta2}.
+\]
+With the second bound we use $LK/(LH^{1/2})\le k_+/H^{1/2}\ll(x/H)^{1/2}$ and $H\le x$ instead, and obtain
+\[
+\Xi_\Lambda,\ \Xi_{\Lambda,w}\ll(1+|w|)^Cx^{1/4+\theta/2+\eps}L^{1/4}H^{1/4-\theta/2}.
+\]
+Integrating against $|\widetilde W(w)|$ and summing over $K$ and $\kappa$ proves the lemma.
+\end{proof}
+
+Proposition~\ref{prop:count} follows from Lemmas~\ref{lem:main} and~\ref{lem:error}.
+
+\section{Sums of two squares along \texorpdfstring{$n^3+a^3$}{n\^{}3+a\^{}3}}\label{sec:cubes}
+
+Throughout this section $a$ is odd. Let $D_a$ be the residue class modulo $8$ given by
+\[
+D_a\equiv4-3a\pmod 8\quad\text{if }a\equiv1\pmod4,\qquad D_a\equiv-3a\pmod8\quad\text{if }a\equiv3\pmod4.
+\]
+Note that $D_a\equiv a\pmod 4$. For integers $r,D$ with $D+3ar$ even put
+\[
+H_{r,D}=\Bigl(\frac{D+3ar}2\Bigr)^2-3a^2r^2.
+\]
+
+\begin{remark}\label{rem:whyodd}
+In \cite{IC} the variable runs over a lattice $2^j\Z$. For $a\equiv3\pmod4$ this is impossible here. Indeed, $G_a(m)$ is odd for every $m$, so in \eqref{eq:cubeid} we have $v_2(2rm-3ar-D)=1$, and if $4\mid\ell$ then $4r^2G_a(m)/(2rm-3ar-D)^2\equiv1\pmod{16}$; hence $G_a(m)\equiv1\pmod 8$. If $m$ is odd, then $G_a(m)\equiv am\pmod 4$, so $m\equiv a\equiv3\pmod 4$. If $m$ is even, then $4\nmid m$ (otherwise $G_a(m)\equiv3\pmod4$), and with $m=2m''$ we get $G_a(m)\equiv7-6am''\pmod 8$, so $m''\equiv3\pmod4$. In both cases $r(m)=0$. This is why $\ell$ runs over the odd integers below, which requires $E=1$ in Theorem~\ref{thm:typeI}.
+\end{remark}
+
+\begin{lemma}[$2$-adic set-up]\label{lem:2adic-cubes}
+Let $r\equiv1\pmod8$ and $D\equiv D_a\pmod8$, and put $H=H_{r,D}$. Then $4\mid D+3ar$ and $H\equiv1\pmod4$. Moreover, for every odd $\ell$ with $rD\mid\ell^2+H$, we have $v_2(\ell^2+H)=1$ and $(\ell^2+H)/(2rD)\equiv1\pmod4$.
+\end{lemma}
+
+\begin{proof}
+Let $w=D+3ar$. Since $r\equiv1\pmod8$, $w\equiv D+3a\pmod 8$, so $w\equiv4\pmod8$ if $a\equiv1\pmod4$ and $w\equiv0\pmod8$ if $a\equiv3\pmod4$. Write $w=4y$; then $y$ is odd if and only if $a\equiv1\pmod4$. Since $ar$ is odd, $a^2r^2\equiv1\pmod8$, so $H=4y^2-3a^2r^2\equiv4y^2-3\pmod8$, which gives $H\equiv1\pmod4$. For odd $\ell$ we have $\ell^2\equiv1\pmod8$, hence $\ell^2+H\equiv4y^2-2\pmod8$. So $v_2(\ell^2+H)=1$ and $(\ell^2+H)/2\equiv2y^2-1\pmod4$, which is $1$ if $a\equiv1\pmod 4$ and $3$ if $a\equiv3\pmod4$. Since $rD\equiv D\equiv a\pmod4$, in both cases $(\ell^2+H)/(2rD)\equiv1\pmod 4$.
+\end{proof}
+
+\begin{definition}\label{def:goodcubes}
+A pair $(r,D)$ is \emph{good} (for $a$) if $r$ is a prime with $r\equiv1\pmod8$; $D$ is a prime with $D\equiv D_a\pmod 8$ and $\leg3D=1$; $ar\le D\le2ar$, $D\ne r$ and $D>3a$; and $H_{r,D}$ is neither a square nor three times a square.
+\end{definition}
+
+For a good pair put $L=rD$, $H=H_{r,D}$, $m(\ell)=(\ell^2+H)/(rD)$ and
+\[
+\Sigma_{r,D}(x)=\sum_{\substack{\ell\ \mathrm{odd}\\ rD\mid\ell^2+H}}r\bigl(m(\ell)\bigr)\,F\Bigl(\frac{m(\ell)}x\Bigr).
+\]
+
+\begin{lemma}\label{lem:Fcubes}
+For a good pair $(r,D)$, the setting \textup{(F)} holds with $E=1$, $H=H_{r,D}$, $L=rD$, $\Lambda=2\Z+1$ and $s=s_0=1$, so that $\kappa_0=1$ and $T(\ell)=m(\ell)$. Moreover $a^2r^2\le H\le\frac{13}4a^2r^2$ and $ar^2\le L\le2ar^2$.
+\end{lemma}
+
+\begin{proof}
+Lemma~\ref{lem:2adic-cubes} gives that $H$ is odd and gives (F4) with $s=s_0=1$; (F1) holds by definition, and (F3) holds. For (F2): $4H=(D+3ar)^2-12a^2r^2\equiv D^2\pmod r$ and $r\nmid D$, so $r\nmid H$, and $-4H\equiv-D^2$ is a quadratic residue modulo $r$ because $r\equiv1\pmod4$. Modulo $D$ we have $4H\equiv9a^2r^2-12a^2r^2=-3a^2r^2$, and $D\nmid3ar$ because $D>3a$ is a prime different from $r$; so $D\nmid H$, and $-4H\equiv3a^2r^2$ is a quadratic residue modulo $D$ because $\leg3D=1$. Finally $\frac{D+3ar}2\in[2ar,\frac52ar]$ gives the bounds for $H$.
+\end{proof}
+
+\begin{proposition}\label{prop:reduction-cubes}
+Let $x$ be large and let $\Dc$ be a set of good pairs with $r\le x^{1/5}$ for all $(r,D)\in\Dc$. Then
+\[
+\sum_{(r,D)\in\Dc}\Sigma_{r,D}(x)\le C_a(x)\cdot\max_{x/2\le m\le x}r(m)\,r\bigl(4G_a(m)\bigr)\ll_\eps C_a(x)\,x^{\eps}.
+\]
+\end{proposition}
+
+\begin{proof}
+Let $(r,D)\in\Dc$ and let $\ell$ be odd with $rD\mid\ell^2+H$ and with a non-zero term in $\Sigma_{r,D}(x)$. Then $m=m(\ell)$ satisfies $x/2\le m\le x$ and $m\in\Sc$, and Lemma~\ref{lem:cubes} (with $w=D+3ar$, which is even) shows that $n=m-a$ satisfies $1\le n\le x$ and $n^3+a^3\in\Sc$.
+
+Fix such an $n$, hence $m$, and put $N_0=4G_a(m)$. To each $(r,D,\ell)$ as above with this $m$ we attach $z=(2rm-3ar-D)+2i\ell\in\Zi$. By \eqref{eq:cubeid}, $|z|^2=r^2N_0$, and $z\notin r\Zi$ because $\operatorname{Re}z\equiv-D\not\equiv0\pmod r$. From $\ell^2<rDm\le2ar^2m$ and $\operatorname{Re}z\ge2rm-5ar\ge rm$ we get $|\arg z|\le2\sqrt{2a/m}\le4\sqrt{a/x}=:\varphi_0$. With $R=\lfloor x^{1/5}\rfloor$ we have $\varphi_0\le1/(16R^2)$ for large $x$, so Lemma~\ref{lem:mult} shows that there are at most $r(N_0)$ pairs $(r,z)$. Since $(r,z)$ determines $D=2rm-3ar-\operatorname{Re}z$ and $\ell=\operatorname{Im}z/2$, the integer $n$ arises from at most $r(4G_a(m))$ triples $(r,D,\ell)$. As $0\le F\le1$, this proves the first inequality, and the second follows from $r(n)\ll_\eps n^\eps$.
+\end{proof}
+
+\begin{proof}[Proof of Theorems~\ref{thm:cubes} and~\ref{thm:DI} for $C_a(x)$]
+First let $a$ be odd. Let $\delta<\delta^*_\theta$, choose $\varpi$ with $\delta<\varpi<\delta^*_\theta$, and then $\eps>0$ so small that $\varpi(2-2\theta)+3\eps<\frac14-\frac\theta2$ and $\varpi-3\eps>\delta$. Put $R=x^{\varpi}$ and let $\Dc$ be the set of good pairs with $R<r\le2R$.
+
+For $(r,D)\in\Dc$ we have $LH\le7a^3(2R)^4\le x^{1/2}$, because $\varpi<1/8$, and $H\le4aL$. By Lemma~\ref{lem:Fcubes}, Proposition~\ref{prop:count} applies with $\omega(L)=2$, $c_\Lambda=\frac12$ and $\kappa_0E=1$, and by Lemma~\ref{lem:L}(d) it gives
+\[
+\Sigma_{r,D}(x)=16\,c_F\,\Lf\sqrt{\frac x{rD}}+O\bigl(x^{1/4+\eps}+x^{1/4+\theta/2+\eps}R^{1-2\theta}\bigr),\qquad\Lf\gg_\eps R^{-\eps}.
+\]
+The main term is $\gg x^{1/2}R^{-1-\eps}$, and the error terms are smaller by a factor $\ll x^{-1/4+2\eps}R^{1+\eps}+x^{-1/4+\theta/2+2\eps}R^{2-2\theta+\eps}$, which tends to $0$ by the choice of $\eps$. Hence $\Sigma_{r,D}(x)\gg x^{1/2}R^{-1-\eps}$ for $(r,D)\in\Dc$.
+
+Next, $\#\Dc\gg R^2(\log R)^{-2}$. Indeed, there are $\gg R/\log R$ primes $r\equiv1\pmod 8$ in $(R,2R]$. Fix one. The conditions $D\equiv D_a\pmod8$ and $\leg3D=1$ are satisfied by the primes in one residue class modulo $24$: if $D_a\equiv1\pmod4$ we take $D\equiv1\pmod3$, so that $D\equiv1\pmod{12}$, and if $D_a\equiv3\pmod4$ we take $D\equiv2\pmod3$, so that $D\equiv11\pmod{12}$. By the prime number theorem in arithmetic progressions there are $\gg r/\log r$ such primes $D\in[ar,2ar]$. Among them, at most one equals $r$, none is $\le3a$ once $r>3$, and the number with $H_{r,D}$ a square or three times a square is $O_\eps(r^{\eps})$. Indeed, with $y=(D+3ar)/2$, the equation $y^2-s^2=3a^2r^2$ has at most $\tau(3a^2r^2)$ solutions with $y,s>0$; and $y^2-3a^2r^2=3s^2$ forces $y=3y_1$ and $s^2-3y_1^2=-n$ with $n=a^2r^2$. If $g=\gcd(s,y_1)$, then $g^2\mid n$, and $s/g\equiv\nu y_1/g\pmod{n/g^2}$ with $\nu^2\equiv3\pmod{n/g^2}$; the solutions therefore fall into $\ll\sum_{g^2\mid n}\#\{\nu\bmod n/g^2:\ \nu^2\equiv3\ (n/g^2)\}\ll_\eps r^\eps$ orbits under multiplication by the units of norm $1$ of $\Z[\sqrt3]$, and each orbit contains $O(\log r)$ solutions with $0<y_1\le ar$.
+
+By Proposition~\ref{prop:reduction-cubes},
+\[
+C_a(x)\gg x^{-\eps}\sum_{(r,D)\in\Dc}\Sigma_{r,D}(x)\gg x^{-\eps}R^{2}(\log R)^{-2}x^{1/2}R^{-1-\eps}\gg x^{1/2+\varpi-3\eps}\ge x^{1/2+\delta}.
+\]
+This proves Theorem~\ref{thm:cubes} for odd $a$. With the second error term of Proposition~\ref{prop:count}, which is $\ll x^{1/4+\theta/2+\eps}R^{1-\theta}$ here, the same argument works for every $\varpi<\delta^{**}_\theta$ and proves Theorem~\ref{thm:DI} for odd $a$.
+
+If $a=2^ka'$ with $a'$ odd, then $C_a(x)\ge C_{a'}(x/2^k)$: if $n'^3+a'^3\in\Sc$, then $(2^kn')^3+a^3=2^{3k}(n'^3+a'^3)\in\Sc$, because $2\in\Sc$. This reduces the general case to odd $a$.
+\end{proof}
+
+\section{Three-term patterns}\label{sec:triples}
+
+Let $0<a<b$. By \cite[Lemma~2.1]{IC} we may assume that $a$ or $b$ is odd. We fix $p_0$, $B$ and $A$ as in \cite[Lemma~2.3]{IC} and put $P=n+p_0$, $T=P+A$, $Q=2P+B$ and $c=2A-B$, so that $\{P,P+B,T\}=\{n,n+a,n+b\}$, $B>0$ is odd and $A\notin\{0,B\}$. Let $v\ge2$ and $d_0\equiv1\pmod 4$ be as in \cite[Proposition~3.2]{IC}, and $J=v+2$, $j=\lceil(v+2)/2\rceil$ and $E=2^{2j-v}\in\{4,8\}$ as in \cite[(4.1)]{IC}. For integers $r,d$ let $M_{r,d}=(d+cr)^2+4A(B-A)r^2$, as in Lemma~\ref{lem:triples}; thus $M_{1,d}=m_d$ in the notation of \cite{IC}.
+
+\begin{lemma}[$2$-adic set-up]\label{lem:2adic-triples}
+Let $r\equiv1\pmod{2^J}$, $d\equiv d_0\pmod{2^J}$ and $u\equiv0\pmod{2^j}$. Then $v_2(u^2+M_{r,d})=v$ and $2^{-v}(u^2+M_{r,d})\equiv d\pmod 4$.
+\end{lemma}
+
+\begin{proof}
+We have $M_{r,d}-M_{1,d}=c(r-1)\bigl(2d+c(r+1)\bigr)+4A(B-A)(r-1)(r+1)\equiv0\pmod{2^J}$. Hence $u^2+M_{r,d}\equiv u^2+m_d\pmod{2^J}$, and the assertion follows from \cite[Proposition~3.2]{IC}, since $J=v+2$.
+\end{proof}
+
+Put $C_0=|c|+2\sqrt{|A(B-A)|}+B+1$ and $C_1=(2C_0+|c|)^2+4|A(B-A)|$.
+
+\begin{definition}\label{def:goodtriples}
+A pair $(r,d)$ is \emph{good} if $r$ is a prime with $r\equiv1\pmod{2^J}$; $d$ is a prime with $d\equiv d_0\pmod{2^J}$; $C_0r\le d\le2C_0r$; and $M_{r,d}$ is neither a square nor three times a square.
+\end{definition}
+
+For a good pair put $L=rd$, $H=2^{-v}M_{r,d}$, $T(\ell)=2^{v-2}(E\ell^2+H)/(rd)$ and
+\[
+\Sigma_{r,d}(x)=\sum_{\substack{\ell\in\Z\\ rd\mid E\ell^2+H}}r\bigl(T(\ell)\bigr)\,F\Bigl(\frac{T(\ell)}x\Bigr).
+\]
+With $u=2^j\ell$ we have $2^v(E\ell^2+H)=u^2+M_{r,d}$, so $T(\ell)=(u^2+M_{r,d})/(4rd)$.
+
+\begin{lemma}\label{lem:Ftriples}
+For a good pair $(r,d)$, the setting \textup{(F)} holds with $E=2^{2j-v}$, $H=2^{-v}M_{r,d}$, $L=rd$, $\Lambda=\Z$, $s_0=0$ and $s=v-2$, so that $\kappa_0E=2^{2j-2}$. Moreover $r^2\le M_{r,d}\le C_1r^2$.
+\end{lemma}
+
+\begin{proof}
+Since $d\ge C_0r$ and $C_0-|c|\ge2\sqrt{|A(B-A)|}+1$, we have $M_{r,d}\ge(d-|c|r)^2-4|A(B-A)|r^2\ge r^2$; the upper bound is clear. Lemma~\ref{lem:2adic-triples} with $u=0$ gives $v_2(M_{r,d})=v$, so $H$ is odd. Since $N=EH=4^{j-v}M_{r,d}$, (F1) holds. For (F2): $p_1=r$ and $p_2=d$ are distinct odd primes, as $d\ge C_0r>r$. Modulo $r$ we have $M_{r,d}\equiv d^2\not\equiv0$, and modulo $d$ we have $M_{r,d}\equiv(c^2+4A(B-A))r^2=B^2r^2\not\equiv0$, since $d>B$ and $d\ne r$. As $2^v(E\nu^2+H)=(2^j\nu)^2+M_{r,d}$, the congruence $E\nu^2+H\equiv0$ is solvable modulo $r$ and modulo $d$ because $-d^2$ is a square modulo $r\equiv1\pmod4$ and $-B^2r^2$ is a square modulo $d\equiv1\pmod4$; so $-EH$ is a non-zero quadratic residue modulo $r$ and $d$. (F3) holds with $\Lambda=\Z$. For (F4), let $rd\mid E\ell^2+H$. Then $E\ell^2+H$ is odd, and Lemma~\ref{lem:2adic-triples} with $u=2^j\ell$ gives $E\ell^2+H=2^{-v}(u^2+M_{r,d})\equiv d\pmod4$, so $(E\ell^2+H)/(rd)\equiv r^{-1}\equiv1\pmod4$.
+\end{proof}
+
+\begin{proposition}\label{prop:reduction-triples}
+Let $x$ be large and let $\Dc$ be a set of good pairs with $r\le x^{1/5}$ for all $(r,d)\in\Dc$. Then
+\[
+\sum_{(r,d)\in\Dc}\Sigma_{r,d}(x)\le S_{a,b}(x)\cdot\max_{n\le x}\ r(T)\,r\bigl(4P(P+B)\bigr)\ll_\eps S_{a,b}(x)\,x^{\eps},
+\]
+with $P$ and $T$ as above.
+\end{proposition}
+
+\begin{proof}
+Let $(r,d)\in\Dc$ and let $\ell$ give a non-zero term. Put $u=2^j\ell$ and $T=T(\ell)$, so that $4rdT=u^2+M_{r,d}$, $x/2\le T\le x$ and $T\in\Sc$. Put $P=T-A$ and $n=P-p_0$. As in \cite[Proposition~4.2]{IC}, $1\le n\le x$ and $P,P+B\ge1$ for large $x$, and $\{n,n+a,n+b\}=\{P,P+B,T\}$. By Lemma~\ref{lem:triples}, $P,P+B\in\Sc$, so $n$ is counted by $S_{a,b}(x)$.
+
+Fix $n$; then $Q=2P+B$ is fixed. Attach to $(r,d,u)$ the Gaussian integer $z=(rQ-d)+iu$. By Lemma~\ref{lem:triples}, $|z|^2=r^2N_0$ with $N_0=4P(P+B)$, and $z\notin r\Zi$ since $r\nmid d$. From $u^2\le2rdQ\le4C_0r^2Q$ and $rQ-d\ge rQ/2$ (for large $x$) we get $|\arg z|\le4\sqrt{C_0/Q}\le8\sqrt{C_0/x}$, which is at most $1/(16R^2)$ with $R=\lfloor x^{1/5}\rfloor$ for large $x$. By Lemma~\ref{lem:mult} there are at most $r(N_0)$ pairs $(r,z)$, and $(r,z)$ determines $d=rQ-\operatorname{Re}z$ and $u=\operatorname{Im}z$, hence $\ell$. This gives the first inequality, and the second follows from $r(n)\ll_\eps n^\eps$.
+\end{proof}
+
+\begin{proof}[Proof of Theorems~\ref{thm:triples} and~\ref{thm:DI} for $S_{a,b}(x)$]
+Let $\delta<\varpi<\delta^*_\theta$ and $\eps$ be as in Section~\ref{sec:cubes}, put $R=x^\varpi$, and let $\Dc$ be the set of good pairs with $R<r\le2R$. By Lemma~\ref{lem:Ftriples}, $L\asymp H\asymp R^2$, so $LH\le x^{1/2}$ and $H\le x^{3/4}L$ for large $x$, and Proposition~\ref{prop:count} (with $\omega(L)=2$) gives
+\[
+\Sigma_{r,d}(x)=\frac{32\,c_F\,\Lf}{2^{j-1}}\sqrt{\frac x{rd}}+O\bigl(x^{1/4+\eps}+x^{1/4+\theta/2+\eps}R^{1-2\theta}\bigr)\gg x^{1/2}R^{-1-\eps},
+\]
+exactly as in Section~\ref{sec:cubes}. There are $\gg R/\log R$ primes $r\equiv1\pmod{2^J}$ in $(R,2R]$, and for each of them $\gg r/\log r$ primes $d\equiv d_0\pmod{2^J}$ in $[C_0r,2C_0r]$. For fixed $r$, the number of such $d$ with $M_{r,d}$ a square is at most $\tau(4|A(B-A)|r^2)$, since $(d+cr-s)(d+cr+s)=-4A(B-A)r^2\ne0$; and the number with $M_{r,d}=3s^2$ is $O_\eps(r^{2\eps})$, since, as in Section~\ref{sec:cubes}, the solutions of $(d+cr)^2-3s^2=-4A(B-A)r^2$ fall into $\ll_\eps r^\eps$ orbits under multiplication by the units of norm $1$ of $\Z[\sqrt3]$, each containing $O(\log r)$ solutions with $|d+cr|\le3C_0r$. Hence $\#\Dc\gg R^2(\log R)^{-2}$, and Proposition~\ref{prop:reduction-triples} gives $S_{a,b}(x)\gg x^{1/2+\varpi-3\eps}\ge x^{1/2+\delta}$. The second error term of Proposition~\ref{prop:count} gives Theorem~\ref{thm:DI} in the same way.
+\end{proof}
+
+Corollary~\ref{cor:main} is the case $\theta=7/64$ (respectively $\theta=0$) of Theorems~\ref{thm:cubes} and~\ref{thm:triples}: $\delta^*_{7/64}=\frac{50/64}{456/64}=\frac{25}{228}$ and $\delta^*_0=\frac18$.
+
+\section{Remarks}\label{sec:remarks}
+
+\begin{remark}[The case $r=1$]\label{rem:r1}
+For $n^3+a^3$ and $r=1$, Lemma~\ref{lem:cubes} becomes $4Dm=u^2+(D+3a)^2-12a^2$ with $u=2\ell$, the cubic analogue of the families of \cite{IC}: the polynomial has level $D$ and discriminant $\asymp D^2$. For a prime $D\equiv D_a\pmod 8$ with $\leg3D=1$ and $D>3a$ the proofs of Lemmas~\ref{lem:2adic-cubes} and~\ref{lem:Fcubes} apply with $r=1$, so \textup{(F)} holds with $L=D$ and $\omega(L)=1$, apart from $O(\log x)$ primes $D\le x$ for which $H_{1,D}$ is a square or three times a square. Since $LH\asymp D^3$ and $H/L\asymp D$, Proposition~\ref{prop:count} applies for $D\le x^{1/3-\eps}$. Its main term $\asymp\Lf\sqrt{x/D}$ dominates the error terms when $D\le x^{(1-2\theta)/(5-6\theta)-\eps}$, and $D$ is determined by $z=(2m-3a-D)+2i\ell$, so each $n$ arises from at most $r(4G_a(m))$ pairs $(D,\ell)$. Summing over $D\asymp x^{(1-2\theta)/(5-6\theta)-\eps}$ gives $C_a(x)\gg x^{1/2+\delta}$ for every $\delta<(1-2\theta)/(10-12\theta)$, the exponent of \cite{IC}.
+\end{remark}
+
+\begin{remark}[Optimality within the method]\label{rem:optimal}
+For a family of level $L$ and discriminant $\asymp H$, Proposition~\ref{prop:count} needs $L^{3/4-\theta/2}H^{1/4-\theta/2}\le x^{1/4-\theta/2-\eps}$, and the family contributes $\asymp\sqrt{x/L}$ values; this is how $\delta^*_\theta$ arises for $L\asymp H$. Smaller discriminants are possible, but they do not help. For the cubic families, $4H_{r,D}=(D-\sigma ar)(D+\sigma'ar)$ with $\sigma=2\sqrt3-3$ and $\sigma'=2\sqrt3+3$. If $D>\sigma ar$ and $D-\sigma ar\asymp J$ with $1\le J\le r$, then $H\asymp aJr$ while $L\asymp ar^2$, so $H/L\asymp J/r$ can be small. Allowing such $D$ (with the $2$-adic conditions adjusted), the families with $r\asymp R$ and $D-\sigma ar\asymp J$ number $\asymp RJ$ up to logarithms, have level $\asymp R^2$, satisfy the condition of Proposition~\ref{prop:count} when $R^{3/2-\theta}(JR)^{1/4-\theta/2}\le x^{1/4-\theta/2-\eps}$, and together give $\asymp\sqrt x\,J$ values. Maximising over $1\le J\le R$ gives the exponent $\delta^*_\theta$ again, attained at $J\asymp R$. The same holds for three-term patterns. So $\delta^*_\theta$ is the limit of rescaled families combined with Theorem~\ref{thm:typeI}.
+\end{remark}
+
+\begin{remark}[Level-aware pair counts]\label{rem:levelaware}
+As explained in \cite[Remark~13.1]{IC}, a bound $\Pc\ll N^{1/2+\eta}+N^{1+\eta}/d$ for the number of pairs of Heegner points at bounded distance that are compatible with the level would replace $H^{1/4}$ in \eqref{eq:typeIshape} by about $H^{1/4}(H^{-1/4}+d^{-1/2})$. With that bound, the families of \cite{IC} (for which one also needs the improvement of the main-term error described there, namely the convexity bound for $L(s,\psi)$ in place of the P\'olya--Vinogradov inequality in Lemma~\ref{lem:main}) and the rescaled families both give every $\delta<1/6$ (apart from the exceptional factor), so the rescaling does not change the conditional limit $1/6$ of \cite[Remark~13.1]{IC}; it recovers part of the saving that such a bound would give, unconditionally. Going beyond $1/6$ requires averaging over families.
+\end{remark}
+
+\begin{remark}[Correlations and effectivity]\label{rem:corr}
+As in \cite[Remark~13.7]{IC}, the proofs give $\sum_{n\le x}r(n)r(n+a)r(n+b)\gg x^{1/2+\delta}$ and $\sum_{n\le x}r(n+a)\,r(n^2-an+a^2)\gg x^{1/2+\delta}$ for every $\delta<\delta^*_\theta$. Siegel's theorem enters only through Lemma~\ref{lem:L}(d); the argument of \cite[Remark~13.6]{IC} based on the Landau--Page theorem should make the results effective, after discarding the pairs whose character $\psi$ is induced by the exceptional character, but we have not checked the details.
+\end{remark}
+
+\section{Numerical checks}\label{sec:numerics}
+
+The scripts are in the folder \texttt{numerics} that accompanies this note. They use Python~3 with \texttt{numpy} and \texttt{scipy}, and one C program; some of them reuse scripts of \cite{IC}.
+
+\emph{Identities and the $2$-adic set-up.} For every odd $a\le23$ we chose $6$ random good pairs $(r,D)$ with $9\le r<300$, and for each of them $25$ random odd $\ell$ with $rD\mid\ell^2+H_{r,D}$ and $m(\ell)\lesssim10^{12}$; in all $1800$ cases $m(\ell)$ is an integer with $m(\ell)\equiv2\pmod 8$, as Lemma~\ref{lem:2adic-cubes} predicts, the identity \eqref{eq:cubeid} holds, and $G_a(m)$ is a sum of two squares by direct factorisation. For each of the eight patterns $\{0,1,2\}$, $\{0,1,3\}$, $\{0,2,3\}$, $\{0,1,4\}$, $\{0,3,8\}$, $\{0,5,8\}$, $\{0,4,7\}$, $\{0,6,11\}$ we chose $5$ good pairs $(r,d)$ and $20$ values of $\ell$ each; in all $800$ cases $(E\ell^2+H)/(rd)\equiv1\pmod 4$, the identities of Lemma~\ref{lem:triples} hold, and $P$ and $P+B$ are sums of two squares by factorisation. For Remark~\ref{rem:whyodd} we took $a\in\{3,7,11,15,19\}$, random primes $r\equiv1\pmod4$ and $D$ with $\leg3D=1$, and all $\ell\equiv0\pmod4$ with $rD\mid\ell^2+H_{r,D}$ up to $200rD$: in all $23200$ cases the odd part of $m(\ell)$ is $\equiv3\pmod4$.
+
+\emph{The main term.} Table~\ref{tab:main} compares the sharp sums $\sum r(T(\ell))$ over $\ell\in\Lambda$ with $rD\mid E\ell^2+H$ and $T(\ell)\le x=10^{13}$ (both signs of $\ell$) with the main term of Proposition~\ref{prop:count} for the sharp cut-off, that is, $64\,c_\Lambda\Lf\sqrt{x/(\kappa_0EL)}$ ($c_F$ replaced by $\int_0^1t^{-1/2}dt=2$); this case is not covered by Proposition~\ref{prop:count}. The constant $\Lf$ was evaluated from Lemma~\ref{lem:L}(c), with $L(1,\psi)$ computed from the rapidly convergent series used in \cite{IC}. For each $a$ and each pattern we took the first good pair with $r\ge40$ and with $r\ge200$ (for $\{0,1,4\}$, where $2^J=64$, the first two primes $r\equiv1\pmod{64}$). In every case each $T(\ell)$ had the $2$-adic shape required by (F4), and in the three-term cases $P$ and $P+B$ were always sums of two squares.
+
+\begin{table}[h]
+\centering\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+case & $r$ & $D$ or $d$ & $L$ & $H$ & $\#\{\ell\}$ & $\sum r(T)$ & main term & ratio\\
+\midrule
+$a=1$ & 41 & 73 & 2993 & 4561 & 231210 & 1956304 & 1951998 & 1.002\\
+ & 233 & 241 & 56153 & 58033 & 53380 & 320000 & 316711 & 1.010\\
+$a=3$ & 41 & 167 & 6847 & 26437 & 152866 & 858192 & 857309 & 1.001\\
+ & 233 & 719 & 167527 & 516661 & 30904 & 241840 & 238748 & 1.013\\
+$a=5$ & 41 & 229 & 9389 & 52009 & 130542 & 1187984 & 1188073 & 1.000\\
+ & 233 & 1213 & 282629 & 1469641 & 23794 & 168928 & 175036 & 0.965\\
+$a=7$ & 41 & 347 & 14227 & 117709 & 106048 & 1347840 & 1350994 & 0.998\\
+ & 233 & 1667 & 388411 & 2777917 & 20296 & 165360 & 166203 & 0.995\\
+$\{0,1,2\}$ & 97 & 761 & 73817 & 128929 & 23278 & 71296 & 72039 & 0.990\\
+ & 257 & 1913 & 491641 & 834433 & 9020 & 40880 & 39580 & 1.033\\
+$\{0,1,3\}$ & 97 & 577 & 55969 & 38209 & 26732 & 66832 & 66208 & 1.009\\
+ & 257 & 1409 & 362113 & 231937 & 10512 & 36256 & 37219 & 0.974\\
+$\{0,2,3\}$ & 97 & 1109 & 107573 & 20445 & 19282 & 70272 & 68828 & 1.021\\
+ & 257 & 2837 & 729109 & 102941 & 7404 & 35208 & 34858 & 1.010\\
+$\{0,1,4\}$ & 193 & 2969 & 573017 & 1054653 & 8352 & 22800 & 23678 & 0.963\\
+ & 257 & 3929 & 1009753 & 1852477 & 6292 & 39024 & 36752 & 1.062\\
+\bottomrule
+\end{tabular}
+\caption{Sharp $r$-weighted counts along rescaled families at $x=10^{13}$ against the main term of Proposition~\ref{prop:count}. For $n^3+a^3$: $E=1$, $\Lambda=2\Z+1$, $\kappa_0=1$; for patterns: the data of \cite[Table~3]{IC}.}
+\label{tab:main}
+\end{table}
+
+Proposition~\ref{prop:count} bounds the first error term by a relative amount $\ll H^{1/2}x^{-1/4+\eps}$, which is not small at this height for the families with the largest $H$. For the two largest deviations in Table~\ref{tab:main}, $a=5$ with $r=233$ and $\{0,1,4\}$ with $r=257$, the ratios at $x=10^{14}$ are $0.995$ and $1.016$.
+
+\emph{Type~I sums at composite level.} We computed the sums $\Xi$ of \eqref{eq:Xi}, with $\psi_1(t)=\phi(2t-3)$, $\psi_2=\phi$, $\phi(t)=\exp(-1/(1-t^2))$, $X=10^6$, $\kappa\in\{1,3\}$ and $K=2^{i/2}X\le64X$, for the levels $d=L=2993$ ($a=1$, $H=4561$) and $d=L=6847$ ($a=3$, $H=26437$) with both $E=1$ and $E=4$, and for $d=L=73817$ with the polynomial $8\ell^2+128929$ of the pattern $\{0,1,2\}$. In all cases $|\Xi|\le0.0005\,X^{1/2}H^{1/4}$, the largest value of $|\Xi|$ was $3.9$ against $X^{1/2}=1000$, and for $K\ge4X$ we always had $|\Xi|\le1.02\,\mathfrak M^{1/2}$, where $\mathfrak M$ is the main term. This is consistent with Theorem~\ref{thm:typeI} and with the observations in \cite[\S14]{IC}. The computations do not cover the whole range of $K$ needed in Lemma~\ref{lem:error}: there Theorem~\ref{thm:typeI} is applied with $K$ up to $Lk_+$, while the length of the sum is $X\asymp\sqrt{Lx/(\kappa_0E)}$, so $K/X$ reaches about $\sqrt{2L}\approx77$ for $L=2993$ and about $4\sqrt{2L}\approx1540$ for $L=73817$. We only checked $K\le64X$.
+
+\emph{Multiplicity.} For $a=1$, $x=10^{10}$ and all $10$ good pairs with $r\le200$, every $m\le x$ produced by the families arises from exactly one family (up to $\ell\mapsto-\ell$); for $a=3$ and the $29$ good pairs with $r\le120$, among $38772$ distinct values of $m$ six arise from two families and none from more.
+
+\emph{Exponents.} Table~\ref{tab:exponents} was computed in exact arithmetic.
+
+\begin{thebibliography}{99}
+
+\bibitem{CD} T.~Cochrane and R.~E.~Dressler, \emph{Consecutive triples of sums of two squares}, Arch. Math. (Basel) \textbf{49} (1987), 301--304.
+
+\bibitem{DI} J.-M.~Deshouillers and H.~Iwaniec, \emph{Kloosterman sums and Fourier coefficients of cusp forms}, Invent. Math. \textbf{70} (1982/83), 219--288.
+
+\bibitem{FKR} T.~Freiberg, P.~Kurlberg and L.~Rosenzweig, \emph{Poisson distribution for gaps between sums of two squares and level spacings for toral point scatterers}, Commun. Number Theory Phys. \textbf{11} (2017), 837--877.
+
+\bibitem{IC} S.~Iyer and Claude (Anthropic), \emph{Sums of two squares in three-term patterns}, research draft, October 2026, \url{https://github.com/UnknownSequence/sums-of-two-squares-three-term-patterns}.
+
+\bibitem{Kim} H.~H.~Kim, \emph{Functoriality for the exterior square of $\mathrm{GL}_4$ and the symmetric fourth of $\mathrm{GL}_2$}, with Appendix~1 by D.~Ramakrishnan and Appendix~2 by H.~H.~Kim and P.~Sarnak, J. Amer. Math. Soc. \textbf{16} (2003), 139--183.
+
+\bibitem{No} W.~G.~Nowak, \emph{On the distribution of $M$-tuples of $B$-numbers}, Publ. Inst. Math. (Beograd) (N.S.) \textbf{77(91)} (2005), 71--78.
+
+\bibitem{Pas} A.~Pascadi, \emph{Large sieve inequalities for exceptional Maass forms and the greatest prime factor of $n^2+1$}, Forum Math. Pi \textbf{14} (2026), e8; arXiv:2404.04239.
+
+\bibitem{Sel} A.~Selberg, \emph{On the estimation of Fourier coefficients of modular forms}, in: Theory of Numbers, Proc. Sympos. Pure Math. \textbf{8}, AMS, 1965, 1--15.
+
+\end{thebibliography}
+
+\end{document}

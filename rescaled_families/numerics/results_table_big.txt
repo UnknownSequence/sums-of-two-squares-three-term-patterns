@@ -1,0 +1,2 @@
+cubes a=5 r=233 D=1213 x=1e14: #l=75242 sum=550640 main=553513.5 ratio=0.995 bad2=0
+triples {0,1,4} r=257 d=3929 x=1e14: #l=19904 sum=118128 main=116218.3 ratio=1.016 bad2=0 badsplit=0

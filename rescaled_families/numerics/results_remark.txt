@@ -1,0 +1,1 @@
+a = 3 (mod 4): 23200 family members with 4 | l; members whose m has odd part not 3 mod 4: 0

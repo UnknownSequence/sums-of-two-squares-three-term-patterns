@@ -1,0 +1,2 @@
+a=1, R=200, x=1e+10: 10 families, 15855 distinct m, multiplicity distribution (pairs +-l counted once): {1: 15855}
+a=3, R=120, x=1e+10: 29 families, 38772 distinct m, multiplicity distribution (pairs +-l counted once): {1: 38766, 2: 6}
